@@ -1,0 +1,42 @@
+.gallery {
+  flex-direction: column;
+  display: flex;
+}
+
+.header {
+  width: 100%;
+  padding: 4px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1000;
+}
+
+.left {
+  background-color: cyan;
+}
+
+.workspace {
+  flex-grow: 1000;
+  overflow-y: scroll;
+  overflow-x: none;
+  position: relative;
+}
+
+.workspace::-webkit-scrollbar {
+  display: none;
+}
+
+.right {
+  background-color: green;
+}
+
+.footer {
+}
+
+.search {
+  width: 600px;
+  min-width: 100 px;
+}

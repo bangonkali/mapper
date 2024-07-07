@@ -1,0 +1,43 @@
+export type GalleryWorkspaceView = "masonry" | "editor";
+
+export type GalleryComputedLayout = {
+  header: {
+    width: number;
+    height: number;
+    visible: boolean;
+  };
+  footer: {
+    width: number;
+    height: number;
+    visible: boolean;
+  };
+  docks: {
+    left: {
+      minWidth: number;
+      width: number;
+      height: number;
+      visible: boolean;
+      splitterEnabled: boolean;
+    };
+    right: {
+      minWidth: number;
+      width: number;
+      height: number;
+      visible: boolean;
+      splitterEnabled: boolean;
+    };
+    bottom: {
+      width: number;
+      height: number;
+      visible: boolean;
+    };
+    workspace: {
+      width: number;
+      height: number;
+      resizing: boolean;
+      minWidth: number;
+      view: GalleryWorkspaceView;
+      focusImageId: string | null;
+    };
+  };
+};
