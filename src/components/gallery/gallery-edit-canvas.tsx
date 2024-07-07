@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Stage, Layer } from "react-konva";
 import { produce } from "immer";
 import Konva from "konva";
-import { AnnotationRectangle } from "./annotation-rectangle";
+import { GalleryEditAnnotationRectangle } from "./gallery-edit-annotation-rectangle";
 import useImage from "use-image";
 import { GalleryEditFocusedItem } from "./gallery-edit-focused-item";
 import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
@@ -64,7 +64,7 @@ export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
 
   const annotations = annotationQuery.data?.map((annotation) => {
     return (
-      <AnnotationRectangle
+      <GalleryEditAnnotationRectangle
         key={annotation.annotationId}
         annotation={annotation}
         isSelected={annotation.annotationId === gallerySelectedAnnotation}

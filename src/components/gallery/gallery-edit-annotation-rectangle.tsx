@@ -12,19 +12,16 @@ export type AnnotationRectangleOnChanged = {
   rotation: number;
 };
 
-export type AnnotationRectangleProps = {
+export type GalleryEditAnnotationRectangleProps = {
   annotation: Annotation;
   isSelected: boolean;
   onSelect: (evt: KonvaEventObject<MouseEvent>) => void;
   onChange: (evt: AnnotationRectangleOnChanged) => void;
 };
 
-export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
-  annotation,
-  isSelected,
-  onSelect,
-  onChange,
-}) => {
+export const GalleryEditAnnotationRectangle: React.FC<
+  GalleryEditAnnotationRectangleProps
+> = ({ annotation, isSelected, onSelect, onChange }) => {
   const shapeRef = React.useRef<Konva.Rect>(null);
   const trRef = React.useRef<Konva.Transformer>(null);
 
