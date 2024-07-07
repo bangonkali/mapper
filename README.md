@@ -16,6 +16,12 @@ This is a simple gallery app that fetches images from the [Unsplash API](https:/
 1. allow user to add images to the gallery
    1. allow user to edit the annotations images in the gallery
    1. allow media pipe object detection to add annotations to images
+1. editor quality of life
+   1. allow object snapping
+      1. https://konvajs.org/docs/sandbox/Objects_Snapping.html
+   1. allow user to upload images as annotation overlays
+   1. allow user to create a blank new sheet/canvas
+      1. requires restructuring the data hierarchy/document model
 
 # React + TypeScript + Vite
 
