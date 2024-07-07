@@ -9,7 +9,7 @@ const db = new Dexie("db") as Dexie & {
 
 db.version(1).stores({
   galleryItems: "++galeryItems",
-  annotations: "++annotationId, galleryItemId",
+  annotations: "++annotationId,galleryItemId,[annotationId+galleryItemId]",
 });
 
 export { db };
