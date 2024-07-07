@@ -61,12 +61,30 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
             height: annotation.height,
           });
         }}
+        onTransform={(e) => {
+          // https://konvajs.org/docs/select_and_transform/Ignore_Stroke_On_Transform.html
+          const node = shapeRef.current;
+          if (!node) return;
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+
+          const width = Math.max(5, e.target.width() * scaleX);
+          const height = Math.max(5, e.target.height() * scaleY);
+
+          node.scaleX(1);
+          node.scaleY(1);
+          node.width(width);
+          node.height(height);
+        }}
         onTransformEnd={(e) => {
           const node = shapeRef.current;
           if (!node) return;
 
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
+
+          const width = Math.max(5, e.target.width() * scaleX);
+          const height = Math.max(5, e.target.height() * scaleY);
 
           node.scaleX(1);
           node.scaleY(1);
@@ -75,8 +93,8 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
             x: node.x(),
             y: node.y(),
             rotation: node.rotation(),
-            width: Math.max(5, e.target.width() * scaleX),
-            height: Math.max(e.target.height() * scaleY),
+            width: Math.max(5, width * scaleX),
+            height: Math.max(5, height * scaleY),
           });
         }}
       />
@@ -85,7 +103,7 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
           ref={trRef}
           keepRatio={false}
           anchorSize={5}
-          ignoreStroke={true}
+          ignoreStroke={false}
           flipEnabled={false}
           boundBoxFunc={(oldBox, newBox) => {
             if (Math.abs(newBox.width) < 5 || Math.abs(newBox.height) < 5) {
