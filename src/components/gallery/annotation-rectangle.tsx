@@ -83,6 +83,8 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
       {isSelected && (
         <Transformer
           ref={trRef}
+          keepRatio={false}
+          anchorSize={5}
           ignoreStroke={true}
           flipEnabled={false}
           boundBoxFunc={(oldBox, newBox) => {
