@@ -4,7 +4,7 @@ import { db } from "../../data/db/db";
 import { galleryReadyStore } from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 
-export const GetMockGallery = async () => {
+export const generateMockData = async () => {
   galleryReadyStore.setState(() => false);
   const items: GalleryItem[] = [];
 

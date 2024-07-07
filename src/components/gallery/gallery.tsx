@@ -1,6 +1,5 @@
 import styles from "./gallery.module.css";
 import { useStore } from "@tanstack/react-store";
-import { GetMockGallery } from "../../utils/mock/mock-datasource";
 import { GalleryMasonryView } from "./gallery-masonry-view";
 import { GalleryDock } from "./gallery-dock";
 import { GalleryEditView } from "./gallery-edit-view";
@@ -22,8 +21,6 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
   const layout = useStore(galleryStoreLayout, (state) => {
     return computeGalleryLayout({ ...props, state, focusedImageId });
   });
-
-  GetMockGallery();
 
   return (
     <div
