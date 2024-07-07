@@ -51,6 +51,7 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
         fill={annotation.fill.color}
         opacity={annotation.fill.alpha}
         draggable={isSelected}
+        strokeScaleEnabled={false}
         onDragEnd={(e) => {
           onChange({
             x: e.target.x(),
@@ -60,22 +61,29 @@ export const AnnotationRectangle: React.FC<AnnotationRectangleProps> = ({
             height: annotation.height,
           });
         }}
-        onTransformEnd={() => {
+        onTransformEnd={(e) => {
           const node = shapeRef.current;
           if (!node) return;
+
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+
+          node.scaleX(1);
+          node.scaleY(1);
 
           onChange({
             x: node.x(),
             y: node.y(),
             rotation: node.rotation(),
-            width: Math.max(5, node.width()),
-            height: Math.max(node.height()),
+            width: Math.max(5, e.target.width() * scaleX),
+            height: Math.max(e.target.height() * scaleY),
           });
         }}
       />
       {isSelected && (
         <Transformer
           ref={trRef}
+          ignoreStroke={true}
           flipEnabled={false}
           boundBoxFunc={(oldBox, newBox) => {
             if (Math.abs(newBox.width) < 5 || Math.abs(newBox.height) < 5) {
