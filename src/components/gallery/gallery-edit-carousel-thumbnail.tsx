@@ -1,6 +1,9 @@
 import { useState, forwardRef } from "react";
 import { produce } from "immer";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
+import {
+  focusedImageStore,
+  gallerySelectedAnnotationStore,
+} from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
 
@@ -55,6 +58,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
         }}
         ref={focused ? focusElement : null}
         onClick={() => {
+          gallerySelectedAnnotationStore.setState(() => null);
           focusedImageStore.setState(() => item.galleryItemId);
         }}
       />

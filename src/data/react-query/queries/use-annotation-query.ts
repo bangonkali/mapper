@@ -13,12 +13,15 @@ export const useAnnotationQuery = (params: FetchAnnotationParams) => {
   const annotationQuery = useAnnotationsQuery({
     galleryItemId: params.galleryItemId,
   });
+  const initialData = annotationQuery.data?.find(
+    (annotation) => annotation.annotationId === params.annotationId
+  )
+    ? undefined
+    : null;
 
   return useQuery({
     queryKey: getUseAnnotationQueryKey(params),
     queryFn: () => fetchAnnotation(params),
-    initialData: annotationQuery.data?.find(
-      (annotation) => annotation.annotationId === params.annotationId
-    ),
+    initialData: initialData,
   });
 };

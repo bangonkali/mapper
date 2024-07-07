@@ -16,6 +16,8 @@ export const useGalleryItemQuery = (params: FetchGalleryItemParams) => {
     queryFn: () => fetchGalleryItem(params),
     initialData: galleryItemsQuery.data?.find(
       (e) => e.galleryItemId === params.galleryItemId
-    ),
+    )
+      ? undefined
+      : null,
   });
 };
