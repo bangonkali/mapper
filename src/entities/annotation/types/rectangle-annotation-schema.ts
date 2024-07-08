@@ -10,7 +10,7 @@ export const RectangleAnnotationSchema = AnnotationBaseSchema.extend({
   /**
    * The type of the annotation.
    */
-  type: z.literal("rectangle"),
+  type: z.string(),
 
   /**
    * The frame number of the annotation.
