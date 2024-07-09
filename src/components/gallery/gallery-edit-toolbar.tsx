@@ -1,10 +1,12 @@
 export type GalleryEditToolbarProps = {
   height: number;
   width: number;
+  children: React.ReactNode;
 };
 export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   height,
   width,
+  children,
 }) => {
   return (
     <div>
@@ -22,6 +24,7 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
         }}
       >
         Some toolbar
+        {children}
       </div>
     </div>
   );

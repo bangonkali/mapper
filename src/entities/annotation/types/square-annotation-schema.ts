@@ -6,11 +6,11 @@ import { OutlineSchema } from "../../shared/OutlineSchema";
 /**
  * A schema for a rectangle annotation.
  */
-export const RectangleAnnotationSchema = AnnotationBaseSchema.extend({
+export const SquareAnnotationSchema = AnnotationBaseSchema.extend({
   /**
    * The type of the annotation.
    */
-  type: z.literal("rectangle"),
+  type: z.literal("square"),
 
   /**
    * The frame number of the annotation.
@@ -53,4 +53,4 @@ export const RectangleAnnotationSchema = AnnotationBaseSchema.extend({
   outline: OutlineSchema,
 });
 
-export type RectangleAnnotation = z.infer<typeof RectangleAnnotationSchema>;
+export type SquareAnnotation = z.infer<typeof SquareAnnotationSchema>;
