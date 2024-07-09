@@ -19,6 +19,9 @@ import { Route as rootRoute } from './routes/__root'
 const GalleryLazyImport = createFileRoute('/gallery')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const SelectedImageGalleryIdLazyImport = createFileRoute(
+  '/selected-image/$galleryId',
+)()
 
 // Create/Update Routes
 
@@ -36,6 +39,15 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const SelectedImageGalleryIdLazyRoute = SelectedImageGalleryIdLazyImport.update(
+  {
+    path: '/selected-image/$galleryId',
+    getParentRoute: () => rootRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/selected-image.$galleryId.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -62,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryLazyImport
       parentRoute: typeof rootRoute
     }
+    '/selected-image/$galleryId': {
+      id: '/selected-image/$galleryId'
+      path: '/selected-image/$galleryId'
+      fullPath: '/selected-image/$galleryId'
+      preLoaderRoute: typeof SelectedImageGalleryIdLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -71,6 +90,7 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   AboutLazyRoute,
   GalleryLazyRoute,
+  SelectedImageGalleryIdLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -83,7 +103,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/about",
-        "/gallery"
+        "/gallery",
+        "/selected-image/$galleryId"
       ]
     },
     "/": {
@@ -94,6 +115,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/gallery": {
       "filePath": "gallery.lazy.tsx"
+    },
+    "/selected-image/$galleryId": {
+      "filePath": "selected-image.$galleryId.lazy.tsx"
     }
   }
 }
