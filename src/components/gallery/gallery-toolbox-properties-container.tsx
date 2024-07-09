@@ -1,10 +1,6 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { useState } from "react";
 import { FlattenedDictionary } from "../../utils/flatten";
+import { colors } from "../../consts/colors";
 
 export type GalleryToolboxPropertiesContainerProps = {
   width: number;
@@ -16,38 +12,93 @@ export type GalleryToolboxPropertiesContainerProps = {
 export const GalleryToolboxPropertiesContainer: React.FC<
   GalleryToolboxPropertiesContainerProps
 > = ({ width, data, title }) => {
-  const columnHelper = createColumnHelper<FlattenedDictionary>();
-  const columns = [
-    columnHelper.accessor((row) => row.key, {
-      id: "key",
-      cell: (info) => <span className="ns">{info.getValue()?.toString()}</span>,
-      header: () => <span className="ns">Key</span>,
-    }),
-    columnHelper.accessor((row) => row.value, {
-      id: "value",
-      cell: (info) => <span className="ns">{info.getValue()?.toString()}</span>,
-      header: () => (
-        <span
-          className="ns"
+  const [onHoverKeyColumnResizer, setOnHoverKeyColumnResizer] = useState(false);
+  const [splitterEnabled, setSplitterEnabled] = useState(false);
+  const [keyColumnWidth, setKeyColumnWidth] = useState(width / 2);
+  const rowHeight = 18;
+  const columResizerWidth = 3;
+  const minWidthBothSides = 60;
+
+  const rows = data.map((item) => {
+    return (
+      <div
+        key={`${item.key}-${item.value}`}
+        style={{
+          width: width,
+          display: "flex",
+          borderBottom: `1px solid ${colors.borders}`,
+        }}
+        onMouseUp={() => {
+          console.log("parent up");
+          setSplitterEnabled(false);
+          setOnHoverKeyColumnResizer(false);
+        }}
+        onMouseMove={(e) => {
+          if (splitterEnabled) {
+            const parentLeft = e.currentTarget.getClientRects()[0].left;
+            let preferredWidth = e.clientX - parentLeft;
+            if (preferredWidth < minWidthBothSides) {
+              preferredWidth = minWidthBothSides;
+            }
+            if (preferredWidth > width - minWidthBothSides) {
+              preferredWidth = width - minWidthBothSides;
+            }
+            setKeyColumnWidth(preferredWidth);
+          }
+        }}
+      >
+        <div
           style={{
-            whiteSpace: "nowrap",
+            width: keyColumnWidth,
+            height: rowHeight,
             overflow: "hidden",
+            whiteSpace: "nowrap",
             textOverflow: "ellipsis",
+            paddingLeft: "2px",
           }}
         >
-          Value
-        </span>
-      ),
-    }),
-  ];
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
+          {item.key}
+        </div>
+        <div
+          style={{
+            width: columResizerWidth,
+            height: rowHeight,
+            backgroundColor: onHoverKeyColumnResizer
+              ? colors.splitter
+              : "transparent",
+            cursor: "col-resize",
+          }}
+          onMouseLeave={() => {
+            if (!splitterEnabled) {
+              setOnHoverKeyColumnResizer(false);
+              console.log("splitter leave");
+            } else {
+              console.log("splitter leave hold");
+            }
+          }}
+          onMouseOver={() => setOnHoverKeyColumnResizer(true)}
+          onMouseDown={() => setSplitterEnabled(true)}
+        ></div>
+        <div
+          style={{
+            width: width - keyColumnWidth - columResizerWidth,
+            height: rowHeight,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            borderLeft: `1px solid ${colors.borders}`,
+            paddingLeft: "2px",
+          }}
+        >
+          {item.value?.toLocaleString() ?? ""}
+        </div>
+      </div>
+    );
   });
 
   return (
     <div
+      className="ns"
       style={{
         width: width,
         display: "flex",
@@ -72,74 +123,7 @@ export const GalleryToolboxPropertiesContainer: React.FC<
           flexDirection: "column",
         }}
       >
-        <table
-          {...{
-            style: {
-              width: table.getCenterTotalSize(),
-            },
-          }}
-        >
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    {...{
-                      colSpan: header.colSpan,
-                      style: {
-                        width: header.getSize(),
-                      },
-                    }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                    <div
-                      {...{
-                        onDoubleClick: () => header.column.resetSize(),
-                        onMouseDown: header.getResizeHandler(),
-                        onTouchStart: header.getResizeHandler(),
-                        className: `resizer ${
-                          table.options.columnResizeDirection
-                        } ${header.column.getIsResizing() ? "isResizing" : ""}`,
-                        style: {
-                          transform: `translateX(${
-                            (table.options.columnResizeDirection === "rtl"
-                              ? -1
-                              : 1) *
-                            (table.getState().columnSizingInfo.deltaOffset ?? 0)
-                          }px)`,
-                        },
-                      }}
-                    />
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    {...{
-                      style: {
-                        width: cell.column.getSize(),
-                      },
-                    }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {rows}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ This is a simple gallery app that fetches images from the [Unsplash API](https:/
 
 ## Wishlist
 
+1. introduce a way to dynamically add annotation overlay
 1. use tanstack routing to separate gallery vs editor view
 1. use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the gallery
    1. https://react-hotkeys-hook.vercel.app/docs/intro
