@@ -1,25 +1,67 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FlattenedDictionary } from "../../utils/flatten";
 import { colors } from "../../consts/colors";
+import "./gallery-toolbox-properties.css";
 
+export type GalleryToolboxPropertiesChanged = {
+  width: number;
+  height: number;
+  title: string;
+  description: string;
+  x: number;
+  y: number;
+  frame: number;
+  rotation: number;
+};
 export type GalleryToolboxPropertiesContainerProps = {
   width: number;
   height: number;
   data: FlattenedDictionary[];
   title: string;
+  onChange: (evt: GalleryToolboxPropertiesChanged) => void;
 };
 
 export const GalleryToolboxPropertiesContainer: React.FC<
   GalleryToolboxPropertiesContainerProps
-> = ({ width, data, title }) => {
+> = ({ width, data, title, onChange }) => {
   const [onHoverKeyColumnResizer, setOnHoverKeyColumnResizer] = useState(false);
   const [splitterEnabled, setSplitterEnabled] = useState(false);
   const [keyColumnWidth, setKeyColumnWidth] = useState(width / 2);
+  const [propsValue, setPropsValue] = useState<GalleryToolboxPropertiesChanged>(
+    {
+      height: 0,
+      width: 0,
+      title: "",
+      description: "",
+      x: 0,
+      y: 0,
+      frame: 0,
+      rotation: 0,
+    }
+  );
   const rowHeight = 18;
   const columResizerWidth = 3;
   const minWidthBothSides = 60;
-
   const rows = data.map((item) => {
+    const handleChangeProps = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setPropsValue((prevProps) => ({
+        ...prevProps,
+        [name]: value,
+      }));
+    };
+    const handleSave = useCallback(() => {
+      onChange({
+        height: propsValue.height,
+        width: propsValue.width,
+        title: propsValue.title,
+        description: propsValue.description,
+        x: propsValue.x,
+        y: propsValue.y,
+        frame: propsValue.frame,
+        rotation: propsValue.rotation,
+      });
+    }, [propsValue]);
     return (
       <div
         key={`${item.key}-${item.value}`}
@@ -88,9 +130,21 @@ export const GalleryToolboxPropertiesContainer: React.FC<
             textOverflow: "ellipsis",
             borderLeft: `1px solid ${colors.borders}`,
             paddingLeft: "2px",
+            paddingBottom: "5px",
           }}
         >
-          {item.value?.toLocaleString() ?? ""}
+          {item.key === "annotationId" || item.key === "galleryItemId" ? (
+            item.value?.toLocaleString() ?? ""
+          ) : (
+            <input
+              name={item.key}
+              className="gallery-toolbox-properties-input"
+              type="text"
+              defaultValue={item.value?.toLocaleString()}
+              onChange={(e) => handleChangeProps(e)}
+              onBlur={() => handleSave()}
+            />
+          )}
         </div>
       </div>
     );
