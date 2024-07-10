@@ -62,32 +62,34 @@ export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
     y: localImagePositionY,
   };
 
-  const annotations = annotationQuery.data?.map((annotation) => {
-    return (
-      <GalleryEditAnnotationRectangle
-        key={annotation.annotationId}
-        annotation={annotation}
-        isSelected={annotation.annotationId === gallerySelectedAnnotation}
-        onSelect={() => {
-          gallerySelectedAnnotationStore.setState(
-            () => annotation.annotationId
-          );
-        }}
-        onChange={(e) => {
-          mutateAnnotation.mutate({
-            data: {
-              ...annotation,
-              height: e.height,
-              width: e.width,
-              x: e.x,
-              y: e.y,
-              rotation: e.rotation,
-            },
-          });
-        }}
-      />
-    );
-  });
+  const annotations = annotationQuery.data
+    ?.filter((x) => x.visible)
+    .map((annotation) => {
+      return (
+        <GalleryEditAnnotationRectangle
+          key={annotation.annotationId}
+          annotation={annotation}
+          isSelected={annotation.annotationId === gallerySelectedAnnotation}
+          onSelect={() => {
+            gallerySelectedAnnotationStore.setState(
+              () => annotation.annotationId
+            );
+          }}
+          onChange={(e) => {
+            mutateAnnotation.mutate({
+              data: {
+                ...annotation,
+                height: e.height,
+                width: e.width,
+                x: e.x,
+                y: e.y,
+                rotation: e.rotation,
+              },
+            });
+          }}
+        />
+      );
+    });
 
   const scaleBy = 1.15;
 

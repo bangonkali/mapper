@@ -6,6 +6,7 @@ import {
   focusedImageStore,
 } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
+import { GalleryToolboxLayerTreeContainer } from "./gallery-toolbox-layer-tree-container";
 
 export type GalleryToolboxContainerProps = {
   width: number;
@@ -33,7 +34,16 @@ export const GalleryToolboxContainer: React.FC<
       }}
     >
       {side === "left" ? (
-        "GalleryToolboxContainer left"
+        <>
+          {focusedGalleryItem ? (
+            <GalleryToolboxLayerTreeContainer
+              width={width}
+              height={height}
+              focusedImage={focusedGalleryItem}
+              selectedAnnotationId={selectedAnnotationId}
+            />
+          ) : null}
+        </>
       ) : (
         <>
           {selectedAnnotationId && focusedImageId ? (
