@@ -6,6 +6,10 @@ import {
   focusedImageStore,
 } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
+import { useState } from "react";
+import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
+import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
+import { GalleryToolboxItemAnnotation } from "./gallery-toolbox-item-annotation";
 
 export type GalleryToolboxContainerProps = {
   width: number;
@@ -18,12 +22,17 @@ export const GalleryToolboxContainer: React.FC<
 > = ({ height, width, side }) => {
   // find if there is a selected item annotation from the editor view
   const galleryItemsQuery = useGalleryItemsQuery();
+
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
   const focusedImageId = useStore(focusedImageStore);
   const galleryItems = galleryItemsQuery.data ?? [];
   const focusedGalleryItem = galleryItems.find(
     (item) => item.galleryItemId === focusedImageId
   );
+  const annotationItemsQuery = useAnnotationsQuery({
+    galleryItemId: focusedGalleryItem?.galleryItemId!,
+  });
+  const annotationItems = annotationItemsQuery.data ?? [];
 
   return (
     <div
@@ -33,8 +42,13 @@ export const GalleryToolboxContainer: React.FC<
       }}
     >
       {side === "left" ? (
-        "GalleryToolboxContainer left"
+        <GalleryToolboxItemAnnotation
+          width={width}
+          height={height}
+          focusedImage={annotationItems}
+        />
       ) : (
+        // annotationItemsQuery.data?.map((node) => renderNode(node))
         <>
           {selectedAnnotationId && focusedImageId ? (
             <GalleryToolboxAnnotationOverlayProperties
