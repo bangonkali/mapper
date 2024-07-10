@@ -53,6 +53,7 @@ export const generateMockData = async () => {
         y: annotationPadding,
         width: annotationWidth - 10,
         height: annotationHeight,
+        visible: Math.random() < 0.5,
       };
       dbAnnotations.push(annotation);
     }
