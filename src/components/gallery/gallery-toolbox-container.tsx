@@ -26,22 +26,35 @@ export const GalleryToolboxContainer: React.FC<
     (item) => item.galleryItemId === focusedImageId
   );
 
+  // find the annotation tags for focusedGalleryItem
+
   return (
     <div
       style={{
         height: height,
         width: width,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {side === "left" ? (
         <>
           {focusedGalleryItem ? (
-            <GalleryToolboxLayerTreeContainer
-              width={width}
-              height={height}
-              focusedImage={focusedGalleryItem}
-              selectedAnnotationId={selectedAnnotationId}
-            />
+            <div
+              style={{
+                height: height,
+                width: width,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <GalleryToolboxLayerTreeContainer
+                width={width}
+                height={height}
+                focusedImage={focusedGalleryItem}
+                selectedAnnotationId={selectedAnnotationId}
+              />
+            </div>
           ) : null}
         </>
       ) : (

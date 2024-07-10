@@ -16,6 +16,11 @@ export const GalleryFooter: React.FC<GalleryFooterProps> = ({
         height: `${height - topBorder}px`,
         width: `${width}px`,
         borderTop: `${topBorder}px solid ${colors.borders}`,
+        backgroundColor: colors.headerBackground,
+        color: colors.headerForeground,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       Footer

@@ -3,6 +3,6 @@ import { db } from "../../db/db";
 
 export const fetchGalleryItems = async () => {
   await generateMockData();
-  const galleryItems = await db.galleryItems.toArray();
+  const galleryItems = await db.galleryItems.orderBy("createdAt").toArray();
   return galleryItems;
 };

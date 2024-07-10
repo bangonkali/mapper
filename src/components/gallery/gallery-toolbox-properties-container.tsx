@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { FlattenedDictionary } from "../../utils/flatten";
 import { colors } from "../../consts/colors";
+import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
 import "./gallery-toolbox-properties.css";
 
 export type GalleryToolboxPropertiesChanged = {
@@ -24,6 +25,7 @@ export type GalleryToolboxPropertiesContainerProps = {
 export const GalleryToolboxPropertiesContainer: React.FC<
   GalleryToolboxPropertiesContainerProps
 > = ({ width, data, title, onChange }) => {
+  const [isMinimized, setIsMinimized] = useState(false);
   const [onHoverKeyColumnResizer, setOnHoverKeyColumnResizer] = useState(false);
   const [splitterEnabled, setSplitterEnabled] = useState(false);
   const [keyColumnWidth, setKeyColumnWidth] = useState(width / 2);
@@ -39,6 +41,18 @@ export const GalleryToolboxPropertiesContainer: React.FC<
       rotation: 0,
     }
   );
+  const handleSave = useCallback(() => {
+    onChange({
+      height: propsValue.height,
+      width: propsValue.width,
+      title: propsValue.title,
+      description: propsValue.description,
+      x: propsValue.x,
+      y: propsValue.y,
+      frame: propsValue.frame,
+      rotation: propsValue.rotation,
+    });
+  }, [propsValue]);
   const rowHeight = 18;
   const columResizerWidth = 3;
   const minWidthBothSides = 60;
@@ -50,18 +64,6 @@ export const GalleryToolboxPropertiesContainer: React.FC<
         [name]: value,
       }));
     };
-    const handleSave = useCallback(() => {
-      onChange({
-        height: propsValue.height,
-        width: propsValue.width,
-        title: propsValue.title,
-        description: propsValue.description,
-        x: propsValue.x,
-        y: propsValue.y,
-        frame: propsValue.frame,
-        rotation: propsValue.rotation,
-      });
-    }, [propsValue]);
     return (
       <div
         key={`${item.key}-${item.value}`}
@@ -159,26 +161,23 @@ export const GalleryToolboxPropertiesContainer: React.FC<
         flexDirection: "column",
       }}
     >
-      <div
-        style={{
-          width: width,
-          height: "20px",
-          backgroundColor: "orange",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {title}
-      </div>
-      <div
-        style={{
-          width: width,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {rows}
-      </div>
+      <GalleryToolboxPropertiesHeader
+        isMinimized={isMinimized}
+        width={width}
+        title={title}
+        onMinimizeClick={() => setIsMinimized(!isMinimized)}
+      />
+      {isMinimized ? null : (
+        <div
+          style={{
+            width: width,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {rows}
+        </div>
+      )}
     </div>
   );
 };
