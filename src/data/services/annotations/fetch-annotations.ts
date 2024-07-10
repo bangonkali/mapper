@@ -9,7 +9,7 @@ export const fetchAnnotations = async (params: FetchAnnotationsParams) => {
   const annotations = await db.annotations
     .where("galleryItemId")
     .equals(galleryItemId)
-    .sortBy("annotationId");
+    .sortBy("createdAt");
 
   return annotations;
 };

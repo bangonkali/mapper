@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FlattenedDictionary } from "../../utils/flatten";
 import { colors } from "../../consts/colors";
+import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
 
 export type GalleryToolboxPropertiesContainerProps = {
   width: number;
@@ -12,6 +13,7 @@ export type GalleryToolboxPropertiesContainerProps = {
 export const GalleryToolboxPropertiesContainer: React.FC<
   GalleryToolboxPropertiesContainerProps
 > = ({ width, data, title }) => {
+  const [isMinimized, setIsMinimized] = useState(false);
   const [onHoverKeyColumnResizer, setOnHoverKeyColumnResizer] = useState(false);
   const [splitterEnabled, setSplitterEnabled] = useState(false);
   const [keyColumnWidth, setKeyColumnWidth] = useState(width / 2);
@@ -105,26 +107,23 @@ export const GalleryToolboxPropertiesContainer: React.FC<
         flexDirection: "column",
       }}
     >
-      <div
-        style={{
-          width: width,
-          height: "20px",
-          backgroundColor: "orange",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {title}
-      </div>
-      <div
-        style={{
-          width: width,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {rows}
-      </div>
+      <GalleryToolboxPropertiesHeader
+        isMinimized={isMinimized}
+        width={width}
+        title={title}
+        onMinimizeClick={() => setIsMinimized(!isMinimized)}
+      />
+      {isMinimized ? null : (
+        <div
+          style={{
+            width: width,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {rows}
+        </div>
+      )}
     </div>
   );
 };
