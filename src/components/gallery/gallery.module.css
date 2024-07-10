@@ -40,3 +40,7 @@
   width: 600px;
   min-width: 100 px;
 }
+.selected{
+  background-color: rgb(30, 140, 243);
+  color: white;
+}
