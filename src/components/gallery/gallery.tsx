@@ -51,9 +51,9 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
           );
         }}
       >
-        {layout.docks.left.visible ? (
+        {/* {layout.docks.left.visible ? (
           <GalleryDock layout={layout} side="left" />
-        ) : null}
+        ) : null} */}
         <div
           className={styles.workspace}
           style={{
@@ -61,19 +61,19 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
             height: `${layout.docks.workspace.height}px`,
           }}
         >
-          {layout.docks.workspace.view === "masonry" ? (
-            <GalleryMasonryView
-              view={layout.docks.workspace.view}
-              width={layout.docks.workspace.width}
-              height={layout.docks.workspace.height}
-            />
-          ) : (
+          {/* {layout.docks.workspace.view === "masonry" ? ( */}
+          <GalleryMasonryView
+            view={layout.docks.workspace.view}
+            width={layout.docks.workspace.width}
+            height={layout.docks.workspace.height}
+          />
+          {/* ) : (
             <GalleryEditView layout={layout} />
-          )}
+          )} */}
         </div>
-        {layout.docks.right.visible ? (
+        {/* {layout.docks.right.visible ? (
           <GalleryDock layout={layout} side="right" />
-        ) : null}
+        ) : null} */}
       </div>
       <GalleryFooter
         height={layout.footer.height}

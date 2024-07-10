@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { GalleryItemLayoutBox } from "../../models/GalleryItemLayoutBox";
 import { produce } from "immer";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
@@ -8,12 +8,15 @@ import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gall
 export type GalleryItemThumbnailProps = {
   item: GalleryItem;
   layout: GalleryItemLayoutBox;
+  focused: boolean;
 };
 
-export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
-  item,
-  layout,
-}) => {
+export const GalleryItemThumbnail = forwardRef<
+  HTMLImageElement,
+  GalleryItemThumbnailProps
+>(({ item, layout, focused }, focusElement) => {
+  console.log(focused);
+  console.log(focusElement);
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
 
@@ -49,11 +52,12 @@ export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
           height: `${layout.height}px`,
           display: "relative",
         }}
+        ref={focused ? focusElement : null}
         onClick={() => {
           focusedImageStore.setState(() => item.galleryItemId);
         }}
       />
-      {item.selected ? (
+      {focused ? (
         <div
           className="ns"
           style={{
@@ -94,4 +98,4 @@ export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
       ) : null}
     </div>
   );
-};
+});
