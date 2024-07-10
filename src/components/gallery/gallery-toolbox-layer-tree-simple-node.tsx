@@ -59,19 +59,19 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
         {title}
       </div>
 
-      <div style={{ width: checkboxWidth }}>
-        {/* check box for visibility */}
-        <input
-          type="checkbox"
-          checked={isVisible}
-          readOnly
-          onClick={() => {
-            if (onVisibleCheckboxClick) {
+      {onVisibleCheckboxClick ? (
+        <div style={{ width: checkboxWidth }}>
+          {/* check box for visibility */}
+          <input
+            type="checkbox"
+            checked={isVisible}
+            readOnly
+            onClick={() => {
               onVisibleCheckboxClick();
-            }
-          }}
-        />
-      </div>
+            }}
+          />
+        </div>
+      ) : undefined}
     </div>
   );
 };
