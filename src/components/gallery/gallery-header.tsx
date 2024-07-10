@@ -2,6 +2,7 @@ import { colors } from "../../consts/colors";
 import { produce } from "immer";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { galleryStoreLayout } from "../../data/store/gallery-store";
+import { useNavigate } from "@tanstack/react-router";
 
 export type GalleryHeaderProps = {
   height: number;
@@ -13,6 +14,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
   width,
 }) => {
   const border = 1;
+  const navigate = useNavigate({ from: "/selected-image/$galleryId" });
   return (
     <div
       style={{
@@ -27,6 +29,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
       <p>Header</p>
       <button
         onClick={() => {
+          navigate({ to: "/gallery" });
           focusedImageStore.setState(() => null);
         }}
       >
