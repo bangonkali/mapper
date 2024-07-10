@@ -46,9 +46,12 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
       current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(scrollToElement, []);
+  if (focusedImageId !== null) {
+    scrollToElement();
+  }
   const masonry = items.map((item, index) => {
-    const focused = item.galleryItemId === focusedImageId;
+    let focused = item.galleryItemId === focusedImageId;
+
     return (
       <GalleryItemThumbnail
         key={`thumb-${item.galleryItemId}`}

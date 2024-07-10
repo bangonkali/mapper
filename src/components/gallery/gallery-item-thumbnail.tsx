@@ -4,7 +4,7 @@ import { produce } from "immer";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
-import { getRouteApi, useNavigate, useParams } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 export type GalleryItemThumbnailProps = {
   item: GalleryItem;
@@ -16,8 +16,6 @@ export const GalleryItemThumbnail = forwardRef<
   HTMLImageElement,
   GalleryItemThumbnailProps
 >(({ item, layout, focused }, focusElement) => {
-  console.log(focused);
-  console.log(focusElement);
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
   const navigate = useNavigate({ from: "/gallery" });
