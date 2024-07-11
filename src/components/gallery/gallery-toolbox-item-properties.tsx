@@ -21,9 +21,6 @@ export const GalleryToolboxItemProperties: React.FC<
       width={width}
       data={data}
       title="Properties"
-      onChange={() => {
-        return;
-      }}
     />
   );
 };

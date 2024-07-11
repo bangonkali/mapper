@@ -30,8 +30,6 @@ export const GalleryToolboxTagsContainer: React.FC<
 
   // group annotationTags array items by tag type
   const tagTypes = Array.from(new Set(annotationTags?.map((tag) => tag.type)));
-  // console.log(tagTypes);
-
   const tagTypeDockWindow = tagTypes.map((tagType) => {
     const tagValues = annotationTags?.filter((tag) => tag.type === tagType);
     if (!tagValues) return null;

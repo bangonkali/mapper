@@ -1,25 +1,25 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FlattenedDictionary } from "../../utils/flatten";
 import { colors } from "../../consts/colors";
 import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
-import "./gallery-toolbox-properties.css";
 
 export type GalleryToolboxPropertiesChanged = {
-  width: number;
-  height: number;
-  title: string;
-  description: string;
-  x: number;
-  y: number;
-  frame: number;
-  rotation: number;
+  current: {
+    key: string;
+    value: string;
+  };
+  new: {
+    key: string;
+    value: string;
+  };
 };
+
 export type GalleryToolboxPropertiesContainerProps = {
   width: number;
   height: number;
   data: FlattenedDictionary[];
   title: string;
-  onChange: (evt: GalleryToolboxPropertiesChanged) => void;
+  onChange?: (evt: GalleryToolboxPropertiesChanged) => void | undefined;
 };
 
 export const GalleryToolboxPropertiesContainer: React.FC<
@@ -29,41 +29,11 @@ export const GalleryToolboxPropertiesContainer: React.FC<
   const [onHoverKeyColumnResizer, setOnHoverKeyColumnResizer] = useState(false);
   const [splitterEnabled, setSplitterEnabled] = useState(false);
   const [keyColumnWidth, setKeyColumnWidth] = useState(width / 2);
-  const [propsValue, setPropsValue] = useState<GalleryToolboxPropertiesChanged>(
-    {
-      height: 0,
-      width: 0,
-      title: "",
-      description: "",
-      x: 0,
-      y: 0,
-      frame: 0,
-      rotation: 0,
-    }
-  );
-  const handleSave = useCallback(() => {
-    onChange({
-      height: propsValue.height,
-      width: propsValue.width,
-      title: propsValue.title,
-      description: propsValue.description,
-      x: propsValue.x,
-      y: propsValue.y,
-      frame: propsValue.frame,
-      rotation: propsValue.rotation,
-    });
-  }, [propsValue]);
+
   const rowHeight = 18;
   const columResizerWidth = 3;
   const minWidthBothSides = 60;
   const rows = data.map((item) => {
-    const handleChangeProps = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setPropsValue((prevProps) => ({
-        ...prevProps,
-        [name]: value,
-      }));
-    };
     return (
       <div
         key={`${item.key}-${item.value}`}
@@ -73,7 +43,6 @@ export const GalleryToolboxPropertiesContainer: React.FC<
           borderBottom: `1px solid ${colors.borders}`,
         }}
         onMouseUp={() => {
-          console.log("parent up");
           setSplitterEnabled(false);
           setOnHoverKeyColumnResizer(false);
         }}
@@ -115,9 +84,6 @@ export const GalleryToolboxPropertiesContainer: React.FC<
           onMouseLeave={() => {
             if (!splitterEnabled) {
               setOnHoverKeyColumnResizer(false);
-              console.log("splitter leave");
-            } else {
-              console.log("splitter leave hold");
             }
           }}
           onMouseOver={() => setOnHoverKeyColumnResizer(true)}
@@ -132,7 +98,6 @@ export const GalleryToolboxPropertiesContainer: React.FC<
             textOverflow: "ellipsis",
             borderLeft: `1px solid ${colors.borders}`,
             paddingLeft: "2px",
-            paddingBottom: "5px",
           }}
         >
           {item.key === "annotationId" || item.key === "galleryItemId" ? (
@@ -140,11 +105,32 @@ export const GalleryToolboxPropertiesContainer: React.FC<
           ) : (
             <input
               name={item.key}
-              className="gallery-toolbox-properties-input"
               type="text"
               defaultValue={item.value?.toLocaleString()}
-              onChange={(e) => handleChangeProps(e)}
-              onBlur={() => handleSave()}
+              onBlur={(e) => {
+                if (onChange) {
+                  onChange({
+                    current: {
+                      key: item.key,
+                      value: item.value?.toLocaleString() ?? "",
+                    },
+                    new: {
+                      key: item.key,
+                      value: e.target.value,
+                    },
+                  });
+                }
+              }}
+              style={{
+                width: width - keyColumnWidth - columResizerWidth - 4,
+                height: rowHeight,
+                border: "none",
+                outline: "none",
+                padding: "0px",
+                margin: "0px",
+                fontSize: "12px",
+                fontFamily: "Roboto",
+              }}
             />
           )}
         </div>

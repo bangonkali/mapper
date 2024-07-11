@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get } from "radash";
 import Zod from "zod";
 
 export type ZodPathType = {
@@ -40,7 +40,7 @@ export const _getPropertyPaths = (
       const newPath = currentPath ? `${currentPath}.${key}` : key;
       const nested = _getPropertyPaths(value, pathTypes, newPath);
 
-      const type = _.get(value, "_def.typeName") as unknown as string;
+      const type = get(value, "_def.typeName") as unknown as string;
       pathTypes.push({ path: newPath, type });
 
       return nested.length ? nested : [newPath];
