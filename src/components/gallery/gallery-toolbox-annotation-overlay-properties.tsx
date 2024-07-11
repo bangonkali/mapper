@@ -1,13 +1,7 @@
-import { set } from "radash";
 import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
 import { useAnnotationQuery } from "../../data/react-query/queries/use-annotation-query";
 import { AnnotationSchema } from "../../entities/annotation/annotation-schema";
-import { flattenToDictionary } from "../../utils/flatten";
-import { getPropertyPaths } from "../../utils/zod/zod-paths";
-import {
-  GalleryToolboxPropertiesChanged,
-  GalleryToolboxPropertiesContainer,
-} from "./gallery-toolbox-properties-container";
+import { GalleryToolboxPropertiesGrid } from "./gallery-toolbox-properties-grid";
 
 export type GalleryToolboxAnnotationOverlayPropertiesProps = {
   width: number;
@@ -24,43 +18,44 @@ export const GalleryToolboxAnnotationOverlayProperties: React.FC<
     annotationId: selectedAnnotationId,
     galleryItemId: galleryItemId,
   });
+
   if (!annotation.data) {
     return undefined;
   }
 
-  const paths = getPropertyPaths(AnnotationSchema);
-  const data = flattenToDictionary(annotation.data);
-  const handleSaveAnnotation = (value: GalleryToolboxPropertiesChanged) => {
-    if (annotation.data) {
-      const annotationData = annotation.data;
-      const type = paths.find((path) => path.path === value.new.key);
-      if (type?.type === "ZodNumber") {
-        const newValue = Number(value.new.value);
-        set(annotationData, value.new.key, newValue);
-      } else if (type?.type === "ZodBoolean") {
-        const newValue = value.new.value === "true";
-        set(annotationData, value.new.key, newValue);
-      } else if (type?.type === "ZodString") {
-        const newValue = value.new.value;
-        set(annotationData, value.new.key, newValue);
-      }
-      const parseResult = AnnotationSchema.safeParse(annotation.data);
-      if (parseResult.success) {
-        mutateAnnotation.mutate({
-          data: annotation.data,
-        });
-      }
-    }
-  };
-
   return (
-    <GalleryToolboxPropertiesContainer
+    <GalleryToolboxPropertiesGrid
+      key={annotation.data.annotationId}
       height={height}
       width={width}
-      data={data}
-      title="Annotation Propertiess"
+      obj={annotation.data}
+      templates={[
+        {
+          key: "annotationId",
+          label: "Id",
+          description: "The unique identifier for the annotation.",
+          inputType: "text",
+          readonly: true,
+        },
+        {
+          key: "galleryItemId",
+          label: "Gallery Item Id",
+          description: "The unique identifier for the gallery item.",
+          inputType: "text",
+          readonly: true,
+        },
+        {
+          key: "type",
+          label: "Type",
+          description: "The type of annotation.",
+          inputType: "text",
+          readonly: true,
+        },
+      ]}
+      schema={AnnotationSchema}
+      title={"Annotation"}
       onChange={(e) => {
-        handleSaveAnnotation(e);
+        mutateAnnotation.mutate({ data: e.value });
       }}
     />
   );
