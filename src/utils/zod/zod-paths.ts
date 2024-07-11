@@ -14,32 +14,36 @@ export const getPropertyPaths = (schema: Zod.ZodType): ZodPathType[] => {
 
 export const _getPropertyPaths = (
   schema: Zod.ZodType,
-  pathTypes: ZodPathType[] = []
+  pathTypes: ZodPathType[] = [],
+  currentPath: string = ""
 ): string[] => {
   if (schema instanceof Zod.ZodEffects) {
-    return _getPropertyPaths(schema._def?.schema ?? schema, pathTypes);
+    return _getPropertyPaths(
+      schema._def?.schema ?? schema,
+      pathTypes,
+      currentPath
+    );
   }
 
   if (schema instanceof Zod.ZodNullable || schema instanceof Zod.ZodOptional) {
-    return _getPropertyPaths(schema.unwrap(), pathTypes);
+    return _getPropertyPaths(schema.unwrap(), pathTypes, currentPath);
   }
 
   if (schema instanceof Zod.ZodArray) {
-    return _getPropertyPaths(schema.element, pathTypes);
+    return _getPropertyPaths(schema.element, pathTypes, currentPath + "[0]");
   }
 
   if (schema instanceof Zod.ZodObject) {
     const entries = Object.entries<Zod.ZodType>(schema.shape);
 
     const outputMap = entries.flatMap(([key, value]) => {
-      const nested = _getPropertyPaths(value, pathTypes).map(
-        (subKey) => `${key}.${subKey}`
-      );
+      const newPath = currentPath ? `${currentPath}.${key}` : key;
+      const nested = _getPropertyPaths(value, pathTypes, newPath);
 
       const type = _.get(value, "_def.typeName") as unknown as string;
+      pathTypes.push({ path: newPath, type });
 
-      pathTypes.push({ path: key, type });
-      return nested.length ? nested : key;
+      return nested.length ? nested : [newPath];
     });
 
     return outputMap;
@@ -48,9 +52,16 @@ export const _getPropertyPaths = (
   if (schema instanceof Zod.ZodDiscriminatedUnion) {
     const options = schema.options;
     return options.flatMap((option: Zod.ZodType) =>
-      _getPropertyPaths(option, pathTypes)
+      _getPropertyPaths(option, pathTypes, currentPath)
     );
   }
 
-  return [];
+  if (schema instanceof Zod.ZodUnion) {
+    const options = schema._def.options;
+    return options.flatMap((option: Zod.ZodType) =>
+      _getPropertyPaths(option, pathTypes, currentPath)
+    );
+  }
+
+  return currentPath ? [currentPath] : [];
 };
