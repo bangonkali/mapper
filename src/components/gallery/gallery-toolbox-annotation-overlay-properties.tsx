@@ -32,7 +32,7 @@ export const GalleryToolboxAnnotationOverlayProperties: React.FC<
       templates={[
         {
           key: "annotationId",
-          label: "Id",
+          label: "Annotation Id",
           description: "The unique identifier for the annotation.",
           inputType: "text",
           readonly: true,
