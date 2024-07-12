@@ -30,7 +30,7 @@ export const GalleryToolboxPropertiesContainer: React.FC<
       const item = data.find((d) => d.key === node.path);
       return item ? (
         <GalleryToolboxPropertiesRow
-          key={item.key}
+          key={`${item.key}-${item.value}`}
           width={width}
           item={item}
           onChange={onChange}

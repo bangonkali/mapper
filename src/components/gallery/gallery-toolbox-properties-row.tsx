@@ -2,6 +2,7 @@ import { FlattenedDictionary } from "../../utils/flatten";
 import { colors } from "../../consts/colors";
 import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from "./gallery-toolbox-properties-row-props-on-change-event";
 import { GalleryToolboxPropertiesTemplate } from "./gallery-toolbox-properties-template";
+import { useState } from "react";
 
 export type GalleryToolboxPropertiesRowProps = {
   width: number;
@@ -30,6 +31,10 @@ export const GalleryToolboxPropertiesRow: React.FC<
   splitterEnabled,
   keyColumnWidth,
 }) => {
+  const initialValue = item.value?.toLocaleString() ?? "";
+  const [localValue, setLocalValue] = useState(initialValue);
+  const isDirty = initialValue !== localValue;
+
   const rowHeight = 18;
   const columResizerWidth = 3;
   const minWidthBothSides = 60;
@@ -107,8 +112,10 @@ export const GalleryToolboxPropertiesRow: React.FC<
           readOnly={readOnly}
           name={item.key}
           type="text"
-          defaultValue={item.value?.toLocaleString()}
-          onBlur={(e) => {
+          onChange={(e) => {
+            setLocalValue(e.target.value);
+          }}
+          onBlur={() => {
             if (onChange) {
               onChange({
                 current: {
@@ -117,9 +124,25 @@ export const GalleryToolboxPropertiesRow: React.FC<
                 },
                 new: {
                   key: item.key,
-                  value: e.target.value,
+                  value: localValue,
                 },
               });
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (onChange) {
+                onChange({
+                  current: {
+                    key: item.key,
+                    value: item.value?.toLocaleString() ?? "",
+                  },
+                  new: {
+                    key: item.key,
+                    value: localValue,
+                  },
+                });
+              }
             }
           }}
           style={{
@@ -131,7 +154,11 @@ export const GalleryToolboxPropertiesRow: React.FC<
             margin: "0px",
             fontSize: "12px",
             fontFamily: "Roboto",
+            backgroundColor: isDirty
+              ? colors.dirtyInputBackground
+              : "transparent",
           }}
+          value={localValue}
         />
       </div>
     </div>
