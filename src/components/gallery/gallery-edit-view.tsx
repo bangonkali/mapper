@@ -1,25 +1,22 @@
-import { useStore } from "@tanstack/react-store";
 import { GalleryComputedLayout } from "../../models/app/app-layout";
-import { GalleryEditCarousel } from "./gallery-edit-carousel";
-import { GalleryEditCavnas } from "./gallery-edit-canvas";
-import { GalleryEditToolbar } from "./gallery-edit-toolbar";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-
-import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
-import { v4 as uuid } from "uuid";
-import HexRandomColorHook from "../../Hooks/HexRandomColorHook";
 import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-
+import { GalleryEditCarousel } from "./gallery-edit-carousel";
+import { GalleryEditToolbar } from "./gallery-edit-toolbar";
+import { GalleryEditCavnas } from "./gallery-edit-canvas";
+import { focusedImageStore } from "../../data/store/gallery-items-store";
+import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
+import { RectangleShape } from "../shapes/rectangle-shape";
+import { getRandomColor } from "../../utils/random/random-utils";
+import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { useCallback } from "react";
+import { v4 as uuid } from "uuid";
+import { useStore } from "@tanstack/react-store";
+import { colors } from "../../consts/colors";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
-
-import "./gallery-edit-view.css"; // Example CSS for styling the button group
-import { RectangleShape } from "../shapes/rectangle-shape";
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const galleryItemsQuery = useGalleryItemsQuery();
@@ -29,7 +26,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     galleryItemId: focusedImageId!,
   });
 
-  const [generateOutline, generateRandomHexColor] = HexRandomColorHook();
   const carouselHeight = 60;
   const toolbarHeight = 40;
   const canvasHeight =
@@ -41,26 +37,29 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
 
   const handleSubmitShape = useCallback(() => {
     if (typeof annotationQuery.data?.length !== "number") return;
+    if (!focusedImageId) return;
 
     const newUuid = uuid();
-    const hexColor = generateRandomHexColor();
-    const outlineHexColor = generateOutline();
-    const lastElement = annotationQuery.data?.length - 1;
-    const height = annotationQuery.data![lastElement].height;
-    const width = annotationQuery.data![lastElement].width;
+    const hexColor = getRandomColor();
+    const outlineHexColor = getRandomColor();
+    const lastElementIndex = annotationQuery.data?.length - 1;
+    const lastElement = annotationQuery.data![lastElementIndex];
+    const height = lastElement.height;
+    const width = lastElement.width;
+
     mutateAnnotation.mutate({
       data: {
-        galleryItemId: focusedImageId!,
+        galleryItemId: focusedImageId,
         annotationId: newUuid,
         height: height,
         width: width,
-        title: " ",
-        description: " ",
+        title: `Annotation #${lastElementIndex + 1}`,
+        description: `Description for Item ${focusedImageId} - ${lastElementIndex + 1}`,
         type: "rectangle",
         frame: 0.0,
         rotation: 0,
-        x: 200,
-        y: annotationQuery.data![lastElement]!.y,
+        x: lastElement.x + 20,
+        y: lastElement.y + 20,
         fill: {
           color: hexColor.toString(),
           alpha: 0.5,
@@ -72,18 +71,12 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           },
           thickness: 2.0,
         },
-        createdAt: new Date().getTime(), // current time
-        updatedAt: new Date().getTime(), // Add updatedAt property
-        visible: true, // Add the visible property
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+        visible: true,
       },
     });
-  }, [
-    annotationQuery.data,
-    focusedImageId,
-    generateOutline,
-    generateRandomHexColor,
-    mutateAnnotation,
-  ]);
+  }, [annotationQuery.data, focusedImageId, mutateAnnotation]);
 
   if (!focusedImage) {
     return <p>No item</p>;
@@ -118,23 +111,35 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         <GalleryEditToolbar
           width={layout.docks.workspace.width}
           height={toolbarHeight}
-          children={
-            <div className="gallery-add-new-shape-container">
-              <button
-                className={`gallery-add-new-shape-buttons`}
-                onClick={() => handleSubmitShape()}
-              >
-                <RectangleShape
-                  width={6}
-                  height={12}
-                  fill={"orange"}
-                  stroke={"white"}
-                />
-                Rectangle
-              </button>
-            </div>
-          }
-        />
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "start",
+              height: 36,
+              backgroundColor: "white",
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+            onMouseOver={() => {}}
+            onClick={() => handleSubmitShape()}
+          >
+            <RectangleShape
+              width={16}
+              height={16}
+              fill={"white"}
+              stroke={colors.headerForeground}
+            />
+            <p
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              Add Rectangle
+            </p>
+          </div>
+        </GalleryEditToolbar>
       </div>
       <div
         style={{

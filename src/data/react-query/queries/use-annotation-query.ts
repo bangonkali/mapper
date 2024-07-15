@@ -13,6 +13,7 @@ export const useAnnotationQuery = (params: FetchAnnotationParams) => {
   const annotationQuery = useAnnotationsQuery({
     galleryItemId: params.galleryItemId,
   });
+
   const initialData = annotationQuery.data?.find(
     (annotation) => annotation.annotationId === params.annotationId
   )

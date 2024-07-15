@@ -6,6 +6,7 @@ export type FetchAnnotationsParams = {
 
 export const fetchAnnotations = async (params: FetchAnnotationsParams) => {
   const { galleryItemId } = params;
+  if (!galleryItemId) return [];
   const annotations = await db.annotations
     .where("galleryItemId")
     .equals(galleryItemId)
