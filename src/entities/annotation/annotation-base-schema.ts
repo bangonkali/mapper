@@ -11,6 +11,8 @@ export const AnnotationBaseSchema = z.object({
   galleryItemId: z.string().uuid(), // the image gallery item that this annotation is tied to
   title: z.string(), // the image gallery item that this annotation is tied to
   description: z.string(), // the image gallery item that this annotation is tied to
+  createdAt: z.number(),
+  updatedAt: z.number(),
 });
 
 export type AnnotationBase = z.infer<typeof AnnotationBaseSchema>;

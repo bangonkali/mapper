@@ -1,3 +1,5 @@
+import { colors } from "../../consts/colors";
+
 export type GalleryEditToolbarProps = {
   height: number;
   width: number;
@@ -10,18 +12,19 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
+        color: colors.headerForeground,
         left: 0,
         top: 0,
         width: `${width}px`,
         height: `${height}px`,
-        backgroundColor: "pink",
+        backgroundColor: colors.headerBackground,
+        borderBottom: `1px solid ${colors.borders}`,
         display: "flex",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: "center",
       }}
     >
-      Some toolbar
+      <div>Some toolbar | Add buttons here !</div>
     </div>
   );
 };
