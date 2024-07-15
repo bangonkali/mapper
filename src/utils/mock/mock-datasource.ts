@@ -33,7 +33,7 @@ export const generateMockData = async () => {
     const width = getRandomNumber(600, 1200);
     const height = getRandomNumber(600, 1200);
 
-    const numAnnotations = getRandomNumber(6, 10);
+    const numAnnotations = (i + 1) % 5 === 0 ? 0 : getRandomNumber(1, 5);
     const annotationPadding = 100;
     const annotationWidth = Math.floor(width / (numAnnotations + 1));
     const annotationHeight = height - annotationPadding * 2;

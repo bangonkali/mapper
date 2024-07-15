@@ -42,10 +42,21 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     const newUuid = uuid();
     const hexColor = getRandomColor();
     const outlineHexColor = getRandomColor();
-    const lastElementIndex = annotationQuery.data?.length - 1;
-    const lastElement = annotationQuery.data![lastElementIndex];
-    const height = lastElement.height;
-    const width = lastElement.width;
+    let height = 50;
+    let width = 50;
+    let x = 50;
+    let y = 50;
+
+    let lastElementIndex = annotationQuery.data?.length - 1;
+    if (lastElementIndex >= 0) {
+      const lastElement = annotationQuery.data![lastElementIndex];
+      height = lastElement.height;
+      width = lastElement.width;
+      x = lastElement.x + 25;
+      y = lastElement.y + 25;
+    } else {
+      lastElementIndex = 0;
+    }
 
     mutateAnnotation.mutate({
       data: {
@@ -58,8 +69,8 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         type: "rectangle",
         frame: 0.0,
         rotation: 0,
-        x: lastElement.x + 20,
-        y: lastElement.y + 20,
+        x: x,
+        y: y,
         fill: {
           color: hexColor.toString(),
           alpha: 0.5,
