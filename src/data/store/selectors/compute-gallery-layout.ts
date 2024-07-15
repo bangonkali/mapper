@@ -39,7 +39,7 @@ export const computeGalleryLayout = ({
     minWidth: state.gallery.layout.constraint.docks.right.minWidth,
     width: state.gallery.layout.constraint.docks.right.visible
       ? state.gallery.layout.constraint.docks.right.desiredWidth
-      : state.gallery.layout.constraint.docks.right.minWidth,
+      : 0,
     height: height - header.height - footer.height,
     visible: state.gallery.layout.constraint.docks.right.visible,
     splitterEnabled:
@@ -51,7 +51,7 @@ export const computeGalleryLayout = ({
     minWidth: state.gallery.layout.constraint.docks.left.minWidth,
     width: state.gallery.layout.constraint.docks.left.visible
       ? state.gallery.layout.constraint.docks.left.desiredWidth
-      : state.gallery.layout.constraint.docks.left.minWidth,
+      : 0,
     height: height - header.height - footer.height,
     visible: state.gallery.layout.constraint.docks.left.visible,
     splitterEnabled: state.gallery.layout.constraint.docks.left.splitterEnabled,
