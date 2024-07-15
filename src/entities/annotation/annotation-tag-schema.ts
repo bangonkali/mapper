@@ -30,6 +30,20 @@ export const AnnotationTagSchema = z.object({
    * The key of the annotation tag.
    */
   type: z.string(),
+
+  /**
+   * The date and time that this annotation tag was created.
+   * This is a Unix timestamp.
+   * @example 1616590873
+   */
+  createdAt: z.number(),
+
+  /**
+   * The date and time that this annotation tag was last updated.
+   * This is a Unix timestamp.
+   * @example 1616590873
+   */
+  updatedAt: z.number(),
 });
 
 export type AnnotationTag = z.infer<typeof AnnotationTagSchema>;
