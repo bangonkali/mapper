@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { GalleryItemLayoutBox } from "../../models/GalleryItemLayoutBox";
 import { produce } from "immer";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
-import { getRouteApi, useNavigate, useParams } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 export type GalleryItemThumbnailProps = {
   item: GalleryItem;
   layout: GalleryItemLayoutBox;
+  focused: boolean;
 };
 
-export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
-  item,
-  layout,
-}) => {
+export const GalleryItemThumbnail = forwardRef<
+  HTMLImageElement,
+  GalleryItemThumbnailProps
+>(({ item, layout, focused }, focusElement) => {
+  console.log(focused);
+  console.log(focusElement);
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
   const navigate = useNavigate({ from: "/gallery" });
@@ -50,13 +53,14 @@ export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
           height: `${layout.height}px`,
           display: "relative",
         }}
+        ref={focused ? focusElement : null}
         onClick={() => {
           const galleryId = item.galleryItemId;
           navigate({ to: "/selected-image/$galleryId", params: { galleryId } });
           focusedImageStore.setState(() => item.galleryItemId);
         }}
       />
-      {item.selected ? (
+      {focused ? (
         <div
           className="ns"
           style={{
@@ -97,4 +101,4 @@ export const GalleryItemThumbnail: React.FC<GalleryItemThumbnailProps> = ({
       ) : null}
     </div>
   );
-};
+});
