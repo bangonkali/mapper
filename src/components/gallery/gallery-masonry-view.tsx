@@ -5,6 +5,8 @@ import { GalleryWorkspaceView } from "../../models/app/app-layout";
 import { galleryMasonryLayoutStore } from "../../data/store/gallery-masonry-layout-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
+import { useEffect, useRef } from "react";
+import { focusedImageStore } from "../../data/store/gallery-items-store";
 
 export type GalleryMasonryViewProps = {
   width: number;
@@ -15,6 +17,8 @@ export type GalleryMasonryViewProps = {
 export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
   props
 ) => {
+  const focusedImageId = useStore(focusedImageStore);
+  const galleryRef = useRef(null);
   const galleryItemsQuery = useGalleryItemsQuery();
   const masonryLayoutConfiguration = useStore(
     galleryMasonryLayoutStore,
@@ -23,6 +27,7 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
     }
   );
   const items: GalleryItem[] = galleryItemsQuery.data ?? [];
+  const focusElement = useRef<HTMLImageElement>(null);
 
   if (items.length === 0) {
     return <p>No items</p>;
@@ -35,19 +40,29 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
       ...masonryLayoutConfiguration,
     }
   );
-
+  const scrollToElement = () => {
+    const { current } = focusElement;
+    if (current !== null) {
+      current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  useEffect(scrollToElement, []);
   const masonry = items.map((item, index) => {
+    const focused = item.galleryItemId === focusedImageId;
     return (
       <GalleryItemThumbnail
         key={`thumb-${item.galleryItemId}`}
         item={item}
         layout={layout.boxes[index]}
+        focused={focused}
+        ref={focusElement}
       />
     );
   });
 
   return (
     <div
+      ref={galleryRef}
       className="ns"
       style={{
         height: layout.containerHeight,
