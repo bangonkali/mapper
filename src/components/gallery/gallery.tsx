@@ -1,8 +1,6 @@
 import styles from "./gallery.module.css";
 import { useStore } from "@tanstack/react-store";
 import { GalleryMasonryView } from "./gallery-masonry-view";
-import { GalleryDock } from "./gallery-dock";
-import { GalleryEditView } from "./gallery-edit-view";
 import { GalleryFooter } from "./gallery-footer";
 import { GalleryHeader } from "./gallery-header";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
@@ -10,6 +8,7 @@ import { galleryStoreLayout } from "../../data/store/gallery-store";
 import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
 import { onSplitterMouseMoveAll } from "../../data/store/mutations/splitter/on-splitter-mouse-move-all";
 import { computeGalleryLayout } from "../../data/store/selectors/compute-gallery-layout";
+import { GalleryDock } from "./gallery-dock";
 
 type GalleryProps = {
   height: number;
@@ -51,9 +50,9 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
           );
         }}
       >
-        {/* {layout.docks.left.visible ? (
+        {layout.docks.left.visible ? (
           <GalleryDock layout={layout} side="left" />
-        ) : null} */}
+        ) : null}
         <div
           className={styles.workspace}
           style={{
@@ -61,19 +60,15 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
             height: `${layout.docks.workspace.height}px`,
           }}
         >
-          {/* {layout.docks.workspace.view === "masonry" ? ( */}
           <GalleryMasonryView
             view={layout.docks.workspace.view}
             width={layout.docks.workspace.width}
             height={layout.docks.workspace.height}
           />
-          {/* ) : (
-            <GalleryEditView layout={layout} />
-          )} */}
         </div>
-        {/* {layout.docks.right.visible ? (
+        {layout.docks.right.visible ? (
           <GalleryDock layout={layout} side="right" />
-        ) : null} */}
+        ) : null}
       </div>
       <GalleryFooter
         height={layout.footer.height}
