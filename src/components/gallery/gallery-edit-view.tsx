@@ -1,11 +1,18 @@
-import { useStore } from "@tanstack/react-store";
 import { GalleryComputedLayout } from "../../models/app/app-layout";
-import { GalleryEditCarousel } from "./gallery-edit-carousel";
-import { GalleryEditCavnas } from "./gallery-edit-canvas";
-import { GalleryEditToolbar } from "./gallery-edit-toolbar";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
+import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
+import { GalleryEditCarousel } from "./gallery-edit-carousel";
+import { GalleryEditToolbar } from "./gallery-edit-toolbar";
+import { GalleryEditCavnas } from "./gallery-edit-canvas";
+import { focusedImageStore } from "../../data/store/gallery-items-store";
+import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
+import { RectangleShape } from "../shapes/rectangle-shape";
+import { getRandomColor } from "../../utils/random/random-utils";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
+import { useCallback } from "react";
+import { v4 as uuid } from "uuid";
+import { useStore } from "@tanstack/react-store";
+import { colors } from "../../consts/colors";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -14,6 +21,10 @@ export type GalleryEditViewProps = {
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const galleryItemsQuery = useGalleryItemsQuery();
   const focusedImageId = useStore(focusedImageStore);
+  const mutateAnnotation = usePutAnnotation();
+  const annotationQuery = useAnnotationsQuery({
+    galleryItemId: focusedImageId!,
+  });
 
   const carouselHeight = 60;
   const toolbarHeight = 40;
@@ -23,6 +34,49 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const focusedImage = items.find(
     (item) => item.galleryItemId === focusedImageId
   );
+
+  const handleSubmitShape = useCallback(() => {
+    if (typeof annotationQuery.data?.length !== "number") return;
+    if (!focusedImageId) return;
+
+    const newUuid = uuid();
+    const hexColor = getRandomColor();
+    const outlineHexColor = getRandomColor();
+    const lastElementIndex = annotationQuery.data?.length - 1;
+    const lastElement = annotationQuery.data![lastElementIndex];
+    const height = lastElement.height;
+    const width = lastElement.width;
+
+    mutateAnnotation.mutate({
+      data: {
+        galleryItemId: focusedImageId,
+        annotationId: newUuid,
+        height: height,
+        width: width,
+        title: `Annotation #${lastElementIndex + 1}`,
+        description: `Description for Item ${focusedImageId} - ${lastElementIndex + 1}`,
+        type: "rectangle",
+        frame: 0.0,
+        rotation: 0,
+        x: lastElement.x + 20,
+        y: lastElement.y + 20,
+        fill: {
+          color: hexColor.toString(),
+          alpha: 0.5,
+        },
+        outline: {
+          brush: {
+            color: outlineHexColor.toString(),
+            alpha: 0.5,
+          },
+          thickness: 2.0,
+        },
+        createdAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
+        visible: true,
+      },
+    });
+  }, [annotationQuery.data, focusedImageId, mutateAnnotation]);
 
   if (!focusedImage) {
     return <p>No item</p>;
@@ -57,7 +111,35 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         <GalleryEditToolbar
           width={layout.docks.workspace.width}
           height={toolbarHeight}
-        />
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "start",
+              height: 36,
+              backgroundColor: "white",
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+            onMouseOver={() => {}}
+            onClick={() => handleSubmitShape()}
+          >
+            <RectangleShape
+              width={16}
+              height={16}
+              fill={"white"}
+              stroke={colors.headerForeground}
+            />
+            <p
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              Add Rectangle
+            </p>
+          </div>
+        </GalleryEditToolbar>
       </div>
       <div
         style={{

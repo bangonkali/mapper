@@ -3,16 +3,18 @@ import { colors } from "../../consts/colors";
 export type GalleryEditToolbarProps = {
   height: number;
   width: number;
+  children?: React.ReactNode;
 };
-
 export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   height,
   width,
+  children,
 }) => {
   
 
   return (
     <div
+      className="ns"
       style={{
         color: colors.headerForeground,
         left: 0,
@@ -22,11 +24,12 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
         backgroundColor: colors.headerBackground,
         borderBottom: `1px solid ${colors.borders}`,
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "start",
         alignItems: "center",
+        paddingLeft: 2,
       }}
     >
-      <div>Some toolbar | Add buttons here !</div>
+      {children}
     </div>
   );
 };
