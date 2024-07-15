@@ -53,20 +53,29 @@ export const GalleryToolboxPropertiesGrid = <T extends NestedObject>({
           if (type?.type === "ZodNumber") {
             const newValue = Number(value.new.value);
             const newObj = set(obj, value.new.key, newValue);
-            if (schema.safeParse(newObj).success) {
+            const parse = schema.safeParse(newObj);
+            if (parse.success) {
               onChange({ key: value.new.key, value: newObj });
+            } else {
+              console.log(parse.error.errors);
             }
           } else if (type?.type === "ZodBoolean") {
             const newValue = value.new.value === "true";
             const newObj = set(obj, value.new.key, newValue);
-            if (schema.safeParse(newObj).success) {
+            const parse = schema.safeParse(newObj);
+            if (parse.success) {
               onChange({ key: value.new.key, value: newObj });
+            } else {
+              console.log(parse.error.errors);
             }
           } else if (type?.type === "ZodString") {
             const newValue = value.new.value;
             const newObj = set(obj, value.new.key, newValue);
-            if (schema.safeParse(newObj).success) {
+            const parse = schema.safeParse(newObj);
+            if (parse.success) {
               onChange({ key: value.new.key, value: newObj });
+            } else {
+              console.log(parse.error.errors);
             }
           }
         }
