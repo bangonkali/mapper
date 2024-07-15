@@ -32,7 +32,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
         height: height,
         minHeight: height,
         maxHeight: height,
-        marginLeft: "2px",
+        marginLeft: 2,
         // backgroundColor: "red",
       }}
       onMouseMove={() => {

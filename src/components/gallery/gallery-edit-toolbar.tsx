@@ -9,14 +9,16 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   height,
   width,
 }) => {
+  
+
   return (
     <div
       style={{
         color: colors.headerForeground,
         left: 0,
         top: 0,
-        width: `${width}px`,
-        height: `${height}px`,
+        width: width,
+        height: height,
         backgroundColor: colors.headerBackground,
         borderBottom: `1px solid ${colors.borders}`,
         display: "flex",

@@ -1,6 +1,6 @@
 export const colors = {
   borders: "rgba(214,226,251,1)",
-  splitter: "gray",
+  splitter: "rgb(128,128,128,1)",
   background: "white",
   selected: "rgba(214,226,251,1)",
   headerBackground: "rgba(238,242,249,1)",

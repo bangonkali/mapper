@@ -75,7 +75,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
-          paddingLeft: "2px",
+          paddingLeft: 2,
         }}
       >
         {label}
@@ -105,7 +105,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
           borderLeft: `1px solid ${colors.borders}`,
-          paddingLeft: "2px",
+          paddingLeft: 2,
         }}
       >
         <input
@@ -150,9 +150,9 @@ export const GalleryToolboxPropertiesRow: React.FC<
             height: rowHeight,
             border: "none",
             outline: "none",
-            padding: "0px",
-            margin: "0px",
-            fontSize: "12px",
+            padding: 0,
+            margin: 0,
+            fontSize: 12,
             fontFamily: "Roboto",
             backgroundColor: isDirty
               ? colors.dirtyInputBackground

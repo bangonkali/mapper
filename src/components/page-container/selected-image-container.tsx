@@ -1,4 +1,3 @@
-import { useParams } from "@tanstack/react-router";
 import { useStore } from "@tanstack/react-store";
 import { useWindowSize } from "usehooks-ts";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
@@ -10,6 +9,8 @@ import { GalleryDock } from "../gallery/gallery-dock";
 import { GalleryEditView } from "../gallery/gallery-edit-view";
 import { GalleryHeader } from "../gallery/gallery-header";
 import styles from "../gallery/gallery.module.css";
+import { GalleryFooter } from "../gallery/gallery-footer";
+
 export const SelectedImageContainer: React.FC = () => {
   {
     const { width = 0, height = 0 } = useWindowSize();
@@ -17,16 +18,14 @@ export const SelectedImageContainer: React.FC = () => {
     const layout = useStore(galleryStoreLayout, (state) => {
       return computeGalleryLayout({ width, height, state, focusedImageId });
     });
-    const params = useParams({ from: "/selected-image/$galleryId" });
-    console.log(params.galleryId);
     return (
       <>
         <div
           className={styles.gallery}
           style={{
             overflow: "hidden",
-            height: `${height}px`,
-            width: `${width}px`,
+            height: height,
+            width: width,
           }}
         >
           <GalleryHeader
@@ -57,8 +56,8 @@ export const SelectedImageContainer: React.FC = () => {
             <div
               className={styles.workspace}
               style={{
-                width: `${layout.docks.workspace.width}px`,
-                height: `${layout.docks.workspace.height}px`,
+                width: layout.docks.workspace.width,
+                height: layout.docks.workspace.height,
               }}
             >
               <GalleryEditView layout={layout} />
@@ -67,10 +66,10 @@ export const SelectedImageContainer: React.FC = () => {
               <GalleryDock layout={layout} side="right" />
             ) : null}
           </div>
-          {/* <GalleryFooter
-        height={layout.footer.height}
-        width={layout.footer.width}
-      /> */}
+          <GalleryFooter
+            height={layout.footer.height}
+            width={layout.footer.width}
+          />
         </div>
       </>
     );

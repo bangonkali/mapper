@@ -16,8 +16,12 @@ export const onSplitterMouseMove = (
       return produce(state, (draft) => {
         const preferredWidth =
           side === "right" ? parent.width - e.clientX : e.clientX;
-        if (preferredWidth < 150) {
-          draft.gallery.layout.constraint.docks[side].visible = false;
+        if (
+          preferredWidth < draft.gallery.layout.constraint.docks[side].minWidth
+        ) {
+          draft.gallery.layout.constraint.docks[side].visible = true;
+          draft.gallery.layout.constraint.docks[side].desiredWidth =
+            draft.gallery.layout.constraint.docks[side].minWidth;
         } else {
           draft.gallery.layout.constraint.docks[side].visible = true;
           draft.gallery.layout.constraint.docks[side].desiredWidth =

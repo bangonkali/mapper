@@ -18,8 +18,8 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
   return (
     <div
       style={{
-        height: `${height - border}px`,
-        width: `${width}px`,
+        height: height - border,
+        width: width,
         borderBottom: `${border}px solid ${colors.borders}`,
         display: "flex",
         alignContent: "center",

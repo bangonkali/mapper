@@ -39,8 +39,8 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         position: "absolute",
         left: 0,
         right: 0,
-        height: `${layout.docks.workspace.height}px`,
-        width: `${layout.docks.workspace.width}px`,
+        height: layout.docks.workspace.height,
+        width: layout.docks.workspace.width,
       }}
     >
       <div

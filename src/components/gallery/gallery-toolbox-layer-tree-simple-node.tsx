@@ -32,8 +32,8 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
       <div
         style={{
           paddingLeft: 2 + levelPadding,
-          paddingTop: "3px",
-          paddingRight: "2px",
+          paddingTop: 3,
+          paddingRight: 2,
           width: iconWidth,
         }}
       >

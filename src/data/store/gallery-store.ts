@@ -18,12 +18,14 @@ export type GalleryStoreLayout = {
             desiredWidth: number;
             visible: boolean;
             splitterEnabled: boolean;
+            splitterVisible: boolean;
           };
           right: {
             minWidth: number;
             desiredWidth: number;
             visible: boolean;
             splitterEnabled: boolean;
+            splitterVisible: boolean;
           };
           bottom: {
             desiredHeight: number;
@@ -56,12 +58,14 @@ export const galleryStoreLayout = new Store<GalleryStoreLayout>({
             minWidth: 150,
             visible: true,
             splitterEnabled: false,
+            splitterVisible: false,
           },
           right: {
             desiredWidth: 200,
             minWidth: 150,
             visible: true,
             splitterEnabled: false,
+            splitterVisible: false,
           },
           bottom: {
             desiredHeight: 0,

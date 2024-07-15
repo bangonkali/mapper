@@ -9,6 +9,8 @@ export const onSplitterEnd = (
     return produce(state, (draft) => {
       draft.gallery.layout.constraint.docks.right.splitterEnabled = false;
       draft.gallery.layout.constraint.docks.left.splitterEnabled = false;
+      draft.gallery.layout.constraint.docks.right.splitterVisible = false;
+      draft.gallery.layout.constraint.docks.left.splitterVisible = false;
     });
   });
 };

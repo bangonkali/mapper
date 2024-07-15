@@ -3,7 +3,7 @@ import { GalleryToolboxPropertiesTemplate } from "./gallery-toolbox-properties-t
 import { getPropertyPaths } from "../../utils/zod/zod-paths";
 import { flattenToDictionary, NestedObject } from "../../utils/flatten";
 import { ZodSchema } from "zod";
-import { get, set } from "radash";
+import { set } from "radash";
 
 export type GalleryToolboxPropertiesGridChangedEventPayload<
   T extends NestedObject,
@@ -55,21 +55,18 @@ export const GalleryToolboxPropertiesGrid = <T extends NestedObject>({
             const newObj = set(obj, value.new.key, newValue);
             if (schema.safeParse(newObj).success) {
               onChange({ key: value.new.key, value: newObj });
-              console.log(`${value.new.key}: ${get(newObj, value.new.key)}`);
             }
           } else if (type?.type === "ZodBoolean") {
             const newValue = value.new.value === "true";
             const newObj = set(obj, value.new.key, newValue);
             if (schema.safeParse(newObj).success) {
               onChange({ key: value.new.key, value: newObj });
-              console.log(`${value.new.key}: ${get(newObj, value.new.key)}`);
             }
           } else if (type?.type === "ZodString") {
             const newValue = value.new.value;
             const newObj = set(obj, value.new.key, newValue);
             if (schema.safeParse(newObj).success) {
               onChange({ key: value.new.key, value: newObj });
-              console.log(`${value.new.key}: ${get(newObj, value.new.key)}`);
             }
           }
         }
