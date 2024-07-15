@@ -1,3 +1,5 @@
+import { colors } from "../../consts/colors";
+
 export type GalleryEditToolbarProps = {
   height: number;
   width: number;
