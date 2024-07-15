@@ -52,8 +52,11 @@ export const GalleryItemThumbnail = forwardRef<
         }}
         ref={focused ? focusElement : null}
         onClick={() => {
-          const galleryId = item.galleryItemId;
-          navigate({ to: "/selected-image/$galleryId", params: { galleryId } });
+          const galleryItemId = item.galleryItemId;
+          navigate({
+            to: "/gallery/item/$galleryItemId",
+            params: { galleryItemId },
+          });
         }}
       />
       {focused ? (

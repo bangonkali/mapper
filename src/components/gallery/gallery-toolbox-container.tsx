@@ -4,8 +4,8 @@ import { GalleryToolboxItemProperties } from "./gallery-toolbox-item-properties"
 import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
 import { GalleryToolboxLayerTreeContainer } from "./gallery-toolbox-layer-tree-container";
-import { Route } from "../../routes/selected-image.$galleryId.lazy";
 import { colors } from "../../consts/colors";
+import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
 
 export type GalleryToolboxContainerProps = {
   width: number;
@@ -16,10 +16,10 @@ export type GalleryToolboxContainerProps = {
 export const GalleryToolboxContainer: React.FC<
   GalleryToolboxContainerProps
 > = ({ height, width, side }) => {
-  const { galleryId } = Route.useParams();
+  const { galleryItemId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
-  const focusedImageId = galleryId;
+  const focusedImageId = galleryItemId;
   const galleryItems = galleryItemsQuery.data ?? [];
   const focusedGalleryItem = galleryItems.find(
     (item) => item.galleryItemId === focusedImageId

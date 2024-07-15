@@ -11,16 +11,16 @@ import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { useCallback } from "react";
 import { v4 as uuid } from "uuid";
 import { colors } from "../../consts/colors";
-import { Route } from "../../routes/selected-image.$galleryId.lazy";
+import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
-  const { galleryId } = Route.useParams();
+  const { galleryItemId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
-  const focusedImageId = galleryId;
+  const focusedImageId = galleryItemId;
   const mutateAnnotation = usePutAnnotation();
   const annotationQuery = useAnnotationsQuery({
     galleryItemId: focusedImageId!,

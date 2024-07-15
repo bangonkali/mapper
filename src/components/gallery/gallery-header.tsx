@@ -13,7 +13,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
   width,
 }) => {
   const border = 1;
-  const navigate = useNavigate({ from: "/selected-image/$galleryId" });
+  const navigate = useNavigate({ from: "/gallery/item/$galleryItemId" });
   return (
     <div
       style={{
