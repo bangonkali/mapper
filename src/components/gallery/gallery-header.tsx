@@ -1,6 +1,5 @@
 import { colors } from "../../consts/colors";
 import { produce } from "immer";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { galleryStoreLayout } from "../../data/store/gallery-store";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -30,7 +29,6 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
       <button
         onClick={() => {
           navigate({ to: "/gallery" });
-          focusedImageStore.setState(() => null);
         }}
       >
         Gallery

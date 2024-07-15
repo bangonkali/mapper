@@ -19,7 +19,6 @@ export type GalleryComputedLayout = {
       visible: boolean;
       splitterEnabled: boolean;
       splitterVisible: boolean;
-      
     };
     right: {
       minWidth: number;
@@ -39,8 +38,6 @@ export type GalleryComputedLayout = {
       height: number;
       resizing: boolean;
       minWidth: number;
-      view: GalleryWorkspaceView;
-      focusImageId: string | null;
     };
   };
 };

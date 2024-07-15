@@ -3,12 +3,10 @@ import { useStore } from "@tanstack/react-store";
 import { GalleryMasonryView } from "./gallery-masonry-view";
 import { GalleryFooter } from "./gallery-footer";
 import { GalleryHeader } from "./gallery-header";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { galleryStoreLayout } from "../../data/store/gallery-store";
 import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
 import { onSplitterMouseMoveAll } from "../../data/store/mutations/splitter/on-splitter-mouse-move-all";
 import { computeGalleryLayout } from "../../data/store/selectors/compute-gallery-layout";
-import { GalleryDock } from "./gallery-dock";
 
 type GalleryProps = {
   height: number;
@@ -16,9 +14,8 @@ type GalleryProps = {
 };
 
 export const Gallery: React.FC<GalleryProps> = (props) => {
-  const focusedImageId = useStore(focusedImageStore);
   const layout = useStore(galleryStoreLayout, (state) => {
-    return computeGalleryLayout({ ...props, state, focusedImageId });
+    return computeGalleryLayout({ ...props, state });
   });
 
   return (
@@ -50,25 +47,9 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
           );
         }}
       >
-        {layout.docks.left.visible ? (
-          <GalleryDock layout={layout} side="left" key="left" />
-        ) : null}
-        <div
-          className={styles.workspace}
-          style={{
-            width: layout.docks.workspace.width,
-            height: layout.docks.workspace.height,
-          }}
-        >
-          <GalleryMasonryView
-            view={layout.docks.workspace.view}
-            width={layout.docks.workspace.width}
-            height={layout.docks.workspace.height}
-          />
+        <div className={styles.workspace} style={{ ...props }}>
+          <GalleryMasonryView {...props} />
         </div>
-        {layout.docks.right.visible ? (
-          <GalleryDock layout={layout} side="right" key="right" />
-        ) : null}
       </div>
       <GalleryFooter
         height={layout.footer.height}

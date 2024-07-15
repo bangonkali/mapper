@@ -1,7 +1,6 @@
 import { useState, forwardRef } from "react";
 import { GalleryItemLayoutBox } from "../../models/GalleryItemLayoutBox";
 import { produce } from "immer";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
 import { useNavigate } from "@tanstack/react-router";
@@ -55,7 +54,6 @@ export const GalleryItemThumbnail = forwardRef<
         onClick={() => {
           const galleryId = item.galleryItemId;
           navigate({ to: "/selected-image/$galleryId", params: { galleryId } });
-          focusedImageStore.setState(() => item.galleryItemId);
         }}
       />
       {focused ? (

@@ -4,23 +4,23 @@ import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotati
 import { GalleryEditCarousel } from "./gallery-edit-carousel";
 import { GalleryEditToolbar } from "./gallery-edit-toolbar";
 import { GalleryEditCavnas } from "./gallery-edit-canvas";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
 import { RectangleShape } from "../shapes/rectangle-shape";
 import { getRandomColor } from "../../utils/random/random-utils";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { useCallback } from "react";
 import { v4 as uuid } from "uuid";
-import { useStore } from "@tanstack/react-store";
 import { colors } from "../../consts/colors";
+import { Route } from "../../routes/selected-image.$galleryId.lazy";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
+  const { galleryId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
-  const focusedImageId = useStore(focusedImageStore);
+  const focusedImageId = galleryId;
   const mutateAnnotation = usePutAnnotation();
   const annotationQuery = useAnnotationsQuery({
     galleryItemId: focusedImageId!,

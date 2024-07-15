@@ -16,5 +16,5 @@ export const fetchAnnotation = async ({
       galleryItemId,
     })
     .first();
-  return annotation;
+  return annotation ?? null;
 };

@@ -1,21 +1,16 @@
-import {
-  GalleryWorkspaceView,
-  GalleryComputedLayout,
-} from "../../../models/app/app-layout";
+import { GalleryComputedLayout } from "../../../models/app/app-layout";
 import { GalleryStoreLayout } from "../gallery-store";
 
 export type GalleryComputedLayoutProps = {
   state: GalleryStoreLayout;
   width: number;
   height: number;
-  focusedImageId: string | null;
 };
 
 export const computeGalleryLayout = ({
   width,
   height,
   state,
-  focusedImageId,
 }: GalleryComputedLayoutProps) => {
   const header = {
     width: width,
@@ -70,10 +65,6 @@ export const computeGalleryLayout = ({
     height: height - header.height - footer.height - bottom.height,
     resizing: right.splitterEnabled,
     minWidth: state.gallery.layout.constraint.docks.workspace.minWidth,
-    view: !focusedImageId
-      ? ("masonry" as GalleryWorkspaceView)
-      : ("editor" as GalleryWorkspaceView),
-    focusImageId: focusedImageId,
   };
 
   const computed: GalleryComputedLayout = {

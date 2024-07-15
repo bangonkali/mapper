@@ -1,11 +1,9 @@
 import { useState, forwardRef } from "react";
 import { produce } from "immer";
-import {
-  focusedImageStore,
-  gallerySelectedAnnotationStore,
-} from "../../data/store/gallery-items-store";
+import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
+import { useNavigate } from "@tanstack/react-router";
 
 export type GalleryEditCarouselThumbnailProps = {
   item: GalleryItem;
@@ -18,6 +16,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
   HTMLImageElement,
   GalleryEditCarouselThumbnailProps
 >(({ item, height, width, focused }, focusElement) => {
+  const navigate = useNavigate({ from: "/gallery" });
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
 
@@ -59,7 +58,8 @@ export const GalleryEditCarouselThumbnail = forwardRef<
         ref={focused ? focusElement : null}
         onClick={() => {
           gallerySelectedAnnotationStore.setState(() => null);
-          focusedImageStore.setState(() => item.galleryItemId);
+          const galleryId = item.galleryItemId;
+          navigate({ to: "/selected-image/$galleryId", params: { galleryId } });
         }}
       />
       {focused ? (

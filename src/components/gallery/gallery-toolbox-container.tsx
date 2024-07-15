@@ -1,12 +1,10 @@
 import { useStore } from "@tanstack/react-store";
 import { GalleryToolboxAnnotationOverlayProperties } from "./gallery-toolbox-annotation-overlay-properties";
 import { GalleryToolboxItemProperties } from "./gallery-toolbox-item-properties";
-import {
-  gallerySelectedAnnotationStore,
-  focusedImageStore,
-} from "../../data/store/gallery-items-store";
+import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
 import { GalleryToolboxLayerTreeContainer } from "./gallery-toolbox-layer-tree-container";
+import { Route } from "../../routes/selected-image.$galleryId.lazy";
 import { colors } from "../../consts/colors";
 
 export type GalleryToolboxContainerProps = {
@@ -18,10 +16,10 @@ export type GalleryToolboxContainerProps = {
 export const GalleryToolboxContainer: React.FC<
   GalleryToolboxContainerProps
 > = ({ height, width, side }) => {
-  // find if there is a selected item annotation from the editor view
+  const { galleryId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
-  const focusedImageId = useStore(focusedImageStore);
+  const focusedImageId = galleryId;
   const galleryItems = galleryItemsQuery.data ?? [];
   const focusedGalleryItem = galleryItems.find(
     (item) => item.galleryItemId === focusedImageId

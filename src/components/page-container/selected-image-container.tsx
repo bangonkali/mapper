@@ -1,6 +1,5 @@
 import { useStore } from "@tanstack/react-store";
 import { useWindowSize } from "usehooks-ts";
-import { focusedImageStore } from "../../data/store/gallery-items-store";
 import { galleryStoreLayout } from "../../data/store/gallery-store";
 import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
 import { onSplitterMouseMoveAll } from "../../data/store/mutations/splitter/on-splitter-mouse-move-all";
@@ -14,9 +13,8 @@ import { GalleryFooter } from "../gallery/gallery-footer";
 export const SelectedImageContainer: React.FC = () => {
   {
     const { width = 0, height = 0 } = useWindowSize();
-    const focusedImageId = useStore(focusedImageStore);
     const layout = useStore(galleryStoreLayout, (state) => {
-      return computeGalleryLayout({ width, height, state, focusedImageId });
+      return computeGalleryLayout({ width, height, state });
     });
     return (
       <>
