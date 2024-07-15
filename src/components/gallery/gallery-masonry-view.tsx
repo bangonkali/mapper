@@ -5,7 +5,7 @@ import { GalleryWorkspaceView } from "../../models/app/app-layout";
 import { galleryMasonryLayoutStore } from "../../data/store/gallery-masonry-layout-store";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { focusedImageStore } from "../../data/store/gallery-items-store";
 
 export type GalleryMasonryViewProps = {
@@ -50,7 +50,7 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
     scrollToElement();
   }
   const masonry = items.map((item, index) => {
-    let focused = item.galleryItemId === focusedImageId;
+    const focused = item.galleryItemId === focusedImageId;
     return (
       <GalleryItemThumbnail
         key={`thumb-${item.galleryItemId}`}
