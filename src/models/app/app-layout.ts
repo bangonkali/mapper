@@ -18,6 +18,8 @@ export type GalleryComputedLayout = {
       height: number;
       visible: boolean;
       splitterEnabled: boolean;
+      splitterVisible: boolean;
+      
     };
     right: {
       minWidth: number;
@@ -25,6 +27,7 @@ export type GalleryComputedLayout = {
       height: number;
       visible: boolean;
       splitterEnabled: boolean;
+      splitterVisible: boolean;
     };
     bottom: {
       width: number;

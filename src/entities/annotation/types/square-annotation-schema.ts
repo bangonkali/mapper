@@ -51,6 +51,11 @@ export const SquareAnnotationSchema = AnnotationBaseSchema.extend({
    * The outline of the rectangle.
    */
   outline: OutlineSchema,
+
+  /**
+   * The visibility of the annotation.
+   */
+  visible: z.boolean(),
 });
 
 export type SquareAnnotation = z.infer<typeof SquareAnnotationSchema>;

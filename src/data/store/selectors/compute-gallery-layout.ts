@@ -34,10 +34,12 @@ export const computeGalleryLayout = ({
   };
 
   const right = {
+    splitterVisible:
+      state.gallery.layout.constraint.docks.right.splitterVisible,
     minWidth: state.gallery.layout.constraint.docks.right.minWidth,
     width: state.gallery.layout.constraint.docks.right.visible
       ? state.gallery.layout.constraint.docks.right.desiredWidth
-      : 0,
+      : state.gallery.layout.constraint.docks.right.minWidth,
     height: height - header.height - footer.height,
     visible: state.gallery.layout.constraint.docks.right.visible,
     splitterEnabled:
@@ -45,10 +47,11 @@ export const computeGalleryLayout = ({
   };
 
   const left = {
+    splitterVisible: state.gallery.layout.constraint.docks.left.splitterVisible,
     minWidth: state.gallery.layout.constraint.docks.left.minWidth,
     width: state.gallery.layout.constraint.docks.left.visible
       ? state.gallery.layout.constraint.docks.left.desiredWidth
-      : 0,
+      : state.gallery.layout.constraint.docks.left.minWidth,
     height: height - header.height - footer.height,
     visible: state.gallery.layout.constraint.docks.left.visible,
     splitterEnabled: state.gallery.layout.constraint.docks.left.splitterEnabled,

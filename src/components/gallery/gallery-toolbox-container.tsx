@@ -7,6 +7,7 @@ import {
 } from "../../data/store/gallery-items-store";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
 import { GalleryToolboxLayerTreeContainer } from "./gallery-toolbox-layer-tree-container";
+import { colors } from "../../consts/colors";
 
 export type GalleryToolboxContainerProps = {
   width: number;
@@ -27,14 +28,18 @@ export const GalleryToolboxContainer: React.FC<
   );
 
   // find the annotation tags for focusedGalleryItem
+  const borderWidth = 1;
 
   return (
     <div
+      className="gallery-toolbox-container"
       style={{
         height: height,
-        width: width,
+        width: width - borderWidth,
         display: "flex",
         flexDirection: "column",
+        borderLeft: side === "right" ? `1px solid ${colors.borders}` : "none",
+        borderRight: side === "left" ? `1px solid ${colors.borders}` : "none",
       }}
     >
       {side === "left" ? (
@@ -43,13 +48,13 @@ export const GalleryToolboxContainer: React.FC<
             <div
               style={{
                 height: height,
-                width: width,
+                width: width - borderWidth,
                 display: "flex",
                 flexDirection: "column",
               }}
             >
               <GalleryToolboxLayerTreeContainer
-                width={width}
+                width={width - borderWidth}
                 height={height}
                 focusedImage={focusedGalleryItem}
                 selectedAnnotationId={selectedAnnotationId}
@@ -61,7 +66,7 @@ export const GalleryToolboxContainer: React.FC<
         <>
           {selectedAnnotationId && focusedImageId ? (
             <GalleryToolboxAnnotationOverlayProperties
-              width={width}
+              width={width - borderWidth}
               height={height}
               selectedAnnotationId={selectedAnnotationId}
               galleryItemId={focusedImageId}
@@ -69,7 +74,7 @@ export const GalleryToolboxContainer: React.FC<
           ) : null}
 
           <GalleryToolboxItemProperties
-            width={width}
+            width={width - borderWidth}
             height={height}
             focusedImage={focusedGalleryItem}
           />

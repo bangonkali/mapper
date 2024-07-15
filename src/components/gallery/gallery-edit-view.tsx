@@ -13,14 +13,13 @@ import HexRandomColorHook from "../../Hooks/HexRandomColorHook";
 import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
 
 import { useCallback } from "react";
+
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
 
-import { MdSquare } from "react-icons/md";
-import { MdRectangle } from "react-icons/md";
-
 import "./gallery-edit-view.css"; // Example CSS for styling the button group
+import { RectangleShape } from "../shapes/rectangle-shape";
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const galleryItemsQuery = useGalleryItemsQuery();
@@ -30,10 +29,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     galleryItemId: focusedImageId!,
   });
 
-  const shapes = {
-    rectangle: "rectangle",
-    square: "square",
-  };
   const [generateOutline, generateRandomHexColor] = HexRandomColorHook();
   const carouselHeight = 60;
   const toolbarHeight = 40;
@@ -44,6 +39,52 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     (item) => item.galleryItemId === focusedImageId
   );
 
+  const handleSubmitShape = useCallback(() => {
+    if (typeof annotationQuery.data?.length !== "number") return;
+
+    const newUuid = uuid();
+    const hexColor = generateRandomHexColor();
+    const outlineHexColor = generateOutline();
+    const lastElement = annotationQuery.data?.length - 1;
+    const height = annotationQuery.data![lastElement].height;
+    const width = annotationQuery.data![lastElement].width;
+    mutateAnnotation.mutate({
+      data: {
+        galleryItemId: focusedImageId!,
+        annotationId: newUuid,
+        height: height,
+        width: width,
+        title: " ",
+        description: " ",
+        type: "rectangle",
+        frame: 0.0,
+        rotation: 0,
+        x: 200,
+        y: annotationQuery.data![lastElement]!.y,
+        fill: {
+          color: hexColor.toString(),
+          alpha: 0.5,
+        },
+        outline: {
+          brush: {
+            color: outlineHexColor.toString(),
+            alpha: 0.5,
+          },
+          thickness: 2.0,
+        },
+        createdAt: new Date().getTime(), // current time
+        updatedAt: new Date().getTime(), // Add updatedAt property
+        visible: true, // Add the visible property
+      },
+    });
+  }, [
+    annotationQuery.data,
+    focusedImageId,
+    generateOutline,
+    generateRandomHexColor,
+    mutateAnnotation,
+  ]);
+
   if (!focusedImage) {
     return <p>No item</p>;
   }
@@ -52,56 +93,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     return <p>No items</p>;
   }
 
-  const handleSubmitShape = useCallback(
-    (selectedShape: string) => {
-      const newUuid = uuid();
-      const hexColor = generateRandomHexColor();
-      const outlineHexColor = generateOutline();
-
-      const lastElement = annotationQuery.data?.length! - 1;
-      let height = annotationQuery.data![lastElement].height;
-      let width = annotationQuery.data![lastElement].width;
-      let rotation = 0.0;
-      let shape: "rectangle" | "square";
-      if (selectedShape === shapes.square) {
-        height = 85;
-        width = 85;
-        shape = "square";
-      } else {
-        height = annotationQuery.data![lastElement].height;
-        width = annotationQuery.data![lastElement].width;
-        shape = "rectangle";
-      }
-      mutateAnnotation.mutate({
-        data: {
-          galleryItemId: focusedImageId!,
-          annotationId: newUuid,
-          height: height,
-          width: width,
-          title: " ",
-          description: " ",
-          type: shape,
-          frame: 0.0,
-          rotation: rotation,
-          x: 200,
-          y: annotationQuery.data![lastElement]!.y,
-          fill: {
-            color: hexColor.toString(),
-            alpha: 0.5,
-          },
-          outline: {
-            brush: {
-              color: outlineHexColor.toString(),
-              alpha: 0.5,
-            },
-            thickness: 2.0,
-          },
-        },
-      });
-    },
-    [annotationQuery]
-  );
-
   return (
     <div
       style={{
@@ -109,8 +100,8 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         position: "absolute",
         left: 0,
         right: 0,
-        height: `${layout.docks.workspace.height}px`,
-        width: `${layout.docks.workspace.width}px`,
+        height: layout.docks.workspace.height,
+        width: layout.docks.workspace.width,
       }}
     >
       <div
@@ -131,17 +122,15 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
             <div className="gallery-add-new-shape-container">
               <button
                 className={`gallery-add-new-shape-buttons`}
-                onClick={() => handleSubmitShape("rectangle")}
+                onClick={() => handleSubmitShape()}
               >
-                <MdRectangle />
+                <RectangleShape
+                  width={6}
+                  height={12}
+                  fill={"orange"}
+                  stroke={"white"}
+                />
                 Rectangle
-              </button>
-              <button
-                className="gallery-add-new-shape-buttons"
-                onClick={() => handleSubmitShape("square")}
-              >
-                <MdSquare />
-                Square
               </button>
             </div>
           }

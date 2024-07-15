@@ -11,23 +11,21 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   children,
 }) => {
   return (
-    <div>
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: `${width}px`,
-          height: `${height}px`,
-          backgroundColor: "pink",
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
-        }}
-      >
-        Some toolbar
-        {children}
-      </div>
+    <div
+      style={{
+        color: colors.headerForeground,
+        left: 0,
+        top: 0,
+        width: width,
+        height: height,
+        backgroundColor: colors.headerBackground,
+        borderBottom: `1px solid ${colors.borders}`,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {children}
     </div>
   );
 };

@@ -53,7 +53,7 @@ export const GalleryToolboxAnnotationOverlayProperties: React.FC<
         },
       ]}
       schema={AnnotationSchema}
-      title={"Annotation"}
+      title={`Annotation`}
       onChange={(e) => {
         mutateAnnotation.mutate({ data: e.value });
       }}

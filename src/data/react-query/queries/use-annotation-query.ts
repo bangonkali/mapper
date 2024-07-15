@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   fetchAnnotation,
   FetchAnnotationParams,
@@ -23,5 +23,6 @@ export const useAnnotationQuery = (params: FetchAnnotationParams) => {
     queryKey: getUseAnnotationQueryKey(params),
     queryFn: () => fetchAnnotation(params),
     initialData: initialData,
+    placeholderData: keepPreviousData,
   });
 };

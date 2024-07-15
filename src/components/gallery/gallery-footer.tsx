@@ -13,8 +13,8 @@ export const GalleryFooter: React.FC<GalleryFooterProps> = ({
   return (
     <div
       style={{
-        height: `${height - topBorder}px`,
-        width: `${width}px`,
+        height: height - topBorder,
+        width: width,
         borderTop: `${topBorder}px solid ${colors.borders}`,
         backgroundColor: colors.headerBackground,
         color: colors.headerForeground,

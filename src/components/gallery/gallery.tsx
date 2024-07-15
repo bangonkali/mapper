@@ -26,8 +26,8 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
       className={styles.gallery}
       style={{
         overflow: "hidden",
-        height: `${props.height}px`,
-        width: `${props.width}px`,
+        height: props.height,
+        width: props.width,
       }}
     >
       <GalleryHeader
@@ -51,13 +51,13 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
         }}
       >
         {layout.docks.left.visible ? (
-          <GalleryDock layout={layout} side="left" />
+          <GalleryDock layout={layout} side="left" key="left" />
         ) : null}
         <div
           className={styles.workspace}
           style={{
-            width: `${layout.docks.workspace.width}px`,
-            height: `${layout.docks.workspace.height}px`,
+            width: layout.docks.workspace.width,
+            height: layout.docks.workspace.height,
           }}
         >
           <GalleryMasonryView
@@ -67,7 +67,7 @@ export const Gallery: React.FC<GalleryProps> = (props) => {
           />
         </div>
         {layout.docks.right.visible ? (
-          <GalleryDock layout={layout} side="right" />
+          <GalleryDock layout={layout} side="right" key="right" />
         ) : null}
       </div>
       <GalleryFooter

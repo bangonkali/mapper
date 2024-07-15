@@ -16,8 +16,6 @@ export const GalleryItemThumbnail = forwardRef<
   HTMLImageElement,
   GalleryItemThumbnailProps
 >(({ item, layout, focused }, focusElement) => {
-  console.log(focused);
-  console.log(focusElement);
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
   const navigate = useNavigate({ from: "/gallery" });
@@ -25,12 +23,12 @@ export const GalleryItemThumbnail = forwardRef<
     <div
       className="ns"
       style={{
-        padding: "0px",
-        margin: "0px",
+        padding: 0,
+        margin: 0,
         position: "absolute",
-        top: `${layout.top}px`,
-        left: `${layout.left}px`,
-        width: `${layout.width}px`,
+        top: layout.top,
+        left: layout.left,
+        width: layout.width,
         display: "absolute",
       }}
       onMouseMove={() => {
@@ -46,11 +44,11 @@ export const GalleryItemThumbnail = forwardRef<
         src={item.src}
         alt={item.caption}
         style={{
-          margin: "0px",
-          padding: "0px",
+          margin: 0,
+          padding: 0,
           position: "absolute",
-          width: `${layout.width}px`,
-          height: `${layout.height}px`,
+          width: layout.width,
+          height: layout.height,
           display: "relative",
         }}
         ref={focused ? focusElement : null}
@@ -64,11 +62,11 @@ export const GalleryItemThumbnail = forwardRef<
         <div
           className="ns"
           style={{
-            margin: "0px",
-            padding: "0px",
+            margin: 0,
+            padding: 0,
             position: "absolute",
-            width: `${layout.width}px`,
-            height: `${layout.height}px`,
+            width: layout.width,
+            height: layout.height,
             display: "relative",
             pointerEvents: "none",
           }}
@@ -79,14 +77,14 @@ export const GalleryItemThumbnail = forwardRef<
         <div
           className="ns"
           style={{
-            margin: "0px",
-            padding: "0px",
+            margin: 0,
+            padding: 0,
             position: "absolute",
             display: "relative",
-            paddingLeft: "10px",
-            paddingRight: "10px",
-            paddingTop: "10px",
-            paddingBottom: "10px",
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
           }}
           onClick={() => {
             putGalleryItem.mutate({
