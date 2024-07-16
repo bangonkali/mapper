@@ -38,8 +38,6 @@ export const GalleryToolboxPropertiesHeader: React.FC<
         <div
           style={{
             width: minimizeButtonWidth,
-            // backgroundColor: "orange",
-            // paddingLeft: minimizeButtonWidth / 2 + 3,
             cursor: "pointer",
           }}
           onClick={onMinimizeClick}

@@ -189,10 +189,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
             left: 0,
             width: layout.docks.workspace.width,
             height: layout.docks.bottom.height,
-            backgroundColor: "orange",
-            // backgroundColor: layout.docks.bottom.splitterVisible
-            //   ? colors.splitter
-            //   : "transparent",
           }}
         >
           <GalleryEditCarousel

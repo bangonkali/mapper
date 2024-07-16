@@ -28,6 +28,7 @@ export const GalleryItemContainer: React.FC = () => {
         <GalleryHeader
           width={layout.header.width}
           height={layout.header.height}
+          layout={layout}
         />
         <div
           className={styles.content}
