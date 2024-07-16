@@ -18,8 +18,8 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
   const rowHeight = 18;
   const mutateAnnotation = usePutAnnotation();
   const selected = annotation.annotationId === selectedAnnotationId;
-  const iconWidth = rowHeight - 4;
-  const checkboxWidth = 20;
+  const iconWidth = rowHeight - 3;
+  const checkboxWidth = rowHeight - 3;
   const levelPadding = 10 * level;
   const descriptionWidth = width - iconWidth - levelPadding - scrollbarRight;
 
@@ -66,7 +66,7 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
         {annotation.title}
       </div>
 
-      <div style={{ width: checkboxWidth }}>
+      <div style={{ width: checkboxWidth, height: checkboxWidth }}>
         <input
           type="checkbox"
           checked={annotation.visible}

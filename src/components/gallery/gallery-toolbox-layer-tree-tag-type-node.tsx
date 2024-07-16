@@ -42,16 +42,7 @@ export const GalleryToolboxLayerTreeTagTypeNode: React.FC<
   });
 
   return (
-    <div
-      key={tagType}
-      style={{
-        width: width,
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <>
       <GalleryToolboxLayerTreeSimpleNode
         width={width}
         level={level}
@@ -61,6 +52,6 @@ export const GalleryToolboxLayerTreeTagTypeNode: React.FC<
         onExpandToggleClick={() => setIsExpanded((prev) => !prev)}
       />
       {isExpanded ? tagValueRows : null}
-    </div>
+    </>
   );
 };

@@ -12,6 +12,9 @@ import { useCallback } from "react";
 import { v4 as uuid } from "uuid";
 import { colors } from "../../consts/colors";
 import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
+import { galleryStoreLayout } from "../../data/store/gallery-store";
+import { produce } from "immer";
+import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -26,10 +29,9 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     galleryItemId: focusedImageId!,
   });
 
-  const carouselHeight = 60;
   const toolbarHeight = 40;
   const canvasHeight =
-    layout.docks.workspace.height - carouselHeight - toolbarHeight;
+    layout.docks.workspace.height - layout.docks.bottom.height - toolbarHeight;
   const items: GalleryItem[] = galleryItemsQuery.data ?? [];
   const focusedImage = items.find(
     (item) => item.galleryItemId === focusedImageId
@@ -173,19 +175,66 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         className="ns"
         style={{
           left: 0,
-          top: layout.docks.workspace.height - carouselHeight,
-          height: carouselHeight,
+          top: 0,
+          height: layout.docks.bottom.height,
           width: layout.docks.workspace.width,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          position: "relative",
         }}
       >
-        <GalleryEditCarousel
-          items={items}
-          height={carouselHeight}
-          focusedItem={focusedImage}
-        />
+        <div
+          id="dock-bottom-container"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: layout.docks.workspace.width,
+            height: layout.docks.bottom.height,
+            backgroundColor: "orange",
+            // backgroundColor: layout.docks.bottom.splitterVisible
+            //   ? colors.splitter
+            //   : "transparent",
+          }}
+        >
+          <GalleryEditCarousel
+            items={items}
+            height={layout.docks.bottom.height}
+            focusedItem={focusedImage}
+          />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: layout.docks.workspace.width,
+            height: 3,
+            cursor: "row-resize",
+            backgroundColor: layout.docks.bottom.splitterVisible
+              ? colors.splitter
+              : "transparent",
+          }}
+          onMouseLeave={() => {
+            if (!layout.docks.bottom.splitterEnabled) {
+              onSplitterEnd(galleryStoreLayout);
+            }
+          }}
+          onMouseOver={() => {
+            galleryStoreLayout.setState((state) => {
+              return produce(state, (draft) => {
+                draft.gallery.layout.constraint.docks.bottom.splitterVisible =
+                  true;
+              });
+            });
+          }}
+          onMouseDown={() => {
+            galleryStoreLayout.setState((state) => {
+              return produce(state, (draft) => {
+                draft.gallery.layout.constraint.docks.bottom.splitterEnabled =
+                  true;
+              });
+            });
+          }}
+        ></div>
       </div>
     </div>
   );

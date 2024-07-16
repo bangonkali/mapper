@@ -12,4 +12,5 @@ export const onSplitterMouseMoveAll = (
 ) => {
   onSplitterMouseMove("left", parent, computed, galleryStoreLayout, e);
   onSplitterMouseMove("right", parent, computed, galleryStoreLayout, e);
+  onSplitterMouseMove("bottom", parent, computed, galleryStoreLayout, e);
 };

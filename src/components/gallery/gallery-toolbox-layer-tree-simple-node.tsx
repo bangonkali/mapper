@@ -25,7 +25,7 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
   const scrollbarRight = 12;
   const rowHeight = 18;
   const iconWidth = rowHeight - 3;
-  const checkboxWidth = 20;
+  const checkboxWidth = rowHeight - 3;
   const levelPadding = 20 * level;
   const descriptionWidth = width - iconWidth - levelPadding - scrollbarRight;
 
@@ -80,7 +80,7 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
         </div>
       </div>
       {onVisibleCheckboxClick ? (
-        <div style={{ width: checkboxWidth }}>
+        <div style={{ width: checkboxWidth, height: checkboxWidth }}>
           <input
             type="checkbox"
             checked={isVisible}

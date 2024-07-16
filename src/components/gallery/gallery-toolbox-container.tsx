@@ -43,21 +43,12 @@ export const GalleryToolboxContainer: React.FC<
       {side === "left" ? (
         <>
           {focusedGalleryItem ? (
-            <div
-              style={{
-                height: height,
-                width: width - borderWidth,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <GalleryToolboxLayerTreeContainer
-                width={width - borderWidth}
-                height={height}
-                focusedImage={focusedGalleryItem}
-                selectedAnnotationId={selectedAnnotationId}
-              />
-            </div>
+            <GalleryToolboxLayerTreeContainer
+              width={width - borderWidth}
+              height={height}
+              focusedImage={focusedGalleryItem}
+              selectedAnnotationId={selectedAnnotationId}
+            />
           ) : null}
         </>
       ) : (

@@ -14,7 +14,7 @@ export type GalleryToolboxLayerTreeAnnotationsTrunkProps = {
 export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
   GalleryToolboxLayerTreeAnnotationsTrunkProps
 > = ({ width, focusedImage, selectedAnnotationId }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const annotationQuery = useAnnotationsQuery({
     galleryItemId: focusedImage.galleryItemId,
   });

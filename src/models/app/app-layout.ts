@@ -29,15 +29,18 @@ export type GalleryComputedLayout = {
       splitterVisible: boolean;
     };
     bottom: {
-      width: number;
       height: number;
       visible: boolean;
+      splitterEnabled: boolean;
+      splitterVisible: boolean;
+      minHeight: number;
     };
     workspace: {
       width: number;
       height: number;
       resizing: boolean;
       minWidth: number;
+      minHeight: number;
     };
   };
 };

@@ -30,9 +30,13 @@ export type GalleryStoreLayout = {
           bottom: {
             desiredHeight: number;
             visible: boolean;
+            splitterEnabled: boolean;
+            splitterVisible: boolean;
+            minHeight: number;
           };
           workspace: {
             minWidth: number;
+            minHeight: number;
           };
         };
       };
@@ -68,11 +72,15 @@ export const galleryStoreLayout = new Store<GalleryStoreLayout>({
             splitterVisible: false,
           },
           bottom: {
-            desiredHeight: 0,
-            visible: false,
+            desiredHeight: 60,
+            visible: true,
+            splitterEnabled: false,
+            splitterVisible: false,
+            minHeight: 60,
           },
           workspace: {
             minWidth: 500,
+            minHeight: 300,
           },
         },
       },

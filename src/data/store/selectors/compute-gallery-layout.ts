@@ -53,18 +53,23 @@ export const computeGalleryLayout = ({
   };
 
   const bottom = {
-    width: width - left.width - right.width,
     height: state.gallery.layout.constraint.docks.bottom.visible
       ? state.gallery.layout.constraint.docks.bottom.desiredHeight
       : 0,
     visible: state.gallery.layout.constraint.docks.bottom.visible,
+    splitterEnabled:
+      state.gallery.layout.constraint.docks.bottom.splitterEnabled,
+    splitterVisible:
+      state.gallery.layout.constraint.docks.bottom.splitterVisible,
+    minHeight: state.gallery.layout.constraint.docks.bottom.minHeight,
   };
 
   const workspace = {
     width: width - left.width - right.width,
-    height: height - header.height - footer.height - bottom.height,
+    height: height - header.height - footer.height,
     resizing: right.splitterEnabled,
     minWidth: state.gallery.layout.constraint.docks.workspace.minWidth,
+    minHeight: state.gallery.layout.constraint.docks.workspace.minHeight,
   };
 
   const computed: GalleryComputedLayout = {
