@@ -75,7 +75,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
             backgroundColor: layout.docks.left.visible
               ? colors.headerBackground
               : "transparent",
-            // backgroundColor: "red",
+            borderRadius: 4,
           }}
           onClick={() => {
             galleryStoreLayout.setState((state) => {
@@ -99,7 +99,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
             backgroundColor: layout.docks.bottom.visible
               ? colors.headerBackground
               : "transparent",
-            // backgroundColor: "red",
+            borderRadius: 4,
           }}
           onClick={() => {
             galleryStoreLayout.setState((state) => {
