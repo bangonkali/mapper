@@ -31,7 +31,6 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
         alignItems: "center",
         width: width,
         height: rowHeight,
-        borderBottom: `1px solid ${colors.borders}`,
         backgroundColor: selected ? colors.selected : colors.background,
       }}
     >
@@ -64,17 +63,15 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
           );
         }}
       >
-        {annotation.title} - {annotation.annotationId}
+        {annotation.title}
       </div>
 
       <div style={{ width: checkboxWidth }}>
-        {/* check box for visibility */}
         <input
           type="checkbox"
           checked={annotation.visible}
           readOnly
           onClick={() => {
-            // use mutation to update annotation visibility
             mutateAnnotation.mutate({
               data: {
                 ...annotation,

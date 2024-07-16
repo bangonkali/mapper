@@ -1,22 +1,32 @@
-import { colors } from "../../consts/colors";
-import { RectangleShape } from "../shapes/rectangle-shape";
+import { ChevronDown } from "../shapes/chevron-down";
+import { ChevronRight } from "../shapes/chevron-right";
 
 export type GalleryToolboxLayerTreeSimpleNodeProps = {
   width: number;
   level: number;
   title: string;
   isVisible: boolean;
+  isExpanded: boolean;
   onVisibleCheckboxClick?: () => void | undefined;
+  onExpandToggleClick?: () => void | undefined;
 };
 
 export const GalleryToolboxLayerTreeSimpleNode: React.FC<
   GalleryToolboxLayerTreeSimpleNodeProps
-> = ({ width, level, title, isVisible, onVisibleCheckboxClick }) => {
+> = ({
+  width,
+  level,
+  title,
+  isVisible,
+  isExpanded,
+  onVisibleCheckboxClick,
+  onExpandToggleClick,
+}) => {
   const scrollbarRight = 12;
   const rowHeight = 18;
-  const iconWidth = rowHeight - 4;
+  const iconWidth = rowHeight - 3;
   const checkboxWidth = 20;
-  const levelPadding = 10 * level;
+  const levelPadding = 20 * level;
   const descriptionWidth = width - iconWidth - levelPadding - scrollbarRight;
 
   return (
@@ -26,42 +36,51 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
         alignItems: "center",
         width: width,
         height: rowHeight,
-        borderBottom: `1px solid ${colors.borders}`,
+        // borderBottom: `1px solid ${colors.borders}`,
       }}
     >
       <div
         style={{
+          display: "flex",
           paddingLeft: 2 + levelPadding,
-          paddingTop: 3,
-          paddingRight: 2,
-          width: iconWidth,
-        }}
-      >
-        <RectangleShape
-          width={iconWidth}
-          height={iconWidth}
-          fill="green"
-          stroke="yellow"
-        />
-      </div>
-
-      <div
-        style={{
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
           width: descriptionWidth - checkboxWidth,
         }}
-        onClick={() => {
-          console.log("toggle expanded state");
-        }}
       >
-        {title}
+        <div
+          style={{
+            width: iconWidth - 2,
+            height: iconWidth - 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onClick={() => {
+            if (onExpandToggleClick) {
+              onExpandToggleClick();
+            }
+          }}
+        >
+          {isExpanded ? (
+            <ChevronDown width={16} height={16} fill={""} stroke={""} />
+          ) : (
+            <ChevronRight width={16} height={16} fill={""} stroke={""} />
+          )}
+        </div>
+        <div
+          style={{
+            position: "relative",
+            paddingLeft: 2,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            // backgroundColor: "blue",
+          }}
+        >
+          {title}
+        </div>
       </div>
-
       {onVisibleCheckboxClick ? (
         <div style={{ width: checkboxWidth }}>
-          {/* check box for visibility */}
           <input
             type="checkbox"
             checked={isVisible}

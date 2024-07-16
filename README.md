@@ -4,13 +4,13 @@ This is a simple gallery app that fetches images from the [Unsplash API](https:/
 
 ## Wishlist
 
-1. introduce a way to dynamically add annotation overlay
-1. use tanstack routing to separate gallery vs editor view
+1. introduce a way to dynamically add annotation overlay ✅
+1. use tanstack routing to separate gallery vs editor view  ✅
 1. use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the gallery
    1. https://react-hotkeys-hook.vercel.app/docs/intro
-1. use divs instead of tables to control display of property grids
-   1. make sure that the user can change the width of the column on the property grid
-1. Use tree view to navigate data hierarchy
+1. use divs instead of tables to control display of property grids  ✅
+   1. make sure that the user can change the width of the column on the property grid  ✅
+1. Use tree view to navigate data hierarchy 
    1. https://github.com/lukasbach/react-complex-tree
 1. use orama for searching the data hierarchy
    1. https://docs.orama.com/open-source/

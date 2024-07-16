@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
 import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeAnnotationNode } from "./gallery-toolbox-layer-tree-annotation-node";
 import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
-import { GalleryToolboxTagsContainer } from "./gallery-toolbox-tags-container";
+import { GalleryToolboxLayerTreeAnnotationsTrunk } from "./gallery-toolbox-layer-tree-annotations-trunk";
+import { GalleryToolboxLayerTreeTagTypesTrunk } from "./gallery-toolbox-layer-tree-tag-types-trunk";
 
 export type GalleryToolboxLayerTreeContainerProps = {
   width: number;
@@ -16,21 +15,6 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
   GalleryToolboxLayerTreeContainerProps
 > = ({ width, height, focusedImage, selectedAnnotationId }) => {
   const [isMinimized, setIsMinimized] = useState(false);
-  const annotationQuery = useAnnotationsQuery({
-    galleryItemId: focusedImage.galleryItemId,
-  });
-
-  const annotations = annotationQuery.data?.map((annotation) => {
-    return (
-      <GalleryToolboxLayerTreeAnnotationNode
-        level={1}
-        key={annotation.annotationId}
-        width={width}
-        selectedAnnotationId={selectedAnnotationId}
-        annotation={annotation}
-      />
-    );
-  });
 
   return (
     <div
@@ -49,18 +33,15 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
 
       {!isMinimized ? (
         <>
-          <div
-            style={{
-              width: width,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {annotations}
-          </div>
-
-          <GalleryToolboxTagsContainer
+          <GalleryToolboxLayerTreeAnnotationsTrunk
             width={width}
+            height={height}
+            focusedImage={focusedImage}
+            selectedAnnotationId={selectedAnnotationId}
+          />
+          <GalleryToolboxLayerTreeTagTypesTrunk
+            width={width}
+            height={height}
             focusedImage={focusedImage}
             selectedAnnotationId={selectedAnnotationId}
           />
