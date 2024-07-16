@@ -19,7 +19,7 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
   return (
     <div
       className="ns"
-      style={{ width: width, height: height, overflowY: "auto" }}
+      style={{ width: width }}
       key={focusedImage.galleryItemId}
     >
       <GalleryToolboxPropertiesHeader
