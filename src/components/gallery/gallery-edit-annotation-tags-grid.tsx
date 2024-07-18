@@ -1,8 +1,11 @@
+import { produce } from "immer";
 import { colors } from "../../consts/colors";
+import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
 import { Annotation } from "../../entities/annotation/annotation-schema";
 import { AnnotationTag } from "../../entities/annotation/annotation-tag-schema";
 import { flattenToDictionary } from "../../utils/flatten";
 import styles from "./gallery-edit-annotation-tags-grid.module.css";
+import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
 
 export type GalleryEditAnnotationTagsGridProps = {
   annotations: Annotation[];
@@ -15,7 +18,11 @@ export type GalleryEditAnnotationTagsGridProps = {
 export const GalleryEditAnnotationTagsGrid: React.FC<
   GalleryEditAnnotationTagsGridProps
 > = ({ annotations, tags, height, width, selectedAnnotationId }) => {
+  const putAnnotation = usePutAnnotation();
+
   const topBorder = 1;
+  const allVisible = annotations.every((annotation) => annotation.visible);
+  const allNotVisible = annotations.every((annotation) => !annotation.visible);
   const uniqueTagTypes = Array.from(new Set(tags.map((tag) => tag.type)));
 
   const uniqueAnnotationProps = new Set<string>();
@@ -31,7 +38,31 @@ export const GalleryEditAnnotationTagsGrid: React.FC<
               ? colors.selected
               : "transparent",
         }}
+        onClick={() => {
+          // set selected annotation
+          gallerySelectedAnnotationStore.setState(() =>
+            selectedAnnotationId === annotation.annotationId
+              ? null
+              : annotation.annotationId
+          );
+        }}
       >
+        {/* Show the Annotation Title */}
+        <td
+          className={styles.slim}
+          key={`row-${annotation.annotationId}-visible`}
+          onClick={(e) => {
+            e.stopPropagation();
+            putAnnotation.mutate({
+              data: produce(annotation, (draft) => {
+                draft.visible = !draft.visible;
+              }),
+            });
+          }}
+        >
+          <input type="checkbox" checked={annotation.visible} readOnly />
+        </td>
+
         {/* Show the Annotation Title */}
         <td key={`row-${annotation.annotationId}`}>{annotation.title}</td>
 
@@ -77,6 +108,36 @@ export const GalleryEditAnnotationTagsGrid: React.FC<
         <thead>
           <tr>
             {/* Show the Annotation Title */}
+            <th
+              className={styles.slim}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (allVisible) {
+                  annotations.forEach((annotation) => {
+                    putAnnotation.mutate({
+                      data: produce(annotation, (draft) => {
+                        draft.visible = false;
+                      }),
+                    });
+                  });
+                } else {
+                  annotations.forEach((annotation) => {
+                    putAnnotation.mutate({
+                      data: produce(annotation, (draft) => {
+                        draft.visible = true;
+                      }),
+                    });
+                  });
+                }
+              }}
+            >
+              <input
+                type="checkbox"
+                readOnly
+                checked={allVisible && !allNotVisible}
+              />
+            </th>
+
             <th>Annotation</th>
 
             {/* Show the tag types */}

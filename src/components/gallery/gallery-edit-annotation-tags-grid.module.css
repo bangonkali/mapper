@@ -2,11 +2,19 @@
   border-collapse: collapse;
 }
 
-.table tr td {
+.table input {
+  margin: 2px 2px 0px 2px;
+}
+
+.table .slim {
+  padding: 0;
+}
+
+.table tr td:not(.slim) {
   padding: 0 5px;
 }
 
-.table tr th {
+.table tr th:not(.slim) {
   padding: 0 20px;
 }
 
