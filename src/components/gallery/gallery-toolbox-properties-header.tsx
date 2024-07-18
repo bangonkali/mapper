@@ -24,7 +24,7 @@ export const GalleryToolboxPropertiesHeader: React.FC<
         backgroundColor: colors.headerBackground,
         display: "flex",
         alignItems: "center",
-        borderBottom: `1px solid ${colors.borders}`,
+        borderBottom: `1px solid ${colors.border}`,
       }}
     >
       <div

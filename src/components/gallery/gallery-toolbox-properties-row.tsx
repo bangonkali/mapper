@@ -48,7 +48,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
       style={{
         width: width,
         display: "flex",
-        borderBottom: `1px solid ${colors.borders}`,
+        borderBottom: `1px solid ${colors.border}`,
       }}
       onMouseUp={() => {
         onSplitterEnabledChanged(false);
@@ -104,7 +104,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
-          borderLeft: `1px solid ${colors.borders}`,
+          borderLeft: `1px solid ${colors.border}`,
           paddingLeft: 2,
         }}
       >

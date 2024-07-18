@@ -15,7 +15,7 @@ export const GalleryFooter: React.FC<GalleryFooterProps> = ({
       style={{
         height: height - topBorder,
         width: width,
-        borderTop: `${topBorder}px solid ${colors.borders}`,
+        borderTop: `${topBorder}px solid ${colors.border}`,
         backgroundColor: colors.headerBackground,
         color: colors.headerForeground,
         display: "flex",

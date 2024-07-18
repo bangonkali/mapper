@@ -57,7 +57,7 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
         overflowY: "hidden",
         display: "flex",
         flexDirection: "row",
-        borderTop: `${topBorder}px solid ${colors.borders}`,
+        borderTop: `${topBorder}px solid ${colors.border}`,
       }}
     >
       {carousel}

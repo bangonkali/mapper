@@ -98,7 +98,7 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
           height: titleHeight - borderTop,
           display: "flex",
           flexDirection: "row",
-          borderTop: `${borderTop}px solid ${colors.borders}`,
+          borderTop: `${borderTop}px solid ${colors.border}`,
           backgroundColor: colors.headerBackground,
         }}
       >

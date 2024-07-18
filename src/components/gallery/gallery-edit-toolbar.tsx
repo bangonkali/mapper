@@ -22,7 +22,7 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
         width: width,
         height: height,
         backgroundColor: colors.headerBackground,
-        borderBottom: `1px solid ${colors.borders}`,
+        borderBottom: `1px solid ${colors.border}`,
         display: "flex",
         justifyContent: "start",
         alignItems: "center",

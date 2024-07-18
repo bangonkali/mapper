@@ -28,7 +28,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
       style={{
         height: height - border,
         width: width,
-        borderBottom: `${border}px solid ${colors.borders}`,
+        borderBottom: `${border}px solid ${colors.border}`,
         display: "flex",
         alignContent: "center",
         alignItems: "center",

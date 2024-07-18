@@ -36,8 +36,8 @@ export const GalleryToolboxContainer: React.FC<
         width: width - borderWidth,
         display: "flex",
         flexDirection: "column",
-        borderLeft: side === "right" ? `1px solid ${colors.borders}` : "none",
-        borderRight: side === "left" ? `1px solid ${colors.borders}` : "none",
+        borderLeft: side === "right" ? `1px solid ${colors.border}` : "none",
+        borderRight: side === "left" ? `1px solid ${colors.border}` : "none",
         overflowY: "auto",
       }}
     >
