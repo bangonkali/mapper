@@ -207,7 +207,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
             key={"galleryEditCarouselDock"}
             width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
-            title="Carousel Dock 1"
+            title="Carousel"
           />
           <GalleryEditCarouselDock
             key={"dock2"}

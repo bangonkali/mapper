@@ -37,7 +37,7 @@ export const GalleryToolboxItemProperties: React.FC<
         },
       ]}
       schema={GalleryItemSchema}
-      title={"Gallery Item"}
+      title={"Image"}
       onChange={(e) => {
         mutateGalleryItem.mutate({ data: e.value });
       }}
