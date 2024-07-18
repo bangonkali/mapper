@@ -1,12 +1,12 @@
-# Gallery
+# Mapper
 
-This is a simple gallery app that fetches images from the [Unsplash API](https://unsplash.com/developers) and displays them in a grid. The app is built using React, TypeScript, and Vite.
+This is a simple mapper app.
 
 ## Wishlist
 
 1. introduce a way to dynamically add annotation overlay ✅
-1. use tanstack routing to separate gallery vs editor view  ✅
-1. use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the gallery
+1. use tanstack routing to separate mapper gallery vs editor view  ✅
+1. use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the mapper gallery
    1. https://react-hotkeys-hook.vercel.app/docs/intro
 1. use divs instead of tables to control display of property grids  ✅
    1. make sure that the user can change the width of the column on the property grid  ✅
@@ -14,8 +14,8 @@ This is a simple gallery app that fetches images from the [Unsplash API](https:/
    1. https://github.com/lukasbach/react-complex-tree
 1. use orama for searching the data hierarchy
    1. https://docs.orama.com/open-source/
-1. allow user to add images to the gallery
-   1. allow user to edit the annotations images in the gallery
+1. allow user to add images to the mapper gallery
+   1. allow user to edit the annotations images in the mapper gallery
    1. allow media pipe object detection to add annotations to images
 1. editor quality of life
    1. allow object snapping
