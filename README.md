@@ -10,8 +10,8 @@ This is a simple mapper app.
    1. https://react-hotkeys-hook.vercel.app/docs/intro
 1. use divs instead of tables to control display of property grids  ✅
    1. make sure that the user can change the width of the column on the property grid  ✅
-1. Use tree view to navigate data hierarchy 
-   1. https://github.com/lukasbach/react-complex-tree
+1. Allow user to view annotation tags in the form of a table
+1. Use tree view to navigate data hierarchy ✅
 1. use orama for searching the data hierarchy
    1. https://docs.orama.com/open-source/
 1. allow user to add images to the mapper gallery
