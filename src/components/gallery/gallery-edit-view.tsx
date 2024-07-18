@@ -1,7 +1,6 @@
 import { GalleryComputedLayout } from "../../models/app/app-layout";
 import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
 import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-import { GalleryEditCarousel } from "./gallery-edit-carousel";
 import { GalleryEditToolbar } from "./gallery-edit-toolbar";
 import { GalleryEditCavnas } from "./gallery-edit-canvas";
 import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
@@ -15,12 +14,17 @@ import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
 import { galleryStoreLayout } from "../../data/store/gallery-store";
 import { produce } from "immer";
 import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
+import { GalleryEditDockBottom } from "./gallery-edit-dock-bottom";
+import { GalleryEditCarouselDock } from "./dockable-containers/gallery-edit-carousel-dock";
+import { galleryEditDockStore } from "../../data/store/gallery-edit-dock-store";
+import { useStore } from "@tanstack/react-store";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
+  const galleryEditDock = useStore(galleryEditDockStore);
   const { galleryItemId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
   const focusedImageId = galleryItemId;
@@ -112,7 +116,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     >
       <div
         style={{
-          height: toolbarHeight,
+          height: toolbarHeight - 1,
           width: layout.docks.workspace.width,
           left: 0,
           top: 0,
@@ -123,7 +127,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       >
         <GalleryEditToolbar
           width={layout.docks.workspace.width}
-          height={toolbarHeight}
+          height={toolbarHeight - 1}
         >
           <div
             style={{
@@ -156,8 +160,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       </div>
       <div
         style={{
-          left: 0,
-          top: toolbarHeight,
+          position: "relative",
           height: canvasHeight,
           width: layout.docks.workspace.width,
           display: "flex",
@@ -181,22 +184,44 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           position: "relative",
         }}
       >
-        <div
-          id="dock-bottom-container"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: layout.docks.workspace.width,
-            height: layout.docks.bottom.height,
+        <GalleryEditDockBottom
+          height={layout.docks.bottom.height}
+          width={layout.docks.workspace.width}
+          selectedKey={galleryEditDock.bottom.selectedKey}
+          onSelectedKeyChanged={(key) => {
+            galleryEditDockStore.setState((state) => {
+              return produce(state, (draft) => {
+                draft.bottom.selectedKey = key;
+              });
+            });
+          }}
+          onMinimizeClick={() => {
+            galleryStoreLayout.setState((state) => {
+              return produce(state, (draft) => {
+                draft.gallery.layout.constraint.docks.bottom.visible = false;
+              });
+            });
           }}
         >
-          <GalleryEditCarousel
-            items={items}
+          <GalleryEditCarouselDock
+            key={"galleryEditCarouselDock"}
+            width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
-            focusedItem={focusedImage}
+            title="Carousel Dock 1"
           />
-        </div>
+          <GalleryEditCarouselDock
+            key={"dock2"}
+            width={layout.docks.workspace.width}
+            height={layout.docks.bottom.height}
+            title="Dock 2"
+          />
+          <GalleryEditCarouselDock
+            key={"dock3"}
+            width={layout.docks.workspace.width}
+            height={layout.docks.bottom.height}
+            title="Dock 3"
+          />
+        </GalleryEditDockBottom>
         <div
           style={{
             position: "absolute",

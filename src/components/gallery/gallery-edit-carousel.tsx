@@ -8,12 +8,14 @@ export type GalleryEditCarouselProps = {
   items: GalleryItem[];
   focusedItem: GalleryItem;
   height: number;
+  width: number;
 };
 
 export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
   items,
   focusedItem,
   height,
+  width,
 }) => {
   const focusElement = useRef<HTMLImageElement>(null);
 
@@ -50,6 +52,7 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
       className={styles.carousel}
       style={{
         height: height - topBorder,
+        width: width,
         overflowX: "auto",
         overflowY: "hidden",
         display: "flex",

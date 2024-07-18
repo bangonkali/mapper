@@ -43,7 +43,6 @@ export const onSplitterMouseMove = (
         } else if (side === "bottom") {
           let preferredHeight =
             parent.height - e.clientY - computed.footer.height;
-          console.log("preferredHeight", preferredHeight);
 
           const parentHalfHeight = Math.round(parent.height / 2);
           if (preferredHeight > parentHalfHeight) {

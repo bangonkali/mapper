@@ -5,5 +5,6 @@ export const colors = {
   selected: "rgba(214,226,251,1)",
   headerBackground: "rgba(238,242,249,1)",
   headerForeground: "rgba(38,86,201,1)",
+  headerForegroundInactive: "rgba(128,128,128,1)",
   dirtyInputBackground: "rgba(255, 204, 204, 1)",
 };

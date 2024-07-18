@@ -11,6 +11,7 @@ export const GalleryToolboxPropertiesHeader: React.FC<
   GalleryToolboxPropertiesHeaderProps
 > = ({ width, title, onMinimizeClick, isMinimized }) => {
   const minimizeButtonWidth = 20;
+  const height = 20;
   const paddingLeft = 2;
 
   return (
@@ -18,7 +19,7 @@ export const GalleryToolboxPropertiesHeader: React.FC<
       style={{
         paddingLeft: paddingLeft,
         width: width - paddingLeft,
-        height: 20,
+        height: height - 1,
         color: colors.headerForeground,
         backgroundColor: colors.headerBackground,
         display: "flex",
