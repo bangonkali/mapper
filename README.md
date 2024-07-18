@@ -4,25 +4,30 @@ This is a simple mapper app.
 
 ## Wishlist
 
-1. introduce a way to dynamically add annotation overlay ✅
-1. use tanstack routing to separate mapper gallery vs editor view  ✅
-1. use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the mapper gallery
-   1. https://react-hotkeys-hook.vercel.app/docs/intro
-1. use divs instead of tables to control display of property grids  ✅
-   1. make sure that the user can change the width of the column on the property grid  ✅
-1. Allow user to view annotation tags in the form of a table
-1. Use tree view to navigate data hierarchy ✅
-1. use orama for searching the data hierarchy
-   1. https://docs.orama.com/open-source/
-1. allow user to add images to the mapper gallery
-   1. allow user to edit the annotations images in the mapper gallery
-   1. allow media pipe object detection to add annotations to images
-1. editor quality of life
-   1. allow object snapping
-      1. https://konvajs.org/docs/sandbox/Objects_Snapping.html
-   1. allow user to upload images as annotation overlays
-   1. allow user to create a blank new sheet/canvas
-      1. requires restructuring the data hierarchy/document model
+- [x] introduce a way to dynamically add annotation overlay
+- [x] use tanstack routing to separate mapper gallery vs editor view
+- [ ] use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the mapper gallery
+   - [ ] https://react-hotkeys-hook.vercel.app/docs/intro
+- [x] use divs instead of tables to control display of property grids
+   - [x] make sure that the user can change the width of the column on the property grid
+- [x] Allow user to view annotation tags in the form of a table
+   - [x] when the user clicks on a tag in the table, the corresponding annotation should be highlighted in the editor
+   - [x] when the user clicks on an annotation in the editor, the corresponding tag should be highlighted & focused & visible in the table 
+   - [ ] Add a toolbar in the table to allow some functions
+      - [ ] Allow user to edit the tags in the table
+      - [ ] Allow user to add annotations tag types using the table
+- [x] Use tree view to navigate data hierarchy
+- [ ] use orama for searching the data hierarchy
+   - [ ] https://docs.orama.com/open-source/
+- [ ] allow user to add images to the mapper gallery
+   - [ ] allow user to edit the annotations images in the mapper gallery
+   - [ ] allow media pipe object detection to add annotations to images
+- [ ] editor quality of life
+   - [ ] allow object snapping
+      - [ ] https://konvajs.org/docs/sandbox/Objects_Snapping.html
+   - [ ] allow user to upload images as annotation overlays
+   - [ ] allow user to create a blank new sheet/canvas
+      - [ ] requires restructuring the data hierarchy/document model
 
 # React + TypeScript + Vite
 
