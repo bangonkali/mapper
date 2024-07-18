@@ -10,7 +10,7 @@ const db = new Dexie("db") as Dexie & {
 };
 
 db.version(1).stores({
-  galleryItems: "++galeryItems,createdAt,updatedAt",
+  galleryItems: "++galleryItemId,createdAt,updatedAt",
   annotations:
     "++annotationId,galleryItemId,[annotationId+galleryItemId],createdAt,updatedAt",
   annotationTags:

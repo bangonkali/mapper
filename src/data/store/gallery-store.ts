@@ -72,7 +72,7 @@ export const galleryStoreLayout = new Store<GalleryStoreLayout>({
             splitterVisible: false,
           },
           bottom: {
-            desiredHeight: 60,
+            desiredHeight: 150,
             visible: true,
             splitterEnabled: false,
             splitterVisible: false,

@@ -18,6 +18,7 @@ import { GalleryEditDockBottom } from "./gallery-edit-dock-bottom";
 import { GalleryEditCarouselDock } from "./dockable-containers/gallery-edit-carousel-dock";
 import { galleryEditDockStore } from "../../data/store/gallery-edit-dock-store";
 import { useStore } from "@tanstack/react-store";
+import { GalleryEditAnnotationTagsGridDock } from "./dockable-containers/gallery-edit-annotation-tags-grid-dock";
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -209,11 +210,11 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
             height={layout.docks.bottom.height}
             title="Carousel"
           />
-          <GalleryEditCarouselDock
-            key={"dock2"}
+          <GalleryEditAnnotationTagsGridDock
+            key={"galleryEditAnnotationTagsGridDock"}
             width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
-            title="Dock 2"
+            title="Tags"
           />
           <GalleryEditCarouselDock
             key={"dock3"}

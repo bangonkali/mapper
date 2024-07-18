@@ -1,0 +1,26 @@
+.table {
+  border-collapse: collapse;
+}
+
+.table tr td {
+  padding: 0 5px;
+}
+
+.table tr th {
+  padding: 0 20px;
+}
+
+.table tr td:not(:first-child),
+th:not(:first-child) {
+  border-left: 1px solid var(--borderColor);
+}
+
+.table tr td:last-child,
+th:last-child {
+  border-right: 1px solid var(--borderColor);
+}
+
+.table tr {
+  border-bottom: 1px solid var(--borderColor);
+  white-space: nowrap;
+}
