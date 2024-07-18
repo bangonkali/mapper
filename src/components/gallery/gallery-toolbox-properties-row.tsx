@@ -78,7 +78,14 @@ export const GalleryToolboxPropertiesRow: React.FC<
           paddingLeft: 2,
         }}
       >
-        {label}
+        <span
+          style={{
+            position: "relative",
+            top: `${1.5}px`,
+          }}
+        >
+          {label}
+        </span>
       </div>
       <div
         style={{
