@@ -1,12 +1,8 @@
 import { colors } from "../../consts/colors";
-import { produce } from "immer";
-import { galleryStoreLayout } from "../../data/store/gallery-store";
-import { useNavigate } from "@tanstack/react-router";
 import { GalleryComputedLayout } from "../../models/app/app-layout";
-import icoDockBottom from "../../assets/ico-dock-bottom.svg";
-import icoDockLeft from "../../assets/ico-dock-left.svg";
-import icoDockRight from "../../assets/ico-dock-right.svg";
-import icoDockGrid from "../../assets/ico-grid.svg";
+import { GalleryEditLayoutToggleBaseButton } from "./buttons/gallery-edit-layout-toggle-base-button";
+import { GalleryEditLinkToGalleryButton } from "./buttons/gallery-edit-link-to-gallery-button";
+import { GalleryEditSearchBarButton } from "./buttons/gallery-edit-search-bar-button";
 
 export type GalleryHeaderProps = {
   height: number;
@@ -19,9 +15,10 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
   width,
   layout,
 }) => {
-  const icoSize = 18;
   const border = 1;
-  const navigate = useNavigate({ from: "/gallery/item/$galleryItemId" });
+  const textWidth = Math.min(560, width - 200);
+  const itemHeight = 24;
+
   return (
     <div
       className="ns"
@@ -40,21 +37,18 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
           marginLeft: 10,
         }}
       >
-        <div
-          style={{
-            width: 24,
-            height: 24,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // backgroundColor: "red",
-          }}
-          onClick={() => {
-            navigate({ to: "/gallery" });
-          }}
-        >
-          <img src={icoDockGrid} width={icoSize} height={icoSize} alt="logo" />
-        </div>
+        <GalleryEditLinkToGalleryButton />
+      </div>
+
+      <div
+        style={{
+          width: textWidth,
+          height: itemHeight,
+          left: `calc(50% - ${textWidth / 2}px)`,
+          position: "absolute",
+        }}
+      >
+        <GalleryEditSearchBarButton width={textWidth} height={itemHeight} />
       </div>
 
       <div
@@ -64,84 +58,9 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
           marginRight: 10,
         }}
       >
-        <div
-          style={{
-            width: 24,
-            height: 24,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 2,
-            backgroundColor: layout.docks.left.visible
-              ? colors.headerBackground
-              : "transparent",
-            borderRadius: 4,
-          }}
-          onClick={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.left.visible =
-                  !draft.gallery.layout.constraint.docks.left.visible;
-              });
-            });
-          }}
-        >
-          <img src={icoDockLeft} width={icoSize} height={icoSize} alt="logo" />
-        </div>
-        <div
-          style={{
-            width: 24,
-            height: 24,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 2,
-            backgroundColor: layout.docks.bottom.visible
-              ? colors.headerBackground
-              : "transparent",
-            borderRadius: 4,
-          }}
-          onClick={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.bottom.visible =
-                  !draft.gallery.layout.constraint.docks.bottom.visible;
-              });
-            });
-          }}
-        >
-          <img
-            src={icoDockBottom}
-            width={icoSize}
-            height={icoSize}
-            alt="logo"
-          />
-        </div>
-
-        <div
-          style={{
-            width: 24,
-            height: 24,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 2,
-            backgroundColor: layout.docks.right.visible
-              ? colors.headerBackground
-              : "transparent",
-            borderRadius: 4,
-          }}
-          onClick={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.right.visible =
-                  !draft.gallery.layout.constraint.docks.right.visible;
-              });
-            });
-          }}
-        >
-          <img src={icoDockRight} width={icoSize} height={icoSize} alt="logo" />
-        </div>
+        <GalleryEditLayoutToggleBaseButton layout={layout} side="left" />
+        <GalleryEditLayoutToggleBaseButton layout={layout} side="bottom" />
+        <GalleryEditLayoutToggleBaseButton layout={layout} side="right" />
       </div>
     </div>
   );
