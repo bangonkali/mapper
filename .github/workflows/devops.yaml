@@ -18,7 +18,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Build
-        run: npm install && npm run build
+        run: pnpm install && pnpm run lint && pnpm run build
 
       - name: Publish
         uses: cloudflare/pages-action@v1
