@@ -1,7 +1,7 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { HeaderMenu } from "../components/header-menu/header-menu";
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { HeaderMenu } from '../components/header-menu/header-menu';
 
-export const Route = createLazyFileRoute("/")({
+export const Route = createLazyFileRoute('/')({
   component: Index,
 });
 

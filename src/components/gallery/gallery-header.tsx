@@ -1,8 +1,8 @@
-import { colors } from "../../consts/colors";
-import { GalleryComputedLayout } from "../../models/app/app-layout";
-import { GalleryEditLayoutToggleBaseButton } from "./buttons/gallery-edit-layout-toggle-base-button";
-import { GalleryEditLinkToGalleryButton } from "./buttons/gallery-edit-link-to-gallery-button";
-import { GalleryEditSearchBarButton } from "./buttons/gallery-edit-search-bar-button";
+import { colors } from '../../consts/colors';
+import { GalleryComputedLayout } from '../../models/app/app-layout';
+import { GalleryEditLayoutToggleBaseButton } from './buttons/gallery-edit-layout-toggle-base-button';
+import { GalleryEditLinkToGalleryButton } from './buttons/gallery-edit-link-to-gallery-button';
+import { GalleryEditSearchBarButton } from './buttons/gallery-edit-search-bar-button';
 
 export type GalleryHeaderProps = {
   height: number;
@@ -26,9 +26,9 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
         height: height - border,
         width: width,
         borderBottom: `${border}px solid ${colors.border}`,
-        display: "flex",
-        alignContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        alignContent: 'center',
+        alignItems: 'center',
         backgroundColor: colors.selected,
       }}
     >
@@ -45,7 +45,7 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
           width: textWidth,
           height: itemHeight,
           left: `calc(50% - ${textWidth / 2}px)`,
-          position: "absolute",
+          position: 'absolute',
         }}
       >
         <GalleryEditSearchBarButton width={textWidth} height={itemHeight} />
@@ -53,8 +53,8 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
 
       <div
         style={{
-          display: "flex",
-          marginLeft: "auto",
+          display: 'flex',
+          marginLeft: 'auto',
           marginRight: 10,
         }}
       >

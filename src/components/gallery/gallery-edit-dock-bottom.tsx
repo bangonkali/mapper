@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { ReactElement } from "react";
-import { GalleryEditDockProps } from "./gallery-edit-dock-props";
-import { GalleryEditDockKeys } from "../../data/store/gallery-edit-dock-store";
-import { colors } from "../../consts/colors";
+import React, { useState } from 'react';
+import { ReactElement } from 'react';
+import { GalleryEditDockProps } from './gallery-edit-dock-props';
+import { GalleryEditDockKeys } from '../../data/store/gallery-edit-dock-store';
+import { colors } from '../../consts/colors';
 
 export type GalleryEditDockBottomProps = {
   height: number;
@@ -42,10 +42,10 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
         key={child.key}
         style={{
           height: titleHeight - selectedBarHeight,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
           color: selected
             ? colors.headerForeground
             : colors.headerForegroundInactive,
@@ -61,7 +61,7 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
           style={{
             paddingLeft: 8,
             paddingRight: 8,
-            position: "relative",
+            position: 'relative',
             top: selectedBarHeight,
           }}
         >
@@ -69,8 +69,8 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
         </div>
         <div
           style={{
-            position: "relative",
-            width: "100%",
+            position: 'relative',
+            width: '100%',
             bottom: -selectedBarHeight,
             height: selectedBarHeight,
             minHeight: selectedBarHeight,
@@ -85,7 +85,7 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
     <div
       className="ns"
       style={{
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         top: 0,
         width: width,
@@ -96,8 +96,8 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
       <div
         style={{
           height: titleHeight - borderTop,
-          display: "flex",
-          flexDirection: "row",
+          display: 'flex',
+          flexDirection: 'row',
           borderTop: `${borderTop}px solid ${colors.border}`,
           backgroundColor: colors.headerBackground,
         }}
@@ -106,16 +106,16 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
         <div
           style={{
             marginTop: 3,
-            position: "absolute",
+            position: 'absolute',
             right: 3,
             height: titleHeight - borderTop - 6,
             width: titleHeight - borderTop - 6,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
             borderRadius: 4,
-            backgroundColor: isOnHoverMinimize ? "white" : "transparent",
+            backgroundColor: isOnHoverMinimize ? 'white' : 'transparent',
           }}
           onMouseOver={() => {
             setIsOnHoverMinimize(true);

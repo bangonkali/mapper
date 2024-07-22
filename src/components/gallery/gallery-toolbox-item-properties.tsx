@@ -1,9 +1,9 @@
-import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
+import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
 import {
   GalleryItem,
   GalleryItemSchema,
-} from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxPropertiesGrid } from "./gallery-toolbox-properties-grid";
+} from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxPropertiesGrid } from './gallery-toolbox-properties-grid';
 
 export type GalleryToolboxItemPropertiesProps = {
   width: number;
@@ -26,18 +26,18 @@ export const GalleryToolboxItemProperties: React.FC<
       height={height}
       width={width}
       obj={focusedImage}
-      exclude={["annotations"]}
+      exclude={['annotations']}
       templates={[
         {
-          key: "galleryItemId",
-          label: "Id",
-          description: "The unique identifier for the gallery item.",
-          inputType: "text",
+          key: 'galleryItemId',
+          label: 'Id',
+          description: 'The unique identifier for the gallery item.',
+          inputType: 'text',
           readonly: true,
         },
       ]}
       schema={GalleryItemSchema}
-      title={"Image"}
+      title={'Image'}
       onChange={(e) => {
         mutateGalleryItem.mutate({ data: e.value });
       }}

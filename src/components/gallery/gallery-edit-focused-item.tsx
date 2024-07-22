@@ -1,5 +1,5 @@
-import { Image } from "react-konva";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
+import { Image } from 'react-konva';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
 
 export type GalleryEditFocusedItemProps = {
   image: HTMLImageElement | undefined;

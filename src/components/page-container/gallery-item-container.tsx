@@ -1,14 +1,14 @@
-import { useStore } from "@tanstack/react-store";
-import { useWindowSize } from "usehooks-ts";
-import { galleryStoreLayout } from "../../data/store/gallery-store";
-import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
-import { onSplitterMouseMoveAll } from "../../data/store/mutations/splitter/on-splitter-mouse-move-all";
-import { computeGalleryLayout } from "../../data/store/selectors/compute-gallery-layout";
-import { GalleryDock } from "../gallery/gallery-dock";
-import { GalleryEditView } from "../gallery/gallery-edit-view";
-import { GalleryHeader } from "../gallery/gallery-header";
-import { GalleryFooter } from "../gallery/gallery-footer";
-import styles from "../gallery/gallery.module.css";
+import { useStore } from '@tanstack/react-store';
+import { useWindowSize } from 'usehooks-ts';
+import { galleryStoreLayout } from '../../data/store/gallery-store';
+import { onSplitterEnd } from '../../data/store/mutations/splitter/on-splitter-end';
+import { onSplitterMouseMoveAll } from '../../data/store/mutations/splitter/on-splitter-mouse-move-all';
+import { computeGalleryLayout } from '../../data/store/selectors/compute-gallery-layout';
+import { GalleryDock } from '../gallery/gallery-dock';
+import { GalleryEditView } from '../gallery/gallery-edit-view';
+import { GalleryHeader } from '../gallery/gallery-header';
+import { GalleryFooter } from '../gallery/gallery-footer';
+import styles from '../gallery/gallery.module.css';
 
 export const GalleryItemContainer: React.FC = () => {
   {
@@ -20,7 +20,7 @@ export const GalleryItemContainer: React.FC = () => {
       <div
         className={styles.gallery}
         style={{
-          overflow: "hidden",
+          overflow: 'hidden',
           height: height,
           width: width,
         }}
@@ -33,7 +33,7 @@ export const GalleryItemContainer: React.FC = () => {
         <div
           className={styles.content}
           style={{
-            cursor: layout.docks.workspace.resizing ? "col-resize" : "default",
+            cursor: layout.docks.workspace.resizing ? 'col-resize' : 'default',
           }}
           onMouseLeave={() => onSplitterEnd(galleryStoreLayout)}
           onMouseUp={() => onSplitterEnd(galleryStoreLayout)}

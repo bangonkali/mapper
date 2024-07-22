@@ -1,5 +1,5 @@
-import { Annotation } from "../../../entities/annotation/annotation-schema";
-import { db } from "../../db/db";
+import { Annotation } from '../../../entities/annotation/annotation-schema';
+import { db } from '../../db/db';
 
 export type PutAnnotationParams = {
   data: Annotation;

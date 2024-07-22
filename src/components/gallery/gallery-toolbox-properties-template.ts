@@ -1,4 +1,4 @@
-import { GalleryToolboxPropertiesTypes } from "./gallery-toolbox-properties-types";
+import { GalleryToolboxPropertiesTypes } from './gallery-toolbox-properties-types';
 
 export type GalleryToolboxPropertiesTemplate = {
   key: string;

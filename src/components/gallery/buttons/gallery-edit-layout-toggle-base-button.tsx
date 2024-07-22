@@ -1,14 +1,14 @@
-import { produce } from "immer";
-import { colors } from "../../../consts/colors";
-import { galleryStoreLayout } from "../../../data/store/gallery-store";
-import { GalleryComputedLayout } from "../../../models/app/app-layout";
-import icoDockRight from "../../../assets/ico-dock-right.svg";
-import icoDockLeft from "../../..//assets/ico-dock-left.svg";
-import icoDockBottom from "../../..//assets/ico-dock-bottom.svg";
+import { produce } from 'immer';
+import { colors } from '../../../consts/colors';
+import { galleryStoreLayout } from '../../../data/store/gallery-store';
+import { GalleryComputedLayout } from '../../../models/app/app-layout';
+import icoDockRight from '../../../assets/ico-dock-right.svg';
+import icoDockLeft from '../../..//assets/ico-dock-left.svg';
+import icoDockBottom from '../../..//assets/ico-dock-bottom.svg';
 
 export type GalleryEditLayoutToggleBaseButtonProps = {
   layout: GalleryComputedLayout;
-  side: "left" | "right" | "bottom";
+  side: 'left' | 'right' | 'bottom';
 };
 
 export const GalleryEditLayoutToggleBaseButton: React.FC<
@@ -25,13 +25,13 @@ export const GalleryEditLayoutToggleBaseButton: React.FC<
       style={{
         width: 24,
         height: 24,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         marginLeft: 2,
         backgroundColor: layout.docks[side].visible
           ? colors.headerBackground
-          : "transparent",
+          : 'transparent',
         borderRadius: 4,
       }}
       onClick={() => {

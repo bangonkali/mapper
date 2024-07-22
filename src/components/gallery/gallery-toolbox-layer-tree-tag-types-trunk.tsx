@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeSimpleNode } from "./gallery-toolbox-layer-tree-simple-node";
-import { GalleryToolboxTagsContainer } from "./gallery-toolbox-tags-container";
+import { useState } from 'react';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
+import { GalleryToolboxTagsContainer } from './gallery-toolbox-tags-container';
 
 export type GalleryToolboxLayerTreeTagTypesTrunkProps = {
   width: number;
@@ -19,7 +19,7 @@ export const GalleryToolboxLayerTreeTagTypesTrunk: React.FC<
       <GalleryToolboxLayerTreeSimpleNode
         width={width}
         level={0}
-        title={"Tag Types"}
+        title={'Tag Types'}
         isVisible={true}
         isExpanded={isExpanded}
         onExpandToggleClick={() => setIsExpanded(!isExpanded)}

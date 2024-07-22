@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * This is the schema for an annotation tag. An annotation tag is a

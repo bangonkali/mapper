@@ -1,12 +1,12 @@
-import { colors } from "../../consts/colors";
-import { galleryStoreLayout } from "../../data/store/gallery-store";
-import { GalleryComputedLayout } from "../../models/app/app-layout";
-import { GalleryToolboxContainer } from "./gallery-toolbox-container";
-import { produce } from "immer";
+import { colors } from '../../consts/colors';
+import { galleryStoreLayout } from '../../data/store/gallery-store';
+import { GalleryComputedLayout } from '../../models/app/app-layout';
+import { GalleryToolboxContainer } from './gallery-toolbox-container';
+import { produce } from 'immer';
 
 export type GalleryDockProps = {
   layout: GalleryComputedLayout;
-  side: "left" | "right";
+  side: 'left' | 'right';
 };
 
 export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
@@ -19,7 +19,7 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
   const splitterEnabled = layout.docks[side].splitterEnabled;
 
   const onSplitterEnabledChanged = (
-    side: "left" | "right",
+    side: 'left' | 'right',
     enabled: boolean
   ) => {
     galleryStoreLayout.setState((state) => {
@@ -30,7 +30,7 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
   };
 
   const onHoverKeyColumnResizerChanged = (
-    side: "left" | "right",
+    side: 'left' | 'right',
     enabled: boolean
   ) => {
     galleryStoreLayout.setState((state) => {
@@ -44,8 +44,8 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
     <div
       className="gallery-dock ns"
       style={{
-        position: "relative",
-        display: "absolute",
+        position: 'relative',
+        display: 'absolute',
         top: 0,
         left: 0,
         width: layout.docks[side].width,
@@ -55,7 +55,7 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
       <div
         className="gallery-dock-container"
         style={{
-          position: "absolute",
+          position: 'absolute',
           left: 0,
           top: 0,
           width: width,
@@ -72,15 +72,15 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
         className="gallery-dock-splitter"
         key={`gallery-dock-splitter-${side}`}
         style={{
-          position: "absolute",
-          left: side === "right" ? 0 : childWidth,
+          position: 'absolute',
+          left: side === 'right' ? 0 : childWidth,
           top: 0,
           width: columResizerWidth,
           height: childHeight,
-          cursor: "col-resize",
+          cursor: 'col-resize',
           backgroundColor: onHoverKeyColumnResizer
             ? colors.splitter
-            : "transparent",
+            : 'transparent',
         }}
         onMouseLeave={() => {
           if (!splitterEnabled) {

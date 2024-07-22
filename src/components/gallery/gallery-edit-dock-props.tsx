@@ -1,4 +1,4 @@
-import { GalleryEditDockKeys } from "../../data/store/gallery-edit-dock-store";
+import { GalleryEditDockKeys } from '../../data/store/gallery-edit-dock-store';
 
 export type GalleryEditDockProps = {
   height: number;

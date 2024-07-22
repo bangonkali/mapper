@@ -1,5 +1,5 @@
-import { GalleryComputedLayout } from "../../../models/app/app-layout";
-import { GalleryStoreLayout } from "../gallery-store";
+import { GalleryComputedLayout } from '../../../models/app/app-layout';
+import { GalleryStoreLayout } from '../gallery-store';
 
 export type GalleryComputedLayoutProps = {
   state: GalleryStoreLayout;

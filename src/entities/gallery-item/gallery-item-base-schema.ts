@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const GalleryItemBaseSchema = z.object({
   galleryItemId: z.string().uuid(),

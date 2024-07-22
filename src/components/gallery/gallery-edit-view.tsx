@@ -1,24 +1,24 @@
-import { GalleryComputedLayout } from "../../models/app/app-layout";
-import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
-import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-import { GalleryEditToolbar } from "./gallery-edit-toolbar";
-import { GalleryEditCavnas } from "./gallery-edit-canvas";
-import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
-import { RectangleShape } from "../shapes/rectangle-shape";
-import { getRandomColor } from "../../utils/random/random-utils";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { useCallback } from "react";
-import { v4 as uuid } from "uuid";
-import { colors } from "../../consts/colors";
-import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
-import { galleryStoreLayout } from "../../data/store/gallery-store";
-import { produce } from "immer";
-import { onSplitterEnd } from "../../data/store/mutations/splitter/on-splitter-end";
-import { GalleryEditDockBottom } from "./gallery-edit-dock-bottom";
-import { GalleryEditCarouselDock } from "./dockable-containers/gallery-edit-carousel-dock";
-import { galleryEditDockStore } from "../../data/store/gallery-edit-dock-store";
-import { useStore } from "@tanstack/react-store";
-import { GalleryEditAnnotationTagsGridDock } from "./dockable-containers/gallery-edit-annotation-tags-grid-dock";
+import { GalleryComputedLayout } from '../../models/app/app-layout';
+import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { GalleryEditToolbar } from './gallery-edit-toolbar';
+import { GalleryEditCavnas } from './gallery-edit-canvas';
+import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
+import { RectangleShape } from '../shapes/rectangle-shape';
+import { getRandomColor } from '../../utils/random/random-utils';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { useCallback } from 'react';
+import { v4 as uuid } from 'uuid';
+import { colors } from '../../consts/colors';
+import { Route } from '../../routes/gallery.item.$galleryItemId.lazy';
+import { galleryStoreLayout } from '../../data/store/gallery-store';
+import { produce } from 'immer';
+import { onSplitterEnd } from '../../data/store/mutations/splitter/on-splitter-end';
+import { GalleryEditDockBottom } from './gallery-edit-dock-bottom';
+import { GalleryEditCarouselDock } from './dockable-containers/gallery-edit-carousel-dock';
+import { galleryEditDockStore } from '../../data/store/gallery-edit-dock-store';
+import { useStore } from '@tanstack/react-store';
+import { GalleryEditAnnotationTagsGridDock } from './dockable-containers/gallery-edit-annotation-tags-grid-dock';
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -43,7 +43,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   );
 
   const handleSubmitShape = useCallback(() => {
-    if (typeof annotationQuery.data?.length !== "number") return;
+    if (typeof annotationQuery.data?.length !== 'number') return;
     if (!focusedImageId) return;
 
     const newUuid = uuid();
@@ -73,7 +73,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         width: width,
         title: `Annotation #${lastElementIndex + 1}`,
         description: `Description for Item ${focusedImageId} - ${lastElementIndex + 1}`,
-        type: "rectangle",
+        type: 'rectangle',
         frame: 0.0,
         rotation: 0,
         x: x,
@@ -107,8 +107,8 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   return (
     <div
       style={{
-        display: "absolute",
-        position: "absolute",
+        display: 'absolute',
+        position: 'absolute',
         left: 0,
         right: 0,
         height: layout.docks.workspace.height,
@@ -121,9 +121,9 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           width: layout.docks.workspace.width,
           left: 0,
           top: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <GalleryEditToolbar
@@ -132,11 +132,11 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'start',
               height: 36,
-              backgroundColor: "white",
+              backgroundColor: 'white',
               paddingLeft: 10,
               paddingRight: 10,
             }}
@@ -146,7 +146,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
             <RectangleShape
               width={16}
               height={16}
-              fill={"white"}
+              fill={'white'}
               stroke={colors.headerForeground}
             />
             <p
@@ -161,12 +161,12 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       </div>
       <div
         style={{
-          position: "relative",
+          position: 'relative',
           height: canvasHeight,
           width: layout.docks.workspace.width,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <GalleryEditCavnas
@@ -182,7 +182,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           top: 0,
           height: layout.docks.bottom.height,
           width: layout.docks.workspace.width,
-          position: "relative",
+          position: 'relative',
         }}
       >
         <GalleryEditDockBottom
@@ -205,19 +205,19 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           }}
         >
           <GalleryEditCarouselDock
-            key={"galleryEditCarouselDock"}
+            key={'galleryEditCarouselDock'}
             width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
             title="Carousel"
           />
           <GalleryEditAnnotationTagsGridDock
-            key={"galleryEditAnnotationTagsGridDock"}
+            key={'galleryEditAnnotationTagsGridDock'}
             width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
             title="Tags"
           />
           <GalleryEditCarouselDock
-            key={"dock3"}
+            key={'dock3'}
             width={layout.docks.workspace.width}
             height={layout.docks.bottom.height}
             title="Dock 3"
@@ -225,15 +225,15 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         </GalleryEditDockBottom>
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             width: layout.docks.workspace.width,
             height: 3,
-            cursor: "row-resize",
+            cursor: 'row-resize',
             backgroundColor: layout.docks.bottom.splitterVisible
               ? colors.splitter
-              : "transparent",
+              : 'transparent',
           }}
           onMouseLeave={() => {
             if (!layout.docks.bottom.splitterEnabled) {

@@ -1,10 +1,10 @@
-import createJustifiedLayout from "justified-layout";
-import { useStore } from "@tanstack/react-store";
-import { GalleryItemThumbnail } from "./gallery-item-thumbnail";
-import { galleryMasonryLayoutStore } from "../../data/store/gallery-masonry-layout-store";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
-import { useRef } from "react";
+import createJustifiedLayout from 'justified-layout';
+import { useStore } from '@tanstack/react-store';
+import { GalleryItemThumbnail } from './gallery-item-thumbnail';
+import { galleryMasonryLayoutStore } from '../../data/store/gallery-masonry-layout-store';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { useRef } from 'react';
 
 export type GalleryMasonryViewProps = {
   width: number;
@@ -55,7 +55,7 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
       style={{
         height: layout.containerHeight,
         width: props.width,
-        position: "relative",
+        position: 'relative',
         left: 0,
         top: 0,
       }}

@@ -1,8 +1,8 @@
-import { colors } from "../../consts/colors";
-import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
-import { Annotation } from "../../entities/annotation/annotation-schema";
-import { RectangleShape } from "../shapes/rectangle-shape";
+import { colors } from '../../consts/colors';
+import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { Annotation } from '../../entities/annotation/annotation-schema';
+import { RectangleShape } from '../shapes/rectangle-shape';
 
 export type GalleryToolboxLayerTreeAnnotationNodeProps = {
   width: number;
@@ -27,8 +27,8 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
     <div
       key={annotation.annotationId}
       style={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         width: width,
         height: rowHeight,
         backgroundColor: selected ? colors.selected : colors.background,
@@ -52,9 +52,9 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
 
       <div
         style={{
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
           width: descriptionWidth - checkboxWidth,
         }}
         onClick={() => {

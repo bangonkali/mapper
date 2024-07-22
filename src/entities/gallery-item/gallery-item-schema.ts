@@ -1,7 +1,7 @@
-import { ImageGalleryItemSchema } from "./types/image-gallery-item-schema";
-import { z } from "zod";
+import { ImageGalleryItemSchema } from './types/image-gallery-item-schema';
+import { z } from 'zod';
 
-export const GalleryItemSchema = z.discriminatedUnion("type", [
+export const GalleryItemSchema = z.discriminatedUnion('type', [
   ImageGalleryItemSchema,
 ]);
 

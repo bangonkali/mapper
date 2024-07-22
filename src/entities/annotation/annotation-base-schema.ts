@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * This is the base schema for all annotations. It contains the fields that are common to all annotations.

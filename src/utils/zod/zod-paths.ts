@@ -1,5 +1,5 @@
-import { get } from "radash";
-import Zod from "zod";
+import { get } from 'radash';
+import Zod from 'zod';
 
 export type ZodPathType = {
   path: string;
@@ -15,7 +15,7 @@ export const getPropertyPaths = (schema: Zod.ZodType): ZodPathType[] => {
 export const _getPropertyPaths = (
   schema: Zod.ZodType,
   pathTypes: ZodPathType[] = [],
-  currentPath: string = ""
+  currentPath: string = ''
 ): string[] => {
   if (schema instanceof Zod.ZodEffects) {
     return _getPropertyPaths(
@@ -30,7 +30,7 @@ export const _getPropertyPaths = (
   }
 
   if (schema instanceof Zod.ZodArray) {
-    return _getPropertyPaths(schema.element, pathTypes, currentPath + "[0]");
+    return _getPropertyPaths(schema.element, pathTypes, currentPath + '[0]');
   }
 
   if (schema instanceof Zod.ZodObject) {
@@ -40,7 +40,7 @@ export const _getPropertyPaths = (
       const newPath = currentPath ? `${currentPath}.${key}` : key;
       const nested = _getPropertyPaths(value, pathTypes, newPath);
 
-      const type = get(value, "_def.typeName") as unknown as string;
+      const type = get(value, '_def.typeName') as unknown as string;
       pathTypes.push({ path: newPath, type });
 
       return nested.length ? nested : [newPath];

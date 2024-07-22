@@ -1,11 +1,11 @@
-import { produce } from "immer";
-import { colors } from "../../consts/colors";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
-import { Annotation } from "../../entities/annotation/annotation-schema";
-import { AnnotationTag } from "../../entities/annotation/annotation-tag-schema";
-import { flattenToDictionary } from "../../utils/flatten";
-import styles from "./gallery-edit-annotation-tags-grid.module.css";
-import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
+import { produce } from 'immer';
+import { colors } from '../../consts/colors';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { Annotation } from '../../entities/annotation/annotation-schema';
+import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
+import { flattenToDictionary } from '../../utils/flatten';
+import styles from './gallery-edit-annotation-tags-grid.module.css';
+import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
 
 export type GalleryEditAnnotationTagsGridProps = {
   annotations: Annotation[];
@@ -36,7 +36,7 @@ export const GalleryEditAnnotationTagsGrid: React.FC<
           backgroundColor:
             selectedAnnotationId === annotation.annotationId
               ? colors.selected
-              : "transparent",
+              : 'transparent',
         }}
         onClick={() => {
           // set selected annotation
@@ -80,7 +80,7 @@ export const GalleryEditAnnotationTagsGrid: React.FC<
         {/* Show the properties of the annotation */}
         {annotationProps.map((prop) => {
           uniqueAnnotationProps.add(prop.key);
-          return <td key={prop.key}>{prop.value?.toString() ?? ""}</td>;
+          return <td key={prop.key}>{prop.value?.toString() ?? ''}</td>;
         })}
       </tr>
     );
@@ -96,13 +96,13 @@ export const GalleryEditAnnotationTagsGrid: React.FC<
         maxHeight: height,
         maxWidth: width,
         borderTop: `${topBorder}px solid ${colors.border}`,
-        overflowY: "auto",
+        overflowY: 'auto',
       }}
     >
       <table
         className={styles.table}
         style={{
-          borderCollapse: "collapse",
+          borderCollapse: 'collapse',
         }}
       >
         <thead>

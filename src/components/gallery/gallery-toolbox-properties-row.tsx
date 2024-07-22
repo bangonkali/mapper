@@ -1,8 +1,8 @@
-import { FlattenedDictionary } from "../../utils/flatten";
-import { colors } from "../../consts/colors";
-import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from "./gallery-toolbox-properties-row-props-on-change-event";
-import { GalleryToolboxPropertiesTemplate } from "./gallery-toolbox-properties-template";
-import { useState } from "react";
+import { FlattenedDictionary } from '../../utils/flatten';
+import { colors } from '../../consts/colors';
+import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from './gallery-toolbox-properties-row-props-on-change-event';
+import { GalleryToolboxPropertiesTemplate } from './gallery-toolbox-properties-template';
+import { useState } from 'react';
 
 export type GalleryToolboxPropertiesRowProps = {
   width: number;
@@ -31,7 +31,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
   splitterEnabled,
   keyColumnWidth,
 }) => {
-  const initialValue = item.value?.toLocaleString() ?? "";
+  const initialValue = item.value?.toLocaleString() ?? '';
   const [localValue, setLocalValue] = useState(initialValue);
   const isDirty = initialValue !== localValue;
 
@@ -47,7 +47,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
       key={`${item.key}-${item.value}`}
       style={{
         width: width,
-        display: "flex",
+        display: 'flex',
         borderBottom: `1px solid ${colors.border}`,
       }}
       onMouseUp={() => {
@@ -72,15 +72,15 @@ export const GalleryToolboxPropertiesRow: React.FC<
         style={{
           width: keyColumnWidth,
           height: rowHeight,
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
           paddingLeft: 2,
         }}
       >
         <span
           style={{
-            position: "relative",
+            position: 'relative',
             top: `${1.5}px`,
           }}
         >
@@ -93,8 +93,8 @@ export const GalleryToolboxPropertiesRow: React.FC<
           height: rowHeight,
           backgroundColor: onHoverKeyColumnResizer
             ? colors.splitter
-            : "transparent",
-          cursor: "col-resize",
+            : 'transparent',
+          cursor: 'col-resize',
         }}
         onMouseLeave={() => {
           if (!splitterEnabled) {
@@ -108,9 +108,9 @@ export const GalleryToolboxPropertiesRow: React.FC<
         style={{
           width: width - keyColumnWidth - columResizerWidth,
           height: rowHeight,
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          textOverflow: "ellipsis",
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
           borderLeft: `1px solid ${colors.border}`,
           paddingLeft: 2,
         }}
@@ -127,7 +127,7 @@ export const GalleryToolboxPropertiesRow: React.FC<
               onChange({
                 current: {
                   key: item.key,
-                  value: item.value?.toLocaleString() ?? "",
+                  value: item.value?.toLocaleString() ?? '',
                 },
                 new: {
                   key: item.key,
@@ -137,12 +137,12 @@ export const GalleryToolboxPropertiesRow: React.FC<
             }
           }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === 'Enter') {
               if (onChange) {
                 onChange({
                   current: {
                     key: item.key,
-                    value: item.value?.toLocaleString() ?? "",
+                    value: item.value?.toLocaleString() ?? '',
                   },
                   new: {
                     key: item.key,
@@ -155,15 +155,15 @@ export const GalleryToolboxPropertiesRow: React.FC<
           style={{
             width: width - keyColumnWidth - columResizerWidth - 4,
             height: rowHeight,
-            border: "none",
-            outline: "none",
+            border: 'none',
+            outline: 'none',
             padding: 0,
             margin: 0,
             fontSize: 12,
-            fontFamily: "Roboto",
+            fontFamily: 'Roboto',
             backgroundColor: isDirty
               ? colors.dirtyInputBackground
-              : "transparent",
+              : 'transparent',
           }}
           value={localValue}
         />

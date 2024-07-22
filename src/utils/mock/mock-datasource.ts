@@ -1,14 +1,14 @@
-import { v4 as uuidv4 } from "uuid";
-import { Annotation } from "../../entities/annotation/annotation-schema";
-import { db } from "../../data/db/db";
-import { galleryReadyStore } from "../../data/store/gallery-items-store";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { AnnotationTag } from "../../entities/annotation/annotation-tag-schema";
+import { v4 as uuidv4 } from 'uuid';
+import { Annotation } from '../../entities/annotation/annotation-schema';
+import { db } from '../../data/db/db';
+import { galleryReadyStore } from '../../data/store/gallery-items-store';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
 import {
   annotationTagClassification,
   AnnotationTagKeys,
-} from "./mock-classification-types";
-import { getRandomNumber, getRandomColor } from "../random/random-utils";
+} from './mock-classification-types';
+import { getRandomNumber, getRandomColor } from '../random/random-utils';
 
 export const generateMockData = async () => {
   galleryReadyStore.setState(() => false);
@@ -56,7 +56,7 @@ export const generateMockData = async () => {
           },
           thickness: 2,
         },
-        type: "rectangle",
+        type: 'rectangle',
         frame: 0,
         rotation: 0,
         x: j * annotationWidth + 10,
@@ -70,10 +70,10 @@ export const generateMockData = async () => {
       dbAnnotations.push(annotation);
 
       const types: AnnotationTagKeys[] = [
-        "Classification",
-        "Radiation",
-        "Priority",
-        "Status",
+        'Classification',
+        'Radiation',
+        'Priority',
+        'Status',
       ];
       types.forEach((key) => {
         const tag =
@@ -106,7 +106,7 @@ export const generateMockData = async () => {
       galleryItemId: galleryItemId,
       title: `Image ${i}`,
       description: `Description for image ${i}`,
-      type: "image",
+      type: 'image',
       width: width,
       height: height,
       src: `https://images.placeholders.dev/?width=${width}&height=${height}&bgColor=%23f7f6f6&textColor=%236d6e71`,
@@ -122,14 +122,14 @@ export const generateMockData = async () => {
   }
 
   db.annotations.bulkAdd(dbAnnotations).then(() => {
-    console.log("Added annotations to db");
+    console.log('Added annotations to db');
   });
 
   db.galleryItems.bulkAdd(items).then(() => {
-    console.log("Added gallery items to db");
+    console.log('Added gallery items to db');
   });
 
   db.annotationTags.bulkAdd(dbAnnotationTags).then(() => {
-    console.log("Added annotation tags to db");
+    console.log('Added annotation tags to db');
   });
 };

@@ -1,4 +1,4 @@
-export type GalleryWorkspaceView = "masonry" | "editor";
+export type GalleryWorkspaceView = 'masonry' | 'editor';
 
 export type GalleryComputedLayout = {
   header: {

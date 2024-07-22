@@ -1,4 +1,4 @@
-import { GalleryMasonryView } from "./gallery-masonry-view";
+import { GalleryMasonryView } from './gallery-masonry-view';
 
 type GalleryProps = {
   height: number;

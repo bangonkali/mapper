@@ -1,6 +1,6 @@
-import { useState } from "react";
-import icoSearch from "../../../assets/ico-search.svg";
-import { colors } from "../../../consts/colors";
+import { useState } from 'react';
+import icoSearch from '../../../assets/ico-search.svg';
+import { colors } from '../../../consts/colors';
 
 export type GalleryEditSearchBarButtonProps = {
   width: number;
@@ -14,39 +14,39 @@ export const GalleryEditSearchBarButton: React.FC<
   const [isSearchDialogVisible, setIsSearchDialogVisible] = useState(false);
 
   const randomActions = [
-    "Find Annotation",
-    "Find Next",
-    "Find Previous",
-    "Replace",
-    "Replace All",
-    "Replace Next",
-    "Replace Previous",
-    "Find in Files",
-    "Counquer the World",
-    "Save the World",
-    "Execute the Queen",
-    "Execute the King",
-    "Join the Army",
-    "Join the Navy",
-    "Join the Airforce",
+    'Find Annotation',
+    'Find Next',
+    'Find Previous',
+    'Replace',
+    'Replace All',
+    'Replace Next',
+    'Replace Previous',
+    'Find in Files',
+    'Counquer the World',
+    'Save the World',
+    'Execute the Queen',
+    'Execute the King',
+    'Join the Army',
+    'Join the Navy',
+    'Join the Airforce',
   ];
 
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <div
         className="ns"
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
           borderRadius: 4,
-          backgroundColor: "white",
+          backgroundColor: 'white',
           width: width,
           height: height,
         }}
@@ -74,13 +74,13 @@ export const GalleryEditSearchBarButton: React.FC<
             width: width,
             height: 400,
             backgroundColor: colors.offWhite,
-            border: "1px solid #ccc",
-            position: "relative",
+            border: '1px solid #ccc',
+            position: 'relative',
             top: -height,
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             borderRadius: 4,
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
           }}
           onMouseLeave={() => {
             setIsSearchDialogVisible(false);
@@ -97,7 +97,7 @@ export const GalleryEditSearchBarButton: React.FC<
                 width: width - 16,
               }}
               type="text"
-              defaultValue={"dfsdf"}
+              defaultValue={'dfsdf'}
             />
           </div>
 
@@ -106,9 +106,9 @@ export const GalleryEditSearchBarButton: React.FC<
               <div
                 key={action}
                 style={{
-                  padding: "2px 4px",
-                  cursor: "pointer",
-                  backgroundColor: "white",
+                  padding: '2px 4px',
+                  cursor: 'pointer',
+                  backgroundColor: 'white',
                 }}
               >
                 {action}

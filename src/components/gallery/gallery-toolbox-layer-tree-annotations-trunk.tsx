@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeAnnotationNode } from "./gallery-toolbox-layer-tree-annotation-node";
-import { GalleryToolboxLayerTreeSimpleNode } from "./gallery-toolbox-layer-tree-simple-node";
+import { useState } from 'react';
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
+import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
 
 export type GalleryToolboxLayerTreeAnnotationsTrunkProps = {
   width: number;
@@ -38,7 +38,7 @@ export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
       <GalleryToolboxLayerTreeSimpleNode
         width={width}
         level={0}
-        title={"Annotations"}
+        title={'Annotations'}
         isVisible={true}
         isExpanded={isExpanded}
         onExpandToggleClick={() => setIsExpanded(!isExpanded)}

@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { GalleryItemBaseSchema } from "../gallery-item-base-schema";
+import { z } from 'zod';
+import { GalleryItemBaseSchema } from '../gallery-item-base-schema';
 
 export const ImageGalleryItemSchema = GalleryItemBaseSchema.extend({
-  type: z.literal("image"),
+  type: z.literal('image'),
   width: z.number(),
   height: z.number(),
   src: z.string(),

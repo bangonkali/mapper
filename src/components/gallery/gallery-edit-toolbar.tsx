@@ -1,4 +1,4 @@
-import { colors } from "../../consts/colors";
+import { colors } from '../../consts/colors';
 
 export type GalleryEditToolbarProps = {
   height: number;
@@ -10,8 +10,6 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
   width,
   children,
 }) => {
-  
-
   return (
     <div
       className="ns"
@@ -23,9 +21,9 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
         height: height,
         backgroundColor: colors.headerBackground,
         borderBottom: `1px solid ${colors.border}`,
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'start',
+        alignItems: 'center',
         paddingLeft: 2,
       }}
     >

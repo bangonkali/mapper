@@ -1,9 +1,9 @@
-import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeAnnotationNode } from "./gallery-toolbox-layer-tree-annotation-node";
-import { GalleryToolboxLayerTreeSimpleNode } from "./gallery-toolbox-layer-tree-simple-node";
-import { AnnotationTag } from "../../entities/annotation/annotation-tag-schema";
-import { useState } from "react";
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
+import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
+import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
+import { useState } from 'react';
 
 export type GalleryToolboxLayerTreeSimpleTrunkProps = {
   width: number;

@@ -1,4 +1,4 @@
-import { colors } from "../../consts/colors";
+import { colors } from '../../consts/colors';
 
 export type GalleryToolboxPropertiesHeaderProps = {
   width: number;
@@ -22,8 +22,8 @@ export const GalleryToolboxPropertiesHeader: React.FC<
         height: height - 1,
         color: colors.headerForeground,
         backgroundColor: colors.headerBackground,
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         borderBottom: `1px solid ${colors.border}`,
       }}
     >
@@ -39,11 +39,11 @@ export const GalleryToolboxPropertiesHeader: React.FC<
         <div
           style={{
             width: minimizeButtonWidth,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
           onClick={onMinimizeClick}
         >
-          {isMinimized === true ? "+" : "-"}
+          {isMinimized === true ? '+' : '-'}
         </div>
       ) : undefined}
     </div>

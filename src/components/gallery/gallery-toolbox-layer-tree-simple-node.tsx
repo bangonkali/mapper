@@ -1,5 +1,5 @@
-import { ChevronDown } from "../shapes/chevron-down";
-import { ChevronRight } from "../shapes/chevron-right";
+import { ChevronDown } from '../shapes/chevron-down';
+import { ChevronRight } from '../shapes/chevron-right';
 
 export type GalleryToolboxLayerTreeSimpleNodeProps = {
   width: number;
@@ -32,8 +32,8 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         width: width,
         height: rowHeight,
         // borderBottom: `1px solid ${colors.borders}`,
@@ -41,7 +41,7 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
     >
       <div
         style={{
-          display: "flex",
+          display: 'flex',
           paddingLeft: 2 + levelPadding,
           width: descriptionWidth - checkboxWidth,
         }}
@@ -50,9 +50,9 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
           style={{
             width: iconWidth - 2,
             height: iconWidth - 2,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
           onClick={() => {
             if (onExpandToggleClick) {
@@ -61,18 +61,18 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
           }}
         >
           {isExpanded ? (
-            <ChevronDown width={16} height={16} fill={""} stroke={""} />
+            <ChevronDown width={16} height={16} fill={''} stroke={''} />
           ) : (
-            <ChevronRight width={16} height={16} fill={""} stroke={""} />
+            <ChevronRight width={16} height={16} fill={''} stroke={''} />
           )}
         </div>
         <div
           style={{
-            position: "relative",
+            position: 'relative',
             paddingLeft: 2,
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
             // backgroundColor: "blue",
           }}
         >

@@ -1,9 +1,9 @@
-import { GalleryToolboxPropertiesContainer } from "./gallery-toolbox-properties-container";
-import { GalleryToolboxPropertiesTemplate } from "./gallery-toolbox-properties-template";
-import { getPropertyPaths } from "../../utils/zod/zod-paths";
-import { flattenToDictionary, NestedObject } from "../../utils/flatten";
-import { ZodSchema } from "zod";
-import { set } from "radash";
+import { GalleryToolboxPropertiesContainer } from './gallery-toolbox-properties-container';
+import { GalleryToolboxPropertiesTemplate } from './gallery-toolbox-properties-template';
+import { getPropertyPaths } from '../../utils/zod/zod-paths';
+import { flattenToDictionary, NestedObject } from '../../utils/flatten';
+import { ZodSchema } from 'zod';
+import { set } from 'radash';
 
 export type GalleryToolboxPropertiesGridChangedEventPayload<
   T extends NestedObject,
@@ -50,7 +50,7 @@ export const GalleryToolboxPropertiesGrid = <T extends NestedObject>({
       onChange={(value) => {
         if (onChange) {
           const type = nodes.find((path) => path.path === value.new.key);
-          if (type?.type === "ZodNumber") {
+          if (type?.type === 'ZodNumber') {
             const newValue = Number(value.new.value);
             const newObj = set(obj, value.new.key, newValue);
             const parse = schema.safeParse(newObj);
@@ -59,8 +59,8 @@ export const GalleryToolboxPropertiesGrid = <T extends NestedObject>({
             } else {
               console.log(parse.error.errors);
             }
-          } else if (type?.type === "ZodBoolean") {
-            const newValue = value.new.value === "true";
+          } else if (type?.type === 'ZodBoolean') {
+            const newValue = value.new.value === 'true';
             const newObj = set(obj, value.new.key, newValue);
             const parse = schema.safeParse(newObj);
             if (parse.success) {
@@ -68,7 +68,7 @@ export const GalleryToolboxPropertiesGrid = <T extends NestedObject>({
             } else {
               console.log(parse.error.errors);
             }
-          } else if (type?.type === "ZodString") {
+          } else if (type?.type === 'ZodString') {
             const newValue = value.new.value;
             const newObj = set(obj, value.new.key, newValue);
             const parse = schema.safeParse(newObj);

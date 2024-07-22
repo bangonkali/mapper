@@ -1,12 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 import {
   FetchGalleryItemParams,
   fetchGalleryItem,
-} from "../../services/entities/fetch-gallery-item";
-import { useGalleryItemsQuery } from "./use-gallery-items-query";
+} from '../../services/entities/fetch-gallery-item';
+import { useGalleryItemsQuery } from './use-gallery-items-query';
 
 export const getUseGalleryItemQueryKey = (params: FetchGalleryItemParams) => {
-  return ["galleryItem", params];
+  return ['galleryItem', params];
 };
 
 export const useGalleryItemQuery = (params: FetchGalleryItemParams) => {

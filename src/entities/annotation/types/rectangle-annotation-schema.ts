@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { AnnotationBaseSchema } from "../annotation-base-schema";
-import { ColorSchema } from "../../shared/ColorSchema";
-import { OutlineSchema } from "../../shared/OutlineSchema";
+import { z } from 'zod';
+import { AnnotationBaseSchema } from '../annotation-base-schema';
+import { ColorSchema } from '../../shared/ColorSchema';
+import { OutlineSchema } from '../../shared/OutlineSchema';
 
 /**
  * A schema for a rectangle annotation.
@@ -10,7 +10,7 @@ export const RectangleAnnotationSchema = AnnotationBaseSchema.extend({
   /**
    * The type of the annotation.
    */
-  type: z.literal("rectangle"),
+  type: z.literal('rectangle'),
 
   /**
    * The frame number of the annotation.

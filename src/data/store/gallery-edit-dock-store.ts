@@ -1,11 +1,11 @@
-import { Store } from "@tanstack/react-store";
+import { Store } from '@tanstack/react-store';
 
 export type GalleryEditDockKeys =
-  | "galleryEditCarouselDock"
-  | "galleryEditAnnotationTagsGridDock"
-  | "dock3";
+  | 'galleryEditCarouselDock'
+  | 'galleryEditAnnotationTagsGridDock'
+  | 'dock3';
 
-export type GalleryEditDock = "bottom";
+export type GalleryEditDock = 'bottom';
 
 export type GalleryEditDockStore = {
   [key in GalleryEditDock]: {
@@ -16,11 +16,11 @@ export type GalleryEditDockStore = {
 
 export const galleryEditDockStore = new Store<GalleryEditDockStore>({
   bottom: {
-    selectedKey: "galleryEditCarouselDock",
+    selectedKey: 'galleryEditCarouselDock',
     keys: [
-      "galleryEditCarouselDock",
-      "galleryEditAnnotationTagsGridDock",
-      "dock3",
+      'galleryEditCarouselDock',
+      'galleryEditAnnotationTagsGridDock',
+      'dock3',
     ],
   },
 });

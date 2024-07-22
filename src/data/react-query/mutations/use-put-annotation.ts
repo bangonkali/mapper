@@ -1,7 +1,7 @@
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { putAnnotations } from "../../services/annotations/put-annotations";
-import { getUseAnnotationsQueryKey } from "../queries/use-annotations-query";
-import { getUseAnnotationQueryKey } from "../queries/use-annotation-query";
+import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { putAnnotations } from '../../services/annotations/put-annotations';
+import { getUseAnnotationsQueryKey } from '../queries/use-annotations-query';
+import { getUseAnnotationQueryKey } from '../queries/use-annotation-query';
 
 export const usePutAnnotation = () => {
   const queryClient = useQueryClient();

@@ -1,10 +1,10 @@
-import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from "./gallery-toolbox-properties-row-props-on-change-event";
-import { GalleryToolboxPropertiesTemplate } from "./gallery-toolbox-properties-template";
-import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
-import { GalleryToolboxPropertiesRow } from "./gallery-toolbox-properties-row";
-import { FlattenedDictionary } from "../../utils/flatten";
-import { ZodPathType } from "../../utils/zod/zod-paths";
-import { useState } from "react";
+import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from './gallery-toolbox-properties-row-props-on-change-event';
+import { GalleryToolboxPropertiesTemplate } from './gallery-toolbox-properties-template';
+import { GalleryToolboxPropertiesHeader } from './gallery-toolbox-properties-header';
+import { GalleryToolboxPropertiesRow } from './gallery-toolbox-properties-row';
+import { FlattenedDictionary } from '../../utils/flatten';
+import { ZodPathType } from '../../utils/zod/zod-paths';
+import { useState } from 'react';
 
 export type GalleryToolboxPropertiesContainerProps = {
   onChange?: GalleryToolboxPropertiesRowPropsOnChangeEvent;
@@ -51,8 +51,8 @@ export const GalleryToolboxPropertiesContainer: React.FC<
       className="ns"
       style={{
         width: width,
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <GalleryToolboxPropertiesHeader
@@ -65,8 +65,8 @@ export const GalleryToolboxPropertiesContainer: React.FC<
         <div
           style={{
             width: width,
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           {rows}

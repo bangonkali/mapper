@@ -1,11 +1,11 @@
-import { Store } from "@tanstack/react-store";
-import { GalleryStoreLayout } from "../../gallery-store";
-import { produce } from "immer";
-import { GalleryComputedLayout } from "../../../../models/app/app-layout";
-import { Size } from "../../../../models/Size";
+import { Store } from '@tanstack/react-store';
+import { GalleryStoreLayout } from '../../gallery-store';
+import { produce } from 'immer';
+import { GalleryComputedLayout } from '../../../../models/app/app-layout';
+import { Size } from '../../../../models/Size';
 
 export const onSplitterMouseMove = (
-  side: "left" | "right" | "bottom",
+  side: 'left' | 'right' | 'bottom',
   parent: Size,
   computed: GalleryComputedLayout,
   galleryStoreLayout: Store<GalleryStoreLayout>,
@@ -14,9 +14,9 @@ export const onSplitterMouseMove = (
   if (computed.docks[side].splitterEnabled) {
     galleryStoreLayout.setState((state) => {
       return produce(state, (draft) => {
-        if (side === "left" || side === "right") {
+        if (side === 'left' || side === 'right') {
           const preferredWidth =
-            side === "right" ? parent.width - e.clientX : e.clientX;
+            side === 'right' ? parent.width - e.clientX : e.clientX;
           if (
             preferredWidth <
             draft.gallery.layout.constraint.docks[side].minWidth
@@ -30,7 +30,7 @@ export const onSplitterMouseMove = (
               preferredWidth;
           }
 
-          const otherSide = side === "left" ? "right" : "left";
+          const otherSide = side === 'left' ? 'right' : 'left';
           const workspaceWidth =
             parent.width - preferredWidth - computed.docks[otherSide].width;
           if (workspaceWidth < computed.docks.workspace.minWidth) {
@@ -40,7 +40,7 @@ export const onSplitterMouseMove = (
               computed.docks[otherSide].width;
             draft.gallery.layout.constraint.docks[side].desiredWidth = maxWidth;
           }
-        } else if (side === "bottom") {
+        } else if (side === 'bottom') {
           let preferredHeight =
             parent.height - e.clientY - computed.footer.height;
 

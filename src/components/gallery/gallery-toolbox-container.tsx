@@ -1,16 +1,16 @@
-import { useStore } from "@tanstack/react-store";
-import { GalleryToolboxAnnotationOverlayProperties } from "./gallery-toolbox-annotation-overlay-properties";
-import { GalleryToolboxItemProperties } from "./gallery-toolbox-item-properties";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
-import { useGalleryItemsQuery } from "../../data/react-query/queries/use-gallery-items-query";
-import { GalleryToolboxLayerTreeContainer } from "./gallery-toolbox-layer-tree-container";
-import { colors } from "../../consts/colors";
-import { Route } from "../../routes/gallery.item.$galleryItemId.lazy";
+import { useStore } from '@tanstack/react-store';
+import { GalleryToolboxAnnotationOverlayProperties } from './gallery-toolbox-annotation-overlay-properties';
+import { GalleryToolboxItemProperties } from './gallery-toolbox-item-properties';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { GalleryToolboxLayerTreeContainer } from './gallery-toolbox-layer-tree-container';
+import { colors } from '../../consts/colors';
+import { Route } from '../../routes/gallery.item.$galleryItemId.lazy';
 
 export type GalleryToolboxContainerProps = {
   width: number;
   height: number;
-  side: "left" | "right";
+  side: 'left' | 'right';
 };
 
 export const GalleryToolboxContainer: React.FC<
@@ -34,14 +34,14 @@ export const GalleryToolboxContainer: React.FC<
       style={{
         height: height,
         width: width - borderWidth,
-        display: "flex",
-        flexDirection: "column",
-        borderLeft: side === "right" ? `1px solid ${colors.border}` : "none",
-        borderRight: side === "left" ? `1px solid ${colors.border}` : "none",
-        overflowY: "auto",
+        display: 'flex',
+        flexDirection: 'column',
+        borderLeft: side === 'right' ? `1px solid ${colors.border}` : 'none',
+        borderRight: side === 'left' ? `1px solid ${colors.border}` : 'none',
+        overflowY: 'auto',
       }}
     >
-      {side === "left" ? (
+      {side === 'left' ? (
         <>
           {focusedGalleryItem ? (
             <GalleryToolboxLayerTreeContainer

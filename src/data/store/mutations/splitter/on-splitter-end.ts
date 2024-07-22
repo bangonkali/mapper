@@ -1,6 +1,6 @@
-import { Store } from "@tanstack/react-store";
-import { GalleryStoreLayout } from "../../gallery-store";
-import { produce } from "immer";
+import { Store } from '@tanstack/react-store';
+import { GalleryStoreLayout } from '../../gallery-store';
+import { produce } from 'immer';
 
 export const onSplitterEnd = (
   galleryStoreLayout: Store<GalleryStoreLayout>

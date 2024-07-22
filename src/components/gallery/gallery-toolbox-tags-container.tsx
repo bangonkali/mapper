@@ -1,7 +1,7 @@
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../data/db/db";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeTagTypeNode } from "./gallery-toolbox-layer-tree-tag-type-node";
+import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../data/db/db';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxLayerTreeTagTypeNode } from './gallery-toolbox-layer-tree-tag-type-node';
 
 export type GalleryToolboxTagsContainerProps = {
   width: number;
@@ -18,7 +18,7 @@ export const GalleryToolboxTagsContainer: React.FC<
   // demo purposes! - gil
   const annotationTags = useLiveQuery(() =>
     db.annotationTags
-      .where("galleryItemId")
+      .where('galleryItemId')
       .equals(focusedImage.galleryItemId)
       .toArray()
   );

@@ -1,9 +1,9 @@
-import { useState, forwardRef } from "react";
-import { produce } from "immer";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
-import { useNavigate } from "@tanstack/react-router";
+import { useState, forwardRef } from 'react';
+import { produce } from 'immer';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
+import { useNavigate } from '@tanstack/react-router';
 
 export type GalleryEditCarouselThumbnailProps = {
   item: GalleryItem;
@@ -16,7 +16,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
   HTMLImageElement,
   GalleryEditCarouselThumbnailProps
 >(({ item, height, width, focused }, focusElement) => {
-  const navigate = useNavigate({ from: "/gallery" });
+  const navigate = useNavigate({ from: '/gallery' });
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
 
@@ -24,7 +24,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
     <div
       className="ns"
       style={{
-        position: "relative",
+        position: 'relative',
         maxWidth: width,
         minWidth: width,
         width: width,
@@ -46,7 +46,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
         src={item.src}
         alt={item.caption}
         style={{
-          display: "block",
+          display: 'block',
           maxWidth: width,
           minWidth: width,
           width: width,
@@ -59,7 +59,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
           gallerySelectedAnnotationStore.setState(() => null);
           const galleryItemId = item.galleryItemId;
           navigate({
-            to: "/gallery/item/$galleryItemId",
+            to: '/gallery/item/$galleryItemId',
             params: { galleryItemId },
           });
         }}
@@ -67,18 +67,18 @@ export const GalleryEditCarouselThumbnail = forwardRef<
       {focused ? (
         <div
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "white",
-            fontSize: "1.5rem",
-            fontWeight: "bold",
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
           }}
         ></div>
       ) : null}
@@ -92,7 +92,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
           });
         }}
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           height: 20,

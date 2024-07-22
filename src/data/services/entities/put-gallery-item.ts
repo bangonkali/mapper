@@ -1,5 +1,5 @@
-import { GalleryItem } from "../../../entities/gallery-item/gallery-item-schema";
-import { db } from "../../db/db";
+import { GalleryItem } from '../../../entities/gallery-item/gallery-item-schema';
+import { db } from '../../db/db';
 
 export type PutGalleryItemParams = {
   data: GalleryItem;

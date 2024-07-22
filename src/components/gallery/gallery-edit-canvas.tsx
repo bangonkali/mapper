@@ -1,16 +1,16 @@
-import { useStore } from "@tanstack/react-store";
-import { useRef } from "react";
-import { Stage, Layer } from "react-konva";
-import { produce } from "immer";
-import Konva from "konva";
-import { GalleryEditAnnotationRectangle } from "./gallery-edit-annotation-rectangle";
-import useImage from "use-image";
-import { GalleryEditFocusedItem } from "./gallery-edit-focused-item";
-import { useAnnotationsQuery } from "../../data/react-query/queries/use-annotations-query";
-import { usePutAnnotation } from "../../data/react-query/mutations/use-put-annotation";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { gallerySelectedAnnotationStore } from "../../data/store/gallery-items-store";
-import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
+import { useStore } from '@tanstack/react-store';
+import { useRef } from 'react';
+import { Stage, Layer } from 'react-konva';
+import { produce } from 'immer';
+import Konva from 'konva';
+import { GalleryEditAnnotationRectangle } from './gallery-edit-annotation-rectangle';
+import useImage from 'use-image';
+import { GalleryEditFocusedItem } from './gallery-edit-focused-item';
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
 
 export type GalleryEditCavnasProps = {
   focusedImage: GalleryItem;

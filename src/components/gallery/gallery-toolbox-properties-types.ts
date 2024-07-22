@@ -1,7 +1,7 @@
 export type GalleryToolboxPropertiesTypes =
-  | "text"
-  | "number"
-  | "boolean"
-  | "data"
-  | "color"
-  | "select";
+  | 'text'
+  | 'number'
+  | 'boolean'
+  | 'data'
+  | 'color'
+  | 'select';

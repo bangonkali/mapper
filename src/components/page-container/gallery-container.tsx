@@ -1,5 +1,5 @@
-import { Gallery } from "../gallery/gallery";
-import { useWindowSize } from "usehooks-ts";
+import { Gallery } from '../gallery/gallery';
+import { useWindowSize } from 'usehooks-ts';
 
 export const GalleryContainer: React.FC = () => {
   {

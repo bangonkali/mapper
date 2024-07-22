@@ -1,4 +1,4 @@
-import { colors } from "../../consts/colors";
+import { colors } from '../../consts/colors';
 
 export type GalleryFooterProps = {
   height: number;
@@ -18,9 +18,9 @@ export const GalleryFooter: React.FC<GalleryFooterProps> = ({
         borderTop: `${topBorder}px solid ${colors.border}`,
         backgroundColor: colors.headerBackground,
         color: colors.headerForeground,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       Footer

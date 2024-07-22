@@ -1,12 +1,12 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import {
   fetchAnnotation,
   FetchAnnotationParams,
-} from "../../services/annotations/fetch-annotation";
-import { useAnnotationsQuery } from "./use-annotations-query";
+} from '../../services/annotations/fetch-annotation';
+import { useAnnotationsQuery } from './use-annotations-query';
 
 export const getUseAnnotationQueryKey = (params: FetchAnnotationParams) => {
-  return ["annotation", params];
+  return ['annotation', params];
 };
 
 export const useAnnotationQuery = (params: FetchAnnotationParams) => {

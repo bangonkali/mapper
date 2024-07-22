@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "react";
-import styles from "./gallery-edit-carousel.module.css";
-import { GalleryEditCarouselThumbnail } from "./gallery-edit-carousel-thumbnail";
-import { colors } from "../../consts/colors";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
+import { useEffect, useRef } from 'react';
+import styles from './gallery-edit-carousel.module.css';
+import { GalleryEditCarouselThumbnail } from './gallery-edit-carousel-thumbnail';
+import { colors } from '../../consts/colors';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
 
 export type GalleryEditCarouselProps = {
   items: GalleryItem[];
@@ -25,7 +25,7 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
   const scrollToElement = () => {
     const { current } = focusElement;
     if (current !== null) {
-      current.scrollIntoView({ behavior: "smooth" });
+      current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -53,10 +53,10 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
       style={{
         height: height - topBorder,
         width: width,
-        overflowX: "auto",
-        overflowY: "hidden",
-        display: "flex",
-        flexDirection: "row",
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        display: 'flex',
+        flexDirection: 'row',
         borderTop: `${topBorder}px solid ${colors.border}`,
       }}
     >

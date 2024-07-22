@@ -1,9 +1,9 @@
-import { useState, forwardRef } from "react";
-import { GalleryItemLayoutBox } from "../../models/GalleryItemLayoutBox";
-import { produce } from "immer";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { usePutGalleryItem } from "../../data/react-query/mutations/use-put-gallery-item";
-import { useNavigate } from "@tanstack/react-router";
+import { useState, forwardRef } from 'react';
+import { GalleryItemLayoutBox } from '../../models/GalleryItemLayoutBox';
+import { produce } from 'immer';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
+import { useNavigate } from '@tanstack/react-router';
 
 export type GalleryItemThumbnailProps = {
   item: GalleryItem;
@@ -17,18 +17,18 @@ export const GalleryItemThumbnail = forwardRef<
 >(({ item, layout, focused }, focusElement) => {
   const putGalleryItem = usePutGalleryItem();
   const [isMouseHover, setIsMouseHover] = useState(false);
-  const navigate = useNavigate({ from: "/gallery" });
+  const navigate = useNavigate({ from: '/gallery' });
   return (
     <div
       className="ns"
       style={{
         padding: 0,
         margin: 0,
-        position: "absolute",
+        position: 'absolute',
         top: layout.top,
         left: layout.left,
         width: layout.width,
-        display: "absolute",
+        display: 'absolute',
       }}
       onMouseMove={() => {
         setIsMouseHover(true);
@@ -45,16 +45,16 @@ export const GalleryItemThumbnail = forwardRef<
         style={{
           margin: 0,
           padding: 0,
-          position: "absolute",
+          position: 'absolute',
           width: layout.width,
           height: layout.height,
-          display: "relative",
+          display: 'relative',
         }}
         ref={focused ? focusElement : null}
         onClick={() => {
           const galleryItemId = item.galleryItemId;
           navigate({
-            to: "/gallery/item/$galleryItemId",
+            to: '/gallery/item/$galleryItemId',
             params: { galleryItemId },
           });
         }}
@@ -65,11 +65,11 @@ export const GalleryItemThumbnail = forwardRef<
           style={{
             margin: 0,
             padding: 0,
-            position: "absolute",
+            position: 'absolute',
             width: layout.width,
             height: layout.height,
-            display: "relative",
-            pointerEvents: "none",
+            display: 'relative',
+            pointerEvents: 'none',
           }}
         ></div>
       ) : null}
@@ -80,8 +80,8 @@ export const GalleryItemThumbnail = forwardRef<
           style={{
             margin: 0,
             padding: 0,
-            position: "absolute",
-            display: "relative",
+            position: 'absolute',
+            display: 'relative',
             paddingLeft: 10,
             paddingRight: 10,
             paddingTop: 10,

@@ -1,8 +1,8 @@
-import { AnnotationTag } from "../../entities/annotation/annotation-tag-schema";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxLayerTreeSimpleNode } from "./gallery-toolbox-layer-tree-simple-node";
-import { GalleryToolboxLayerTreeSimpleTrunk } from "./gallery-toolbox-layer-tree-simple-trunk";
-import { useState } from "react";
+import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
+import { GalleryToolboxLayerTreeSimpleTrunk } from './gallery-toolbox-layer-tree-simple-trunk';
+import { useState } from 'react';
 
 export type GalleryToolboxLayerTreeTagTypeNodeProps = {
   width: number;

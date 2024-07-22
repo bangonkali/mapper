@@ -14,7 +14,7 @@ export type NestedObject = {
 export function flatten(
   obj: NestedObject,
   exclude: string[] = [],
-  parentKey: string = "",
+  parentKey: string = '',
   result: {
     [key: string]: Primitives;
   } = {}
@@ -23,18 +23,18 @@ export function flatten(
     if (exclude.includes(key)) continue;
 
     if (obj === null) {
-      result[parentKey] = "";
+      result[parentKey] = '';
     } else if (obj === undefined) {
-      result[parentKey] = "";
+      result[parentKey] = '';
     } else if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const newKey = parentKey ? `${parentKey}.${key}` : key;
       const value = obj[key];
 
-      if (typeof value === "object" && !Array.isArray(value)) {
+      if (typeof value === 'object' && !Array.isArray(value)) {
         flatten(value as NestedObject, exclude, newKey, result);
       } else if (
         Array.isArray(value) &&
-        typeof value === "object" &&
+        typeof value === 'object' &&
         value.length > 0
       ) {
         value.forEach((v, index) => {
@@ -58,7 +58,7 @@ export function flattenToDictionary(
   exclude: string[] = []
 ): FlattenedDictionary[] {
   if (obj === null || obj === undefined) return [];
-  const flat = flatten(obj, exclude, "", {});
+  const flat = flatten(obj, exclude, '', {});
   return Object.keys(flat).map((k) => {
     return {
       key: k,
@@ -68,7 +68,7 @@ export function flattenToDictionary(
 }
 
 export function toDisplay(input: Primitives) {
-  if (typeof input === "number") {
+  if (typeof input === 'number') {
     return input.toFixed(2);
   } else {
     return input;

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { GalleryItem } from "../../entities/gallery-item/gallery-item-schema";
-import { GalleryToolboxPropertiesHeader } from "./gallery-toolbox-properties-header";
-import { GalleryToolboxLayerTreeAnnotationsTrunk } from "./gallery-toolbox-layer-tree-annotations-trunk";
-import { GalleryToolboxLayerTreeTagTypesTrunk } from "./gallery-toolbox-layer-tree-tag-types-trunk";
+import { useState } from 'react';
+import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { GalleryToolboxPropertiesHeader } from './gallery-toolbox-properties-header';
+import { GalleryToolboxLayerTreeAnnotationsTrunk } from './gallery-toolbox-layer-tree-annotations-trunk';
+import { GalleryToolboxLayerTreeTagTypesTrunk } from './gallery-toolbox-layer-tree-tag-types-trunk';
 
 export type GalleryToolboxLayerTreeContainerProps = {
   width: number;

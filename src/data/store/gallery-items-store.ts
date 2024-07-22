@@ -1,4 +1,4 @@
-import { Store } from "@tanstack/react-store";
+import { Store } from '@tanstack/react-store';
 
 export const galleryReadyStore = new Store<boolean>(false);
 
