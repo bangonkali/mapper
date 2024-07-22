@@ -6,6 +6,8 @@ This is a simple mapper app.
 
 - [ ] all user to create a new document from scratch
   - [ ] allow user to add an image to a document
+  - [ ] allow user to add/delete annotations to an image
+  - [ ] allow user to add/delete tags to an annotation
 - [x] introduce a way to dynamically add annotation overlay
 - [x] use tanstack routing to separate mapper gallery vs editor view
 - [ ] use react-hotkeys-hook to allow keyboard shortcuts for editing annotations and navigating the mapper gallery
