@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
       - name: Build
         run: pnpm install && pnpm run lint && pnpm run build
