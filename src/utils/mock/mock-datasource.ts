@@ -25,7 +25,7 @@ export const generateMockData = async () => {
     return;
   }
 
-  const numImages = 1;
+  const numImages = 512;
   const dbAnnotations: Annotation[] = [];
 
   const dbAnnotationTags: AnnotationTag[] = [];
