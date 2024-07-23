@@ -5,9 +5,9 @@ import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-s
 import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
 import { GalleryToolboxLayerTreeContainer } from './gallery-toolbox-layer-tree-container';
 import { colors } from '../../consts/colors';
-import { Route } from '../../routes/gallery.item.$galleryItemId.lazy';
 
 export type GalleryToolboxContainerProps = {
+  galleryItemId?: string | undefined;
   width: number;
   height: number;
   side: 'left' | 'right';
@@ -15,14 +15,12 @@ export type GalleryToolboxContainerProps = {
 
 export const GalleryToolboxContainer: React.FC<
   GalleryToolboxContainerProps
-> = ({ height, width, side }) => {
-  const { galleryItemId } = Route.useParams();
+> = ({ galleryItemId, height, width, side }) => {
   const galleryItemsQuery = useGalleryItemsQuery();
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
-  const focusedImageId = galleryItemId;
   const galleryItems = galleryItemsQuery.data ?? [];
   const focusedGalleryItem = galleryItems.find(
-    (item) => item.galleryItemId === focusedImageId
+    (item) => item.galleryItemId === galleryItemId
   );
 
   // find the annotation tags for focusedGalleryItem
@@ -54,12 +52,12 @@ export const GalleryToolboxContainer: React.FC<
         </>
       ) : (
         <>
-          {selectedAnnotationId && focusedImageId ? (
+          {selectedAnnotationId && galleryItemId ? (
             <GalleryToolboxAnnotationOverlayProperties
               width={width - borderWidth}
               height={height}
               selectedAnnotationId={selectedAnnotationId}
-              galleryItemId={focusedImageId}
+              galleryItemId={galleryItemId}
             />
           ) : null}
 

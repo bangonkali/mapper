@@ -5,11 +5,16 @@ import { GalleryToolboxContainer } from './gallery-toolbox-container';
 import { produce } from 'immer';
 
 export type GalleryDockProps = {
+  galleryItemId?: string | undefined;
   layout: GalleryComputedLayout;
   side: 'left' | 'right';
 };
 
-export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
+export const GalleryDock: React.FC<GalleryDockProps> = ({
+  galleryItemId,
+  layout,
+  side,
+}) => {
   const columResizerWidth = 3;
   const width = layout.docks[side].width;
   const childWidth = width - columResizerWidth;
@@ -63,6 +68,7 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({ layout, side }) => {
         }}
       >
         <GalleryToolboxContainer
+          galleryItemId={galleryItemId}
           side={side}
           width={width}
           height={childHeight}
