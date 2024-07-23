@@ -8,3 +8,7 @@ export function getRandomNumber(min: number, max: number): number {
 export function getRandomColor(): string {
   return '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
 }
+
+export function roundUp(num: number, nearest: number): number {
+  return Math.ceil(num / nearest) * nearest;
+}

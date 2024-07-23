@@ -8,7 +8,11 @@ import {
   annotationTagClassification,
   AnnotationTagKeys,
 } from './mock-classification-types';
-import { getRandomNumber, getRandomColor } from '../random/random-utils';
+import {
+  getRandomNumber,
+  getRandomColor,
+  roundUp,
+} from '../random/random-utils';
 
 export const generateMockData = async () => {
   galleryReadyStore.setState(() => false);
@@ -21,7 +25,7 @@ export const generateMockData = async () => {
     return;
   }
 
-  const numImages = getRandomNumber(250, 300);
+  const numImages = 1;
   const dbAnnotations: Annotation[] = [];
 
   const dbAnnotationTags: AnnotationTag[] = [];
@@ -30,76 +34,79 @@ export const generateMockData = async () => {
   for (let i = 0; i < numImages; i++) {
     const galleryItemId = uuidv4();
 
-    const width = getRandomNumber(600, 1200);
-    const height = getRandomNumber(600, 1200);
+    const width = roundUp(getRandomNumber(900, 5000), 100);
+    const height = roundUp(getRandomNumber(900, 5000), 100);
 
-    const numAnnotations = (i + 1) % 5 === 0 ? 0 : getRandomNumber(1, 5);
-    const annotationPadding = 100;
-    const annotationWidth = Math.floor(width / (numAnnotations + 1));
-    const annotationHeight = height - annotationPadding * 2;
+    // Use only for performance testing!
+    // const annotationWidth = 100;
+    // const annotationHeight = 100;
 
-    for (let j = 0; j < numAnnotations; j++) {
-      const annotationId = uuidv4();
-      const annotation: Annotation = {
-        annotationId: annotationId,
-        galleryItemId: galleryItemId,
-        title: `Image ${i} Annotation ${j}`,
-        description: `Description for image ${i} annotation ${j}`,
-        fill: {
-          alpha: 0.5,
-          color: getRandomColor(),
-        },
-        outline: {
-          brush: {
+    const annotationWidth = width / 10;
+    const annotationHeight = height / 10;
+
+    const numberOfItems =
+      ((width / annotationWidth) * height) / annotationHeight;
+
+    let annotationNumber = 0;
+
+    console.log(`Setting up ${numberOfItems} annotations for image ${i}`);
+
+    for (let j = 0; j < width / annotationWidth; j++) {
+      for (let k = 0; k < height / annotationHeight; k++) {
+        // console.log('Adding annotation', i, j, k);
+        const annotationId = uuidv4();
+        const annotation: Annotation = {
+          annotationId: annotationId,
+          galleryItemId: galleryItemId,
+          title: `Image ${i} Annotation ${annotationNumber++}`,
+          description: `Description for image ${i} annotation ${annotationNumber}`,
+          fill: {
             alpha: 0.5,
             color: getRandomColor(),
           },
-          thickness: 2,
-        },
-        type: 'rectangle',
-        frame: 0,
-        rotation: 0,
-        x: j * annotationWidth + 10,
-        y: annotationPadding,
-        width: annotationWidth - 10,
-        height: annotationHeight,
-        visible: Math.random() < 0.5,
-        createdAt: startTime--,
-        updatedAt: startTime--,
-      };
-      dbAnnotations.push(annotation);
-
-      const types: AnnotationTagKeys[] = [
-        'Classification',
-        'Radiation',
-        'Priority',
-        'Status',
-      ];
-      types.forEach((key) => {
-        const tag =
-          annotationTagClassification[key][
-            getRandomNumber(0, annotationTagClassification[key].length - 1)
-          ];
-        const annotationTag: AnnotationTag = {
-          annotationTagId: uuidv4(),
-          annotationId: annotationId,
-          galleryItemId: galleryItemId,
-          value: tag,
-          type: key,
+          outline: {
+            brush: {
+              alpha: 0.5,
+              color: getRandomColor(),
+            },
+            thickness: 2,
+          },
+          type: 'rectangle',
+          frame: 0,
+          rotation: 0,
+          x: j * annotationWidth,
+          y: k * annotationHeight,
+          width: annotationWidth,
+          height: annotationHeight,
+          visible: Math.random() < 0.5,
           createdAt: startTime--,
           updatedAt: startTime--,
         };
-        dbAnnotationTags.push(annotationTag);
-      });
+        dbAnnotations.push(annotation);
 
-      // for (let k = 0; k < 3; k++) {
-      //   const annotationTag: AnnotationTag = {
-      //     annotationTagId: uuidv4(),
-      //     annotationId: annotationId,
-      //     galleryItemId: galleryItemId,
-      //   };
-      //   dbAnnotationTags.push(annotationTag);
-      // }
+        const types: AnnotationTagKeys[] = [
+          'Classification',
+          'Radiation',
+          'Priority',
+          'Status',
+        ];
+        types.forEach((key) => {
+          const tag =
+            annotationTagClassification[key][
+              getRandomNumber(0, annotationTagClassification[key].length - 1)
+            ];
+          const annotationTag: AnnotationTag = {
+            annotationTagId: uuidv4(),
+            annotationId: annotationId,
+            galleryItemId: galleryItemId,
+            value: tag,
+            type: key,
+            createdAt: startTime--,
+            updatedAt: startTime--,
+          };
+          dbAnnotationTags.push(annotationTag);
+        });
+      }
     }
 
     const item: GalleryItem = {
@@ -110,7 +117,7 @@ export const generateMockData = async () => {
       width: width,
       height: height,
       src: `https://images.placeholders.dev/?width=${width}&height=${height}&bgColor=%23f7f6f6&textColor=%236d6e71`,
-      selected: i < 10 && i > 4,
+      selected: i % 5 === 0, // select every 5th image
       ratio: width / height,
       caption: `Image ${i}`,
       zoomFactor: 1,
@@ -121,15 +128,15 @@ export const generateMockData = async () => {
     items.push(item);
   }
 
-  db.annotations.bulkAdd(dbAnnotations).then(() => {
-    console.log('Added annotations to db');
-  });
+  console.log(`Adding ${dbAnnotations.length} dbAnnotations to db`);
+  await db.annotations.bulkAdd(dbAnnotations);
+  console.log('Added annotations to db');
 
-  db.galleryItems.bulkAdd(items).then(() => {
-    console.log('Added gallery items to db');
-  });
+  console.log(`Adding ${items.length} gallery items to db`);
+  await db.galleryItems.bulkAdd(items);
+  console.log('Added gallery items to db');
 
-  db.annotationTags.bulkAdd(dbAnnotationTags).then(() => {
-    console.log('Added annotation tags to db');
-  });
+  console.log(`Adding ${dbAnnotationTags.length} annotation tags to db`);
+  await db.annotationTags.bulkAdd(dbAnnotationTags);
+  console.log('Added annotation tags to db');
 };
