@@ -19,12 +19,14 @@ import { GalleryEditCarouselDock } from './dockable-containers/gallery-edit-caro
 import { galleryEditDockStore } from '../../data/store/gallery-edit-dock-store';
 import { useStore } from '@tanstack/react-store';
 import { GalleryEditAnnotationTagsGridDock } from './dockable-containers/gallery-edit-annotation-tags-grid-dock';
+import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
 };
 
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
+  const gallerySelectedAnnotation = useStore(gallerySelectedAnnotationStore);
   const galleryEditDock = useStore(galleryEditDockStore);
   const { galleryItemId } = Route.useParams();
   const galleryItemsQuery = useGalleryItemsQuery();
@@ -53,14 +55,28 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     let width = 50;
     let x = 50;
     let y = 50;
+    let rotation = 0;
+    let isWireframe = false;
 
     let lastElementIndex = annotationQuery.data?.length - 1;
-    if (lastElementIndex >= 0) {
+    if (!gallerySelectedAnnotation && lastElementIndex >= 0) {
       const lastElement = annotationQuery.data![lastElementIndex];
       height = lastElement.height;
       width = lastElement.width;
       x = lastElement.x + 25;
       y = lastElement.y + 25;
+      rotation = lastElement.rotation;
+      isWireframe = lastElement.isWireframe;
+    } else if (gallerySelectedAnnotation !== null) {
+      const lastElement = annotationQuery.data.find(
+        (aq) => aq.annotationId === gallerySelectedAnnotation
+      )!;
+      height = lastElement.height;
+      width = lastElement.width;
+      x = lastElement.x + 25;
+      y = lastElement.y + 25;
+      rotation = lastElement.rotation;
+      isWireframe = lastElement.isWireframe;
     } else {
       lastElementIndex = 0;
     }
@@ -75,7 +91,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         description: `Description for Item ${focusedImageId} - ${lastElementIndex + 1}`,
         type: 'rectangle',
         frame: 0.0,
-        rotation: 0,
+        rotation: rotation,
         x: x,
         y: y,
         fill: {
@@ -92,9 +108,17 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         createdAt: new Date().getTime(),
         updatedAt: new Date().getTime(),
         visible: true,
+        isWireframe: isWireframe,
       },
     });
-  }, [annotationQuery.data, focusedImageId, mutateAnnotation]);
+
+    gallerySelectedAnnotationStore.setState(() => newUuid);
+  }, [
+    annotationQuery.data,
+    focusedImageId,
+    gallerySelectedAnnotation,
+    mutateAnnotation,
+  ]);
 
   if (!focusedImage) {
     return <p>No item</p>;

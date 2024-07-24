@@ -1,7 +1,9 @@
+import { GalleryEditAnnotationRectangleImage } from './gallery-edit-annotation-rectangle-image';
 import { Annotation } from '../../entities/annotation/annotation-schema';
-import { Rect, Transformer } from 'react-konva';
+import crossSvg from '../../assets/materials/cross.svg';
 import { KonvaEventObject } from 'konva/lib/Node';
-import React from 'react';
+import { Rect, Transformer } from 'react-konva';
+import React, { useCallback } from 'react';
 import Konva from 'konva';
 
 export type AnnotationRectangleOnChanged = {
@@ -22,79 +24,112 @@ export type GalleryEditAnnotationRectangleProps = {
 export const GalleryEditAnnotationRectangle: React.FC<
   GalleryEditAnnotationRectangleProps
 > = ({ annotation, isSelected, onSelect, onChange }) => {
-  const shapeRef = React.useRef<Konva.Rect>(null);
+  const annotationImageRef = React.useRef<Konva.Image>(null);
+  const annotationRectRef = React.useRef<Konva.Rect>(null);
+
   const trRef = React.useRef<Konva.Transformer>(null);
+
+  const onDragEnd = useCallback(
+    (evt: Konva.KonvaEventObject<DragEvent>) => {
+      onChange({
+        x: evt.target.x(),
+        y: evt.target.y(),
+        rotation: evt.target.rotation(),
+        width: annotation.width,
+        height: annotation.height,
+      });
+    },
+    [annotation.height, annotation.width, onChange]
+  );
+
+  const onTransform = useCallback((evt: Konva.KonvaEventObject<Event>) => {
+    // https://konvajs.org/docs/select_and_transform/Ignore_Stroke_On_Transform.html
+    const node = annotationRectRef.current ?? annotationImageRef.current;
+    if (!node) return;
+    const scaleX = node.scaleX();
+    const scaleY = node.scaleY();
+
+    const width = Math.max(5, evt.target.width() * scaleX);
+    const height = Math.max(5, evt.target.height() * scaleY);
+
+    node.scaleX(1);
+    node.scaleY(1);
+    node.width(width);
+    node.height(height);
+  }, []);
+
+  const onTransformEnd = useCallback(
+    (evt: Konva.KonvaEventObject<Event>) => {
+      const node = annotationRectRef.current ?? annotationImageRef.current;
+      if (!node) return;
+
+      const scaleX = node.scaleX();
+      const scaleY = node.scaleY();
+
+      const width = Math.max(5, evt.target.width() * scaleX);
+      const height = Math.max(5, evt.target.height() * scaleY);
+
+      node.scaleX(1);
+      node.scaleY(1);
+
+      onChange({
+        x: node.x(),
+        y: node.y(),
+        rotation: node.rotation(),
+        width: Math.max(5, width * scaleX),
+        height: Math.max(5, height * scaleY),
+      });
+    },
+    [onChange]
+  );
 
   React.useEffect(() => {
     if (isSelected && trRef.current) {
       // we need to attach transformer manually
-      trRef.current.nodes([shapeRef.current!]);
-      trRef.current.getLayer()?.batchDraw();
+      const node = annotationRectRef.current ?? annotationImageRef.current;
+      if (node) {
+        trRef.current.nodes([node]);
+        trRef.current.getLayer()?.batchDraw();
+      }
     }
   }, [isSelected]);
 
+  const imgSrc = annotation.imgSrc ?? crossSvg;
+
   return (
     <React.Fragment>
-      <Rect
-        onClick={onSelect}
-        onTap={onSelect}
-        ref={shapeRef}
-        x={annotation.x}
-        y={annotation.y}
-        width={annotation.width}
-        height={annotation.height}
-        rotation={annotation.rotation}
-        stroke={annotation.outline.brush.color}
-        fill={annotation.fill.color}
-        opacity={annotation.fill.alpha}
-        draggable={isSelected}
-        strokeScaleEnabled={false}
-        onDragEnd={(e) => {
-          onChange({
-            x: e.target.x(),
-            y: e.target.y(),
-            rotation: e.target.rotation(),
-            width: annotation.width,
-            height: annotation.height,
-          });
-        }}
-        onTransform={(e) => {
-          // https://konvajs.org/docs/select_and_transform/Ignore_Stroke_On_Transform.html
-          const node = shapeRef.current;
-          if (!node) return;
-          const scaleX = node.scaleX();
-          const scaleY = node.scaleY();
+      {annotation.isWireframe && !annotation.imgSrc ? (
+        <Rect
+          onClick={onSelect}
+          onTap={onSelect}
+          ref={annotationRectRef}
+          x={annotation.x}
+          y={annotation.y}
+          width={annotation.width}
+          height={annotation.height}
+          rotation={annotation.rotation}
+          stroke={annotation.outline.brush.color}
+          fill={annotation.fill.color}
+          opacity={annotation.fill.alpha}
+          draggable={isSelected}
+          strokeScaleEnabled={false}
+          onDragEnd={onDragEnd}
+          onTransform={onTransform}
+          onTransformEnd={onTransformEnd}
+        />
+      ) : (
+        <GalleryEditAnnotationRectangleImage
+          ref={annotationImageRef}
+          annotation={annotation}
+          isSelected={isSelected}
+          onSelect={onSelect}
+          imgSrc={imgSrc}
+          onDragEnd={onDragEnd}
+          onTransform={onTransform}
+          onTransformEnd={onTransformEnd}
+        />
+      )}
 
-          const width = Math.max(5, e.target.width() * scaleX);
-          const height = Math.max(5, e.target.height() * scaleY);
-
-          node.scaleX(1);
-          node.scaleY(1);
-          node.width(width);
-          node.height(height);
-        }}
-        onTransformEnd={(e) => {
-          const node = shapeRef.current;
-          if (!node) return;
-
-          const scaleX = node.scaleX();
-          const scaleY = node.scaleY();
-
-          const width = Math.max(5, e.target.width() * scaleX);
-          const height = Math.max(5, e.target.height() * scaleY);
-
-          node.scaleX(1);
-          node.scaleY(1);
-
-          onChange({
-            x: node.x(),
-            y: node.y(),
-            rotation: node.rotation(),
-            width: Math.max(5, width * scaleX),
-            height: Math.max(5, height * scaleY),
-          });
-        }}
-      />
       {isSelected && (
         <Transformer
           ref={trRef}

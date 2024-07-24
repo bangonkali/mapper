@@ -18,6 +18,9 @@ export const generateMockData = async () => {
   galleryReadyStore.setState(() => false);
   const items: GalleryItem[] = [];
 
+  const chairImage =
+    'https://upload.wikimedia.org/wikipedia/commons/1/18/Chair%2C_top_view.png';
+
   let startTime = new Date().getTime();
 
   if ((await db.galleryItems.count()) > 0) {
@@ -81,6 +84,8 @@ export const generateMockData = async () => {
           visible: Math.random() < 0.5,
           createdAt: startTime--,
           updatedAt: startTime--,
+          isWireframe: Math.random() < 0.5,
+          imgSrc: Math.random() < 0.5 ? chairImage : undefined,
         };
         dbAnnotations.push(annotation);
 
