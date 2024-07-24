@@ -15,6 +15,7 @@ db.version(1).stores({
     '++annotationId,galleryItemId,[annotationId+galleryItemId],createdAt,updatedAt',
   annotationTags:
     '++annotationTagId,[annotationId+galleryItemId],galleryItemId,createdAt,updatedAt',
+  undoHistory: '++undoId',
 });
 
 export { db };
