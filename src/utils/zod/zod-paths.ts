@@ -17,17 +17,21 @@ export const _getPropertyPaths = (
   pathTypes: ZodPathType[] = [],
   currentPath: string = ''
 ): string[] => {
-  if (schema instanceof Zod.ZodEffects) {
-    return _getPropertyPaths(
-      schema._def?.schema ?? schema,
-      pathTypes,
-      currentPath
-    );
-  }
+  // Unwrap ZodEffects, ZodNullable, and ZodOptional to get the underlying type
+  const unwrapSchema = (schema: Zod.ZodType): Zod.ZodType => {
+    if (schema instanceof Zod.ZodEffects) {
+      return unwrapSchema(schema._def?.schema ?? schema);
+    }
+    if (
+      schema instanceof Zod.ZodNullable ||
+      schema instanceof Zod.ZodOptional
+    ) {
+      return unwrapSchema(schema.unwrap());
+    }
+    return schema;
+  };
 
-  if (schema instanceof Zod.ZodNullable || schema instanceof Zod.ZodOptional) {
-    return _getPropertyPaths(schema.unwrap(), pathTypes, currentPath);
-  }
+  schema = unwrapSchema(schema);
 
   if (schema instanceof Zod.ZodArray) {
     return _getPropertyPaths(schema.element, pathTypes, currentPath + '[0]');
@@ -40,7 +44,8 @@ export const _getPropertyPaths = (
       const newPath = currentPath ? `${currentPath}.${key}` : key;
       const nested = _getPropertyPaths(value, pathTypes, newPath);
 
-      const type = get(value, '_def.typeName') as unknown as string;
+      const unwrappedValue = unwrapSchema(value);
+      const type = get(unwrappedValue, '_def.typeName') as unknown as string;
       pathTypes.push({ path: newPath, type });
 
       return nested.length ? nested : [newPath];
