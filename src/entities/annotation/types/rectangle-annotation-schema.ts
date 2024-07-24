@@ -56,6 +56,9 @@ export const RectangleAnnotationSchema = AnnotationBaseSchema.extend({
    * The visibility of the annotation.
    */
   visible: z.boolean(),
+
+  imgSrc: z.string().optional(),
+  isWireframe: z.boolean(),
 });
 
 export type RectangleAnnotation = z.infer<typeof RectangleAnnotationSchema>;
