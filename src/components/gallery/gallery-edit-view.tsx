@@ -59,7 +59,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     let isWireframe = false;
 
     let lastElementIndex = annotationQuery.data?.length - 1;
-    if (gallerySelectedAnnotation == null && lastElementIndex >= 0) {
+    if (!gallerySelectedAnnotation && lastElementIndex >= 0) {
       const lastElement = annotationQuery.data![lastElementIndex];
       height = lastElement.height;
       width = lastElement.width;
@@ -113,7 +113,12 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     });
 
     gallerySelectedAnnotationStore.setState(() => newUuid);
-  }, [annotationQuery.data, focusedImageId, mutateAnnotation]);
+  }, [
+    annotationQuery.data,
+    focusedImageId,
+    gallerySelectedAnnotation,
+    mutateAnnotation,
+  ]);
 
   if (!focusedImage) {
     return <p>No item</p>;
