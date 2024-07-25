@@ -8,7 +8,7 @@ import { z } from 'zod';
  */
 export const AnnotationBaseSchema = z.object({
   annotationId: z.string().uuid(), // the unique identifier for this annotation
-  galleryItemId: z.string().uuid(), // the image gallery item that this annotation is tied to
+  canvasId: z.string().uuid(), // the image gallery item that this annotation is tied to
   title: z.string(), // the image gallery item that this annotation is tied to
   description: z.string(), // the image gallery item that this annotation is tied to
   createdAt: z.number(),

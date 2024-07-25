@@ -1,6 +1,6 @@
 import { colors } from '../../consts/colors';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
 import { Annotation } from '../../entities/annotation/annotation-schema';
 import { RectangleShape } from '../shapes/rectangle-shape';
 

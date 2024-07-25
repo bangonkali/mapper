@@ -19,9 +19,7 @@ import { Route as rootRoute } from './routes/__root'
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 const GalleryIndexLazyImport = createFileRoute('/gallery/')()
-const GalleryItemGalleryItemIdLazyImport = createFileRoute(
-  '/gallery/item/$galleryItemId',
-)()
+const CanvasCanvasIdLazyImport = createFileRoute('/canvas/$canvasId')()
 
 // Create/Update Routes
 
@@ -40,13 +38,12 @@ const GalleryIndexLazyRoute = GalleryIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/gallery.index.lazy').then((d) => d.Route))
 
-const GalleryItemGalleryItemIdLazyRoute =
-  GalleryItemGalleryItemIdLazyImport.update({
-    path: '/gallery/item/$galleryItemId',
-    getParentRoute: () => rootRoute,
-  } as any).lazy(() =>
-    import('./routes/gallery.item.$galleryItemId.lazy').then((d) => d.Route),
-  )
+const CanvasCanvasIdLazyRoute = CanvasCanvasIdLazyImport.update({
+  path: '/canvas/$canvasId',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/canvas.$canvasId.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -66,18 +63,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/canvas/$canvasId': {
+      id: '/canvas/$canvasId'
+      path: '/canvas/$canvasId'
+      fullPath: '/canvas/$canvasId'
+      preLoaderRoute: typeof CanvasCanvasIdLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/gallery/': {
       id: '/gallery/'
       path: '/gallery'
       fullPath: '/gallery'
       preLoaderRoute: typeof GalleryIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/gallery/item/$galleryItemId': {
-      id: '/gallery/item/$galleryItemId'
-      path: '/gallery/item/$galleryItemId'
-      fullPath: '/gallery/item/$galleryItemId'
-      preLoaderRoute: typeof GalleryItemGalleryItemIdLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -88,8 +85,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   AboutLazyRoute,
+  CanvasCanvasIdLazyRoute,
   GalleryIndexLazyRoute,
-  GalleryItemGalleryItemIdLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -102,8 +99,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/about",
-        "/gallery/",
-        "/gallery/item/$galleryItemId"
+        "/canvas/$canvasId",
+        "/gallery/"
       ]
     },
     "/": {
@@ -112,11 +109,11 @@ export const routeTree = rootRoute.addChildren({
     "/about": {
       "filePath": "about.lazy.tsx"
     },
+    "/canvas/$canvasId": {
+      "filePath": "canvas.$canvasId.lazy.tsx"
+    },
     "/gallery/": {
       "filePath": "gallery.index.lazy.tsx"
-    },
-    "/gallery/item/$galleryItemId": {
-      "filePath": "gallery.item.$galleryItemId.lazy.tsx"
     }
   }
 }

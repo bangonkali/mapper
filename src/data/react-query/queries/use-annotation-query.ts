@@ -11,7 +11,7 @@ export const getUseAnnotationQueryKey = (params: FetchAnnotationParams) => {
 
 export const useAnnotationQuery = (params: FetchAnnotationParams) => {
   const annotationQuery = useAnnotationsQuery({
-    galleryItemId: params.galleryItemId,
+    canvasId: params.canvasId,
   });
 
   const initialData = annotationQuery.data?.find(

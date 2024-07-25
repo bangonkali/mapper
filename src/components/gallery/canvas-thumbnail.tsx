@@ -1,21 +1,21 @@
 import { useState, forwardRef } from 'react';
-import { GalleryItemLayoutBox } from '../../models/GalleryItemLayoutBox';
+import { CanvasLayoutBox } from '../../models/CanvasLayoutBox';
 import { produce } from 'immer';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
-import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
+import { Canvas } from '../../entities/canvas/canvas-schema';
+import { usePutCanvas } from '../../data/react-query/mutations/use-put-canvas';
 import { useNavigate } from '@tanstack/react-router';
 
-export type GalleryItemThumbnailProps = {
-  item: GalleryItem;
-  layout: GalleryItemLayoutBox;
+export type CanvasThumbnailProps = {
+  item: Canvas;
+  layout: CanvasLayoutBox;
   focused: boolean;
 };
 
-export const GalleryItemThumbnail = forwardRef<
+export const CanvasThumbnail = forwardRef<
   HTMLImageElement,
-  GalleryItemThumbnailProps
+  CanvasThumbnailProps
 >(({ item, layout, focused }, focusElement) => {
-  const putGalleryItem = usePutGalleryItem();
+  const putCanvas = usePutCanvas();
   const [isMouseHover, setIsMouseHover] = useState(false);
   const navigate = useNavigate({ from: '/gallery' });
   return (
@@ -39,7 +39,7 @@ export const GalleryItemThumbnail = forwardRef<
     >
       <img
         className="ns"
-        key={`img-${item.galleryItemId}`}
+        key={`img-${item.canvasId}`}
         src={item.src}
         alt={item.caption}
         style={{
@@ -52,10 +52,10 @@ export const GalleryItemThumbnail = forwardRef<
         }}
         ref={focused ? focusElement : null}
         onClick={() => {
-          const galleryItemId = item.galleryItemId;
+          const canvasId = item.canvasId;
           navigate({
-            to: '/gallery/item/$galleryItemId',
-            params: { galleryItemId },
+            to: '/canvas/$canvasId',
+            params: { canvasId },
           });
         }}
       />
@@ -88,7 +88,7 @@ export const GalleryItemThumbnail = forwardRef<
             paddingBottom: 10,
           }}
           onClick={() => {
-            putGalleryItem.mutate({
+            putCanvas.mutate({
               data: produce(item, (draft) => {
                 draft.selected = !draft.selected;
               }),

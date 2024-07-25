@@ -1,4 +1,4 @@
-export interface GalleryItemLayoutBox {
+export interface CanvasLayoutBox {
   /**
    * Aspect ratio of the box.
    */

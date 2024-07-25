@@ -1,13 +1,13 @@
 import { useStore } from '@tanstack/react-store';
 import { GalleryToolboxAnnotationOverlayProperties } from './gallery-toolbox-annotation-overlay-properties';
 import { GalleryToolboxItemProperties } from './gallery-toolbox-item-properties';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
-import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
+import { useCanvasesQuery } from '../../data/react-query/queries/use-canvases-query';
 import { GalleryToolboxLayerTreeContainer } from './gallery-toolbox-layer-tree-container';
 import { colors } from '../../consts/colors';
 
 export type GalleryToolboxContainerProps = {
-  galleryItemId?: string | undefined;
+  canvasId?: string | undefined;
   width: number;
   height: number;
   side: 'left' | 'right';
@@ -15,15 +15,12 @@ export type GalleryToolboxContainerProps = {
 
 export const GalleryToolboxContainer: React.FC<
   GalleryToolboxContainerProps
-> = ({ galleryItemId, height, width, side }) => {
-  const galleryItemsQuery = useGalleryItemsQuery();
+> = ({ canvasId, height, width, side }) => {
+  const canvasesQuery = useCanvasesQuery();
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
-  const galleryItems = galleryItemsQuery.data ?? [];
-  const focusedGalleryItem = galleryItems.find(
-    (item) => item.galleryItemId === galleryItemId
-  );
+  const canvases = canvasesQuery.data ?? [];
+  const focusedCanvas = canvases.find((item) => item.canvasId === canvasId);
 
-  // find the annotation tags for focusedGalleryItem
   const borderWidth = 1;
 
   return (
@@ -41,30 +38,30 @@ export const GalleryToolboxContainer: React.FC<
     >
       {side === 'left' ? (
         <>
-          {focusedGalleryItem ? (
+          {focusedCanvas ? (
             <GalleryToolboxLayerTreeContainer
               width={width - borderWidth}
               height={height}
-              focusedImage={focusedGalleryItem}
+              focusedImage={focusedCanvas}
               selectedAnnotationId={selectedAnnotationId}
             />
           ) : null}
         </>
       ) : (
         <>
-          {selectedAnnotationId && galleryItemId ? (
+          {selectedAnnotationId && canvasId ? (
             <GalleryToolboxAnnotationOverlayProperties
               width={width - borderWidth}
               height={height}
               selectedAnnotationId={selectedAnnotationId}
-              galleryItemId={galleryItemId}
+              canvasId={canvasId}
             />
           ) : null}
 
           <GalleryToolboxItemProperties
             width={width - borderWidth}
             height={height}
-            focusedImage={focusedGalleryItem}
+            focusedImage={focusedCanvas}
           />
         </>
       )}

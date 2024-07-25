@@ -1,16 +1,16 @@
 import { GalleryComputedLayout } from '../../models/app/app-layout';
-import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { useCanvasesQuery } from '../../data/react-query/queries/use-canvases-query';
 import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { GalleryEditToolbar } from './gallery-edit-toolbar';
-import { GalleryEditCavnas } from './gallery-edit-canvas';
+import { GalleryEditCanvas } from './gallery-edit-canvas';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
 import { RectangleShape } from '../shapes/rectangle-shape';
 import { getRandomColor } from '../../utils/random/random-utils';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { useCallback } from 'react';
 import { v4 as uuid } from 'uuid';
 import { colors } from '../../consts/colors';
-import { Route } from '../../routes/gallery.item.$galleryItemId.lazy';
+import { Route } from '../../routes/canvas.$canvasId.lazy';
 import { galleryStoreLayout } from '../../data/store/gallery-store';
 import { produce } from 'immer';
 import { onSplitterEnd } from '../../data/store/mutations/splitter/on-splitter-end';
@@ -19,7 +19,7 @@ import { GalleryEditCarouselDock } from './dockable-containers/gallery-edit-caro
 import { galleryEditDockStore } from '../../data/store/gallery-edit-dock-store';
 import { useStore } from '@tanstack/react-store';
 import { GalleryEditAnnotationTagsGridDock } from './dockable-containers/gallery-edit-annotation-tags-grid-dock';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -28,21 +28,19 @@ export type GalleryEditViewProps = {
 export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const gallerySelectedAnnotation = useStore(gallerySelectedAnnotationStore);
   const galleryEditDock = useStore(galleryEditDockStore);
-  const { galleryItemId } = Route.useParams();
-  const galleryItemsQuery = useGalleryItemsQuery();
-  const focusedImageId = galleryItemId;
+  const { canvasId } = Route.useParams();
+  const canvasesQuery = useCanvasesQuery();
+  const focusedImageId = canvasId;
   const mutateAnnotation = usePutAnnotation();
   const annotationQuery = useAnnotationsQuery({
-    galleryItemId: focusedImageId!,
+    canvasId: focusedImageId!,
   });
 
   const toolbarHeight = 40;
   const canvasHeight =
     layout.docks.workspace.height - layout.docks.bottom.height - toolbarHeight;
-  const items: GalleryItem[] = galleryItemsQuery.data ?? [];
-  const focusedImage = items.find(
-    (item) => item.galleryItemId === focusedImageId
-  );
+  const items: Canvas[] = canvasesQuery.data ?? [];
+  const focusedImage = items.find((item) => item.canvasId === focusedImageId);
 
   const handleSubmitShape = useCallback(() => {
     if (typeof annotationQuery.data?.length !== 'number') return;
@@ -83,7 +81,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
 
     mutateAnnotation.mutate({
       data: {
-        galleryItemId: focusedImageId,
+        canvasId: focusedImageId,
         annotationId: newUuid,
         height: height,
         width: width,
@@ -193,7 +191,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           alignItems: 'center',
         }}
       >
-        <GalleryEditCavnas
+        <GalleryEditCanvas
           focusedImage={focusedImage}
           width={layout.docks.workspace.width}
           height={canvasHeight}

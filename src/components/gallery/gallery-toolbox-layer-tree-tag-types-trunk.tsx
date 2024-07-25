@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
 import { GalleryToolboxTagsContainer } from './gallery-toolbox-tags-container';
 
 export type GalleryToolboxLayerTreeTagTypesTrunkProps = {
   width: number;
   height: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
 };
 

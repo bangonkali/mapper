@@ -1,7 +1,7 @@
 import createJustifiedLayout from 'justified-layout';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 
-export const calculateMasonryLayout = (width: number, items: GalleryItem[]) => {
+export const calculateMasonryLayout = (width: number, items: Canvas[]) => {
   const ratios = items.map((item) => item.ratio);
   const layout = createJustifiedLayout(ratios, {
     containerWidth: width,

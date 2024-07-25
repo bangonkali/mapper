@@ -3,7 +3,7 @@ import icoDockGrid from '../../../assets/ico-grid.svg';
 
 export const GalleryEditLinkToGalleryButton: React.FC = () => {
   const icoSize = 18;
-  const navigate = useNavigate({ from: '/gallery/item/$galleryItemId' });
+  const navigate = useNavigate({ from: '/canvas/$canvasId' });
   return (
     <div
       style={{

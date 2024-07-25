@@ -7,16 +7,16 @@ export type GalleryToolboxAnnotationOverlayPropertiesProps = {
   width: number;
   height: number;
   selectedAnnotationId: string;
-  galleryItemId: string;
+  canvasId: string;
 };
 
 export const GalleryToolboxAnnotationOverlayProperties: React.FC<
   GalleryToolboxAnnotationOverlayPropertiesProps
-> = ({ height, width, selectedAnnotationId, galleryItemId }) => {
+> = ({ height, width, selectedAnnotationId, canvasId }) => {
   const mutateAnnotation = usePutAnnotation();
   const annotation = useAnnotationQuery({
     annotationId: selectedAnnotationId,
-    galleryItemId: galleryItemId,
+    canvasId: canvasId,
   });
 
   if (!annotation.data) {
@@ -38,7 +38,7 @@ export const GalleryToolboxAnnotationOverlayProperties: React.FC<
           readonly: true,
         },
         {
-          key: 'galleryItemId',
+          key: 'canvasId',
           label: 'Gallery Item Id',
           description: 'The unique identifier for the gallery item.',
           inputType: 'text',

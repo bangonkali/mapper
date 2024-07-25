@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxPropertiesHeader } from './gallery-toolbox-properties-header';
 import { GalleryToolboxLayerTreeAnnotationsTrunk } from './gallery-toolbox-layer-tree-annotations-trunk';
 import { GalleryToolboxLayerTreeTagTypesTrunk } from './gallery-toolbox-layer-tree-tag-types-trunk';
@@ -7,7 +7,7 @@ import { GalleryToolboxLayerTreeTagTypesTrunk } from './gallery-toolbox-layer-tr
 export type GalleryToolboxLayerTreeContainerProps = {
   width: number;
   height: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
 };
 
@@ -17,11 +17,7 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
   const [isMinimized, setIsMinimized] = useState(false);
 
   return (
-    <div
-      className="ns"
-      style={{ width: width }}
-      key={focusedImage.galleryItemId}
-    >
+    <div className="ns" style={{ width: width }} key={focusedImage.canvasId}>
       <GalleryToolboxPropertiesHeader
         isMinimized={isMinimized}
         width={width}

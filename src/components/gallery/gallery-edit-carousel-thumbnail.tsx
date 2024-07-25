@@ -1,12 +1,12 @@
 import { useState, forwardRef } from 'react';
 import { produce } from 'immer';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
-import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
+import { Canvas } from '../../entities/canvas/canvas-schema';
+import { usePutCanvas } from '../../data/react-query/mutations/use-put-canvas';
 import { useNavigate } from '@tanstack/react-router';
 
 export type GalleryEditCarouselThumbnailProps = {
-  item: GalleryItem;
+  item: Canvas;
   height: number;
   width: number;
   focused: boolean;
@@ -17,7 +17,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
   GalleryEditCarouselThumbnailProps
 >(({ item, height, width, focused }, focusElement) => {
   const navigate = useNavigate({ from: '/gallery' });
-  const putGalleryItem = usePutGalleryItem();
+  const putCanvas = usePutCanvas();
   const [isMouseHover, setIsMouseHover] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
     >
       <img
         className="ns"
-        id={item.galleryItemId}
+        id={item.canvasId}
         src={item.src}
         alt={item.caption}
         style={{
@@ -57,10 +57,10 @@ export const GalleryEditCarouselThumbnail = forwardRef<
         ref={focused ? focusElement : null}
         onClick={() => {
           gallerySelectedAnnotationStore.setState(() => null);
-          const galleryItemId = item.galleryItemId;
+          const canvasId = item.canvasId;
           navigate({
-            to: '/gallery/item/$galleryItemId',
-            params: { galleryItemId },
+            to: '/canvas/$canvasId',
+            params: { canvasId },
           });
         }}
       />
@@ -85,7 +85,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
       <div
         onClick={(e) => {
           e.stopPropagation();
-          putGalleryItem.mutate({
+          putCanvas.mutate({
             data: produce(item, (draft) => {
               draft.selected = !draft.selected;
             }),

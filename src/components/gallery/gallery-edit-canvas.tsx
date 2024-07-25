@@ -5,32 +5,32 @@ import { produce } from 'immer';
 import Konva from 'konva';
 import { GalleryEditAnnotationRectangle } from './gallery-edit-annotation-rectangle';
 import useImage from 'use-image';
-import { GalleryEditFocusedItem } from './gallery-edit-focused-item';
+import { GalleryEditFocusedCanvas } from './gallery-edit-focused-canvas';
 import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
-import { usePutGalleryItem } from '../../data/react-query/mutations/use-put-gallery-item';
+import { Canvas } from '../../entities/canvas/canvas-schema';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
+import { usePutCanvas } from '../../data/react-query/mutations/use-put-canvas';
 
-export type GalleryEditCavnasProps = {
-  focusedImage: GalleryItem;
+export type GalleryEditCanvasProps = {
+  focusedImage: Canvas;
   width: number;
   height: number;
 };
 
-export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
+export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
   focusedImage,
   width,
   height,
 }) => {
-  const putGalleryItem = usePutGalleryItem();
+  const putCanvas = usePutCanvas();
   const mutateAnnotation = usePutAnnotation();
   const stageRef = useRef<Konva.Stage>(null);
   const gallerySelectedAnnotation = useStore(gallerySelectedAnnotationStore);
   const [image] = useImage(focusedImage.src);
 
   const annotationQuery = useAnnotationsQuery({
-    galleryItemId: focusedImage.galleryItemId,
+    canvasId: focusedImage.canvasId,
   });
 
   const zoomFactor = focusedImage.zoomFactor;
@@ -95,7 +95,7 @@ export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
 
   return (
     <Stage
-      key={`stage-${focusedImage.galleryItemId}`}
+      key={`stage-${focusedImage.canvasId}`}
       useRef={stageRef}
       position={localImagePosition}
       width={width}
@@ -132,7 +132,7 @@ export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
         // };
 
         // setImagePosition(newPos);
-        putGalleryItem.mutate({
+        putCanvas.mutate({
           data: produce(focusedImage, (draft) => {
             draft.zoomFactor = newScale;
           }),
@@ -142,7 +142,7 @@ export const GalleryEditCavnas: React.FC<GalleryEditCavnasProps> = ({
       <Layer
         scale={{ x: scaleFactor * zoomFactor, y: scaleFactor * zoomFactor }}
       >
-        <GalleryEditFocusedItem image={image} />
+        <GalleryEditFocusedCanvas image={image} />
         {annotations}
       </Layer>
     </Stage>

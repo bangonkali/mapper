@@ -1,13 +1,13 @@
 import { Image } from 'react-konva';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
 
-export type GalleryEditFocusedItemProps = {
+export type GalleryEditFocusedCanvasProps = {
   image: HTMLImageElement | undefined;
 };
 
-export const GalleryEditFocusedItem: React.FC<GalleryEditFocusedItemProps> = ({
-  image,
-}) => {
+export const GalleryEditFocusedCanvas: React.FC<
+  GalleryEditFocusedCanvasProps
+> = ({ image }) => {
   return (
     <Image
       image={image}

@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { GalleryItemBaseSchema } from '../gallery-item-base-schema';
+import { CanvasBaseSchema } from '../canvas-base-schema';
 
-export const ImageGalleryItemSchema = GalleryItemBaseSchema.extend({
+export const DocumentCanvasSchema = CanvasBaseSchema.extend({
   type: z.literal('image'),
   width: z.number(),
   height: z.number(),
@@ -12,4 +12,4 @@ export const ImageGalleryItemSchema = GalleryItemBaseSchema.extend({
   zoomFactor: z.number(),
 });
 
-export type ImageGalleryItem = z.infer<typeof ImageGalleryItemSchema>;
+export type DocumentCanvas = z.infer<typeof DocumentCanvasSchema>;

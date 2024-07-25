@@ -1,11 +1,11 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../data/db/db';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeTagTypeNode } from './gallery-toolbox-layer-tree-tag-type-node';
 
 export type GalleryToolboxTagsContainerProps = {
   width: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
   level: number;
 };
@@ -17,10 +17,7 @@ export const GalleryToolboxTagsContainer: React.FC<
   // final implementation. This is a temporary solution to get the code working for
   // demo purposes! - gil
   const annotationTags = useLiveQuery(() =>
-    db.annotationTags
-      .where('galleryItemId')
-      .equals(focusedImage.galleryItemId)
-      .toArray()
+    db.annotationTags.where('canvasId').equals(focusedImage.canvasId).toArray()
   );
 
   // group annotationTags array items by tag type

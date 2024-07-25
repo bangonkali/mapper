@@ -1,26 +1,26 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../../data/db/db';
 import { useAnnotationsQuery } from '../../../data/react-query/queries/use-annotations-query';
-import { Route } from '../../../routes/gallery.item.$galleryItemId.lazy';
+import { Route } from '../../../routes/canvas.$canvasId.lazy';
 import { GalleryEditDockProps } from '../gallery-edit-dock-props';
 import { GalleryEditAnnotationTagsGrid } from '../gallery-edit-annotation-tags-grid';
-import { gallerySelectedAnnotationStore } from '../../../data/store/gallery-items-store';
+import { gallerySelectedAnnotationStore } from '../../../data/store/canvases-store';
 import { useStore } from '@tanstack/react-store';
 
 export const GalleryEditAnnotationTagsGridDock: React.FC<
   GalleryEditDockProps
 > = ({ width, height }) => {
-  const { galleryItemId } = Route.useParams();
-  const focusedImageId = galleryItemId;
+  const { canvasId } = Route.useParams();
+  const focusedImageId = canvasId;
 
   const annotationsQuery = useAnnotationsQuery({
-    galleryItemId: focusedImageId,
+    canvasId: focusedImageId,
   });
   const selectedAnnotationId = useStore(gallerySelectedAnnotationStore);
 
   const annotationTags =
     useLiveQuery(() =>
-      db.annotationTags.where('galleryItemId').equals(galleryItemId).toArray()
+      db.annotationTags.where('canvasId').equals(canvasId).toArray()
     ) ?? [];
 
   const annotations = annotationsQuery.data ?? [];

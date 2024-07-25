@@ -5,13 +5,13 @@ import { GalleryToolboxContainer } from './gallery-toolbox-container';
 import { produce } from 'immer';
 
 export type GalleryDockProps = {
-  galleryItemId?: string | undefined;
+  canvasId?: string | undefined;
   layout: GalleryComputedLayout;
   side: 'left' | 'right';
 };
 
 export const GalleryDock: React.FC<GalleryDockProps> = ({
-  galleryItemId,
+  canvasId,
   layout,
   side,
 }) => {
@@ -68,7 +68,7 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({
         }}
       >
         <GalleryToolboxContainer
-          galleryItemId={galleryItemId}
+          canvasId={canvasId}
           side={side}
           width={width}
           height={childHeight}

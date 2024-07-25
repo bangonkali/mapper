@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { colors } from '../../consts/colors';
-import { gallerySelectedAnnotationStore } from '../../data/store/gallery-items-store';
+import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
 import { Annotation } from '../../entities/annotation/annotation-schema';
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
 import { flattenToDictionary } from '../../utils/flatten';

@@ -1,5 +1,5 @@
 import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export type GalleryToolboxLayerTreeSimpleTrunkProps = {
   width: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
   tagValues: AnnotationTag[];
   tagValue: string;
@@ -27,7 +27,7 @@ export const GalleryToolboxLayerTreeSimpleTrunk: React.FC<
   const [isExpanded, setIsExpanded] = useState(false);
 
   const annotationQuery = useAnnotationsQuery({
-    galleryItemId: focusedImage.galleryItemId,
+    canvasId: focusedImage.canvasId,
   });
 
   let annotationNodes: (JSX.Element | undefined)[] = [];

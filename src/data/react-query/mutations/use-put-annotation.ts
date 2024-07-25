@@ -11,12 +11,12 @@ export const usePutAnnotation = () => {
       queryClient.invalidateQueries({
         queryKey: getUseAnnotationQueryKey({
           annotationId: variables.data.annotationId,
-          galleryItemId: variables.data.galleryItemId,
+          canvasId: variables.data.canvasId,
         }),
       });
       queryClient.invalidateQueries({
         queryKey: getUseAnnotationsQueryKey({
-          galleryItemId: variables.data.galleryItemId,
+          canvasId: variables.data.canvasId,
         }),
       });
     },

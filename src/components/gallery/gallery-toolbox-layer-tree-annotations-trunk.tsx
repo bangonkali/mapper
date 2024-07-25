@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
 
 export type GalleryToolboxLayerTreeAnnotationsTrunkProps = {
   width: number;
   height: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
 };
 
@@ -16,7 +16,7 @@ export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
 > = ({ width, focusedImage, selectedAnnotationId }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const annotationQuery = useAnnotationsQuery({
-    galleryItemId: focusedImage.galleryItemId,
+    canvasId: focusedImage.canvasId,
   });
 
   const annotations = isExpanded

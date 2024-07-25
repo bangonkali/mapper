@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import styles from './gallery-edit-carousel.module.css';
 import { GalleryEditCarouselThumbnail } from './gallery-edit-carousel-thumbnail';
 import { colors } from '../../consts/colors';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 
 export type GalleryEditCarouselProps = {
-  items: GalleryItem[];
-  focusedItem: GalleryItem;
+  items: Canvas[];
+  focusedItem: Canvas;
   height: number;
   width: number;
 };
@@ -31,13 +31,13 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
 
   useEffect(scrollToElement, []);
   const carousel = items.map((item) => {
-    const focused = item.galleryItemId === focusedItem.galleryItemId;
+    const focused = item.canvasId === focusedItem.canvasId;
     const imgHeight = Math.ceil(height - scrollbarHeight - topBorder);
     const imgWidth = Math.ceil((imgHeight * item.width) / item.height);
 
     return (
       <GalleryEditCarouselThumbnail
-        key={item.galleryItemId}
+        key={item.canvasId}
         item={item}
         height={imgHeight}
         width={imgWidth}

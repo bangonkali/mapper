@@ -14,7 +14,7 @@ export const AnnotationTagSchema = z.object({
   /**
    * The image gallery item that this annotation tag is tied to.
    */
-  galleryItemId: z.string().uuid(),
+  canvasId: z.string().uuid(),
 
   /**
    * The annotation that this tag is tied to.

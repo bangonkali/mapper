@@ -9,11 +9,11 @@ import { GalleryEditView } from '../gallery/gallery-edit-view';
 import { GalleryHeader } from '../gallery/gallery-header';
 import { GalleryFooter } from '../gallery/gallery-footer';
 import styles from '../gallery/gallery.module.css';
-import { Route } from '../../routes/gallery.item.$galleryItemId.lazy';
+import { Route } from '../../routes/canvas.$canvasId.lazy';
 
-export const GalleryItemContainer: React.FC = () => {
+export const CanvasPageContainer: React.FC = () => {
   {
-    const { galleryItemId } = Route.useParams();
+    const { canvasId } = Route.useParams();
     const { width = 0, height = 0 } = useWindowSize();
     const layout = useStore(galleryStoreLayout, (state) => {
       return computeGalleryLayout({ width, height, state });
@@ -49,11 +49,7 @@ export const GalleryItemContainer: React.FC = () => {
           }}
         >
           {layout.docks.left.visible ? (
-            <GalleryDock
-              galleryItemId={galleryItemId}
-              layout={layout}
-              side="left"
-            />
+            <GalleryDock canvasId={canvasId} layout={layout} side="left" />
           ) : null}
           <div
             className={styles.workspace}
@@ -65,11 +61,7 @@ export const GalleryItemContainer: React.FC = () => {
             <GalleryEditView layout={layout} />
           </div>
           {layout.docks.right.visible ? (
-            <GalleryDock
-              galleryItemId={galleryItemId}
-              layout={layout}
-              side="right"
-            />
+            <GalleryDock canvasId={canvasId} layout={layout} side="right" />
           ) : null}
         </div>
         <GalleryFooter

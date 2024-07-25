@@ -1,9 +1,9 @@
 import createJustifiedLayout from 'justified-layout';
 import { useStore } from '@tanstack/react-store';
-import { GalleryItemThumbnail } from './gallery-item-thumbnail';
+import { CanvasThumbnail } from './canvas-thumbnail';
 import { galleryMasonryLayoutStore } from '../../data/store/gallery-masonry-layout-store';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
-import { useGalleryItemsQuery } from '../../data/react-query/queries/use-gallery-items-query';
+import { Canvas } from '../../entities/canvas/canvas-schema';
+import { useCanvasesQuery } from '../../data/react-query/queries/use-canvases-query';
 import { useRef } from 'react';
 
 export type GalleryMasonryViewProps = {
@@ -15,14 +15,14 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
   props
 ) => {
   const galleryRef = useRef(null);
-  const galleryItemsQuery = useGalleryItemsQuery();
+  const canvasesQuery = useCanvasesQuery();
   const masonryLayoutConfiguration = useStore(
     galleryMasonryLayoutStore,
     (state) => {
       return state;
     }
   );
-  const items: GalleryItem[] = galleryItemsQuery.data ?? [];
+  const items: Canvas[] = canvasesQuery.data ?? [];
   const focusElement = useRef<HTMLImageElement>(null);
 
   if (items.length === 0) {
@@ -38,8 +38,8 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
   );
   const masonry = items.map((item, index) => {
     return (
-      <GalleryItemThumbnail
-        key={`thumb-${item.galleryItemId}`}
+      <CanvasThumbnail
+        key={`thumb-${item.canvasId}`}
         item={item}
         layout={layout.boxes[index]}
         focused={false}

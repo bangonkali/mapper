@@ -1,12 +1,12 @@
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
-import { GalleryItem } from '../../entities/gallery-item/gallery-item-schema';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
 import { GalleryToolboxLayerTreeSimpleTrunk } from './gallery-toolbox-layer-tree-simple-trunk';
 import { useState } from 'react';
 
 export type GalleryToolboxLayerTreeTagTypeNodeProps = {
   width: number;
-  focusedImage: GalleryItem;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
   tagValues: AnnotationTag[];
   tagType: string;
