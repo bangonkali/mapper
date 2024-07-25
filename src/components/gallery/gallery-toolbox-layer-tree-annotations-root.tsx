@@ -1,27 +1,28 @@
 import { useState } from 'react';
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
-import { Annotation } from '../../entities/annotation/annotation-schema';
-import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
-import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
-import { produce } from 'immer';
 
-export type GalleryToolboxLayerTreeAnnotationsTrunkProps = {
+export type GalleryToolboxLayerTreeAnnotationsRootProps = {
   width: number;
+  focusedImage: Canvas;
   selectedAnnotationId: string | null;
-  annotations: Annotation[];
-  annotation: Annotation;
-  level: number;
 };
 
-export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
-  GalleryToolboxLayerTreeAnnotationsTrunkProps
-> = ({ width, selectedAnnotationId, annotations, annotation, level }) => {
+export const GalleryToolboxLayerTreeAnnotationsRoot: React.FC<
+  GalleryToolboxLayerTreeAnnotationsRootProps
+> = ({ width, focusedImage, selectedAnnotationId }) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const putAnnotation = usePutAnnotation();
+  const annotationQuery = useAnnotationsQuery({
+    canvasId: focusedImage.canvasId,
+  });
+  const currentLevel = 0;
+  const childrenLevel = 1;
+  const annotations = annotationQuery.data || [];
   const annotationFragments = isExpanded
-    ? annotations
-        .filter((x) => x.parentAnnotationId === annotation.annotationId)
+    ? annotationQuery.data
+        ?.filter((x) => !x.parentAnnotationId)
         .sort((a, b) => {
           // check if a has children
           const aCountChildren = annotations.filter(
@@ -38,7 +39,7 @@ export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
         .map((annotation) => {
           return (
             <GalleryToolboxLayerTreeAnnotationNode
-              level={level + 1}
+              level={childrenLevel}
               key={annotation.annotationId}
               width={width}
               selectedAnnotationId={selectedAnnotationId}
@@ -54,24 +55,13 @@ export const GalleryToolboxLayerTreeAnnotationsTrunk: React.FC<
     <div>
       <GalleryToolboxLayerTreeSimpleNode
         width={width}
-        level={level}
-        title={annotation.title}
-        isVisible={annotation.visible}
+        level={currentLevel}
+        title={'Annotations'}
+        isVisible={true}
         isExpanded={isExpanded}
         onExpandToggleClick={() => setIsExpanded(!isExpanded)}
-        isSelected={selectedAnnotationId === annotation.annotationId}
         onVisibleCheckboxClick={() => {
-          // run a mutation to change the state of the annotation to visible
-          putAnnotation.mutate({
-            data: produce(annotation, (draft) => {
-              draft.visible = !draft.visible;
-            }),
-          });
-        }}
-        onNodeClick={() => {
-          gallerySelectedAnnotationStore.setState(() => {
-            return annotation.annotationId;
-          });
+          console.log('clicked');
         }}
       />
       {isExpanded && annotationFragments}

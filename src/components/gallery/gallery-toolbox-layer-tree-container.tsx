@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxPropertiesHeader } from './gallery-toolbox-properties-header';
-import { GalleryToolboxLayerTreeAnnotationsTrunk } from './gallery-toolbox-layer-tree-annotations-trunk';
+import { GalleryToolboxLayerTreeAnnotationsRoot } from './gallery-toolbox-layer-tree-annotations-root';
 import { GalleryToolboxLayerTreeTagTypesTrunk } from './gallery-toolbox-layer-tree-tag-types-trunk';
 
 export type GalleryToolboxLayerTreeContainerProps = {
@@ -38,9 +38,8 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
             overflowX: 'auto',
           }}
         >
-          <GalleryToolboxLayerTreeAnnotationsTrunk
+          <GalleryToolboxLayerTreeAnnotationsRoot
             width={width - 6}
-            height={height}
             focusedImage={focusedImage}
             selectedAnnotationId={selectedAnnotationId}
           />

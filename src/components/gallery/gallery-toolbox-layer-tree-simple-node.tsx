@@ -1,3 +1,4 @@
+import { colors } from '../../consts/colors';
 import { ChevronDown } from '../shapes/chevron-down';
 import { ChevronRight } from '../shapes/chevron-right';
 
@@ -7,6 +8,8 @@ export type GalleryToolboxLayerTreeSimpleNodeProps = {
   title: string;
   isVisible: boolean;
   isExpanded: boolean;
+  isSelected?: boolean | undefined;
+  onNodeClick?: () => void | undefined;
   onVisibleCheckboxClick?: () => void | undefined;
   onExpandToggleClick?: () => void | undefined;
 };
@@ -19,15 +22,19 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
   title,
   isVisible,
   isExpanded,
+  isSelected,
+  onNodeClick,
   onVisibleCheckboxClick,
   onExpandToggleClick,
 }) => {
   const scrollbarRight = 12;
   const rowHeight = 18;
   const iconWidth = rowHeight - 3;
-  const checkboxWidth = rowHeight - 3;
-  const levelPadding = 20 * level;
-  const descriptionWidth = width - iconWidth - levelPadding - scrollbarRight;
+  const levelPadding = 10 * level;
+
+  const checkboxWidth = onVisibleCheckboxClick !== undefined ? 13 : 0;
+  const descriptionWidth =
+    width - levelPadding - scrollbarRight - checkboxWidth;
 
   return (
     <div
@@ -36,14 +43,14 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
         alignItems: 'center',
         width: width,
         height: rowHeight,
-        // borderBottom: `1px solid ${colors.borders}`,
+        backgroundColor: isSelected ? colors.selected : 'transparent',
       }}
     >
       <div
         style={{
           display: 'flex',
-          paddingLeft: 2 + levelPadding,
-          width: descriptionWidth - checkboxWidth,
+          paddingLeft: levelPadding,
+          width: descriptionWidth,
         }}
       >
         <div
@@ -73,23 +80,25 @@ export const GalleryToolboxLayerTreeSimpleNode: React.FC<
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
-            // backgroundColor: "blue",
+          }}
+          onClick={() => {
+            if (onNodeClick) {
+              onNodeClick();
+            }
           }}
         >
           {title}
         </div>
       </div>
       {onVisibleCheckboxClick ? (
-        <div style={{ width: checkboxWidth, height: checkboxWidth }}>
-          <input
-            type="checkbox"
-            checked={isVisible}
-            readOnly
-            onClick={() => {
-              onVisibleCheckboxClick();
-            }}
-          />
-        </div>
+        <input
+          type="checkbox"
+          checked={isVisible}
+          readOnly
+          onClick={() => {
+            onVisibleCheckboxClick();
+          }}
+        />
       ) : undefined}
     </div>
   );

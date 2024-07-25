@@ -17,7 +17,10 @@ import {
 export const generateMockData = async () => {
   const annotationsPerCanvas = 4000;
   galleryReadyStore.setState(() => false);
+
   const canvases: Canvas[] = [];
+  const annotations: Annotation[] = [];
+  const annotationTags: AnnotationTag[] = [];
 
   const chairImage =
     'https://upload.wikimedia.org/wikipedia/commons/1/18/Chair%2C_top_view.png';
@@ -30,8 +33,6 @@ export const generateMockData = async () => {
   }
 
   const numCanvases = 32;
-  const dbAnnotations: Annotation[] = [];
-  const dbAnnotationTags: AnnotationTag[] = [];
 
   // generate canvas based on the number of images and assign random values
   for (let i = 0; i < numCanvases; i++) {
@@ -45,6 +46,7 @@ export const generateMockData = async () => {
     // const annotationHeight = 100;
 
     if (i > 0) {
+      const canvasAnnotations: Annotation[] = [];
       const aps =
         annotationsPerCanvas - (annotationsPerCanvas / numCanvases) * i;
       const annotationsPerRow = Math.round(Math.sqrt(aps));
@@ -52,8 +54,9 @@ export const generateMockData = async () => {
       const annotationWidth = width / annotationsPerRow;
       const annotationHeight = height / annotationsPerRow;
 
-      const numberOfItems =
-        ((width / annotationWidth) * height) / annotationHeight;
+      const numberOfItems = Math.floor(
+        (width / annotationWidth) * (height / annotationHeight)
+      );
 
       let annotationNumber = 0;
 
@@ -91,7 +94,8 @@ export const generateMockData = async () => {
             isWireframe: Math.random() < 0.5,
             imgSrc: Math.random() < 0.5 ? chairImage : undefined,
           };
-          dbAnnotations.push(annotation);
+
+          canvasAnnotations.push(annotation);
 
           const types: AnnotationTagKeys[] = [
             'Classification',
@@ -113,9 +117,27 @@ export const generateMockData = async () => {
               createdAt: startTime--,
               updatedAt: startTime--,
             };
-            dbAnnotationTags.push(annotationTag);
+            annotationTags.push(annotationTag);
           });
         }
+      }
+
+      // assign parent annotation to some of the annotations
+      for (let j = 0; j < canvasAnnotations.length; j++) {
+        // pick a random parent annotation from previously created annotations
+        const parentAnnotationId =
+          Math.random() < 0.8
+            ? canvasAnnotations[
+                getRandomNumber(0, canvasAnnotations.length - 1)
+              ]
+            : undefined;
+
+        if (parentAnnotationId) {
+          canvasAnnotations[j].parentAnnotationId =
+            parentAnnotationId.annotationId;
+        }
+
+        annotations.push(canvasAnnotations[j]);
       }
     }
 
@@ -138,15 +160,15 @@ export const generateMockData = async () => {
     canvases.push(canvas);
   }
 
-  console.log(`Adding ${dbAnnotations.length} dbAnnotations to db`);
-  await db.annotations.bulkAdd(dbAnnotations);
+  console.log(`Adding ${annotations.length} dbAnnotations to db`);
+  await db.annotations.bulkAdd(annotations);
   console.log('Added annotations to db');
 
   console.log(`Adding ${canvases.length} gallery items to db`);
   await db.canvases.bulkAdd(canvases);
   console.log('Added gallery items to db');
 
-  console.log(`Adding ${dbAnnotationTags.length} annotation tags to db`);
-  await db.annotationTags.bulkAdd(dbAnnotationTags);
+  console.log(`Adding ${annotationTags.length} annotation tags to db`);
+  await db.annotationTags.bulkAdd(annotationTags);
   console.log('Added annotation tags to db');
 };

@@ -3,25 +3,53 @@ import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annot
 import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
 import { Annotation } from '../../entities/annotation/annotation-schema';
 import { RectangleShape } from '../shapes/rectangle-shape';
+import { GalleryToolboxLayerTreeAnnotationsTrunk } from './gallery-toolbox-layer-tree-annotations-trunk';
 
 export type GalleryToolboxLayerTreeAnnotationNodeProps = {
   width: number;
   selectedAnnotationId: string | null;
+  annotations: Annotation[];
   annotation: Annotation;
   level: number;
+  recursive: boolean;
 };
 
 export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
   GalleryToolboxLayerTreeAnnotationNodeProps
-> = ({ width, selectedAnnotationId, annotation, level }) => {
+> = ({
+  width,
+  selectedAnnotationId,
+  annotations,
+  annotation,
+  level,
+  recursive,
+}) => {
   const scrollbarRight = 12;
   const rowHeight = 18;
   const mutateAnnotation = usePutAnnotation();
   const selected = annotation.annotationId === selectedAnnotationId;
   const iconWidth = rowHeight - 3;
   const checkboxWidth = rowHeight - 3;
-  const levelPadding = 10 * level;
+  const levelPadding = level * 10;
   const descriptionWidth = width - iconWidth - levelPadding - scrollbarRight;
+
+  if (recursive) {
+    const isParent = annotations.some(
+      (x) => x.parentAnnotationId === annotation.annotationId
+    );
+
+    if (isParent) {
+      return (
+        <GalleryToolboxLayerTreeAnnotationsTrunk
+          width={width}
+          selectedAnnotationId={selectedAnnotationId}
+          annotations={annotations}
+          annotation={annotation}
+          level={level}
+        />
+      );
+    }
+  }
 
   return (
     <div
@@ -36,7 +64,7 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
     >
       <div
         style={{
-          paddingLeft: 2 + levelPadding,
+          paddingLeft: levelPadding,
           paddingTop: 3,
           paddingRight: 2,
           width: iconWidth,
@@ -66,21 +94,19 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
         {annotation.title}
       </div>
 
-      <div style={{ width: checkboxWidth, height: checkboxWidth }}>
-        <input
-          type="checkbox"
-          checked={annotation.visible}
-          readOnly
-          onClick={() => {
-            mutateAnnotation.mutate({
-              data: {
-                ...annotation,
-                visible: !annotation.visible,
-              },
-            });
-          }}
-        />
-      </div>
+      <input
+        type="checkbox"
+        checked={annotation.visible}
+        readOnly
+        onClick={() => {
+          mutateAnnotation.mutate({
+            data: {
+              ...annotation,
+              visible: !annotation.visible,
+            },
+          });
+        }}
+      />
     </div>
   );
 };

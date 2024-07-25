@@ -13,6 +13,7 @@ export const AnnotationBaseSchema = z.object({
   description: z.string(), // the image gallery item that this annotation is tied to
   createdAt: z.number(),
   updatedAt: z.number(),
+  parentAnnotationId: z.string().optional(), // the parent annotation of this annotation
 });
 
 export type AnnotationBase = z.infer<typeof AnnotationBaseSchema>;

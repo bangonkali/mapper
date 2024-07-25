@@ -1,7 +1,7 @@
-import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
-import { Canvas } from '../../entities/canvas/canvas-schema';
 import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
+import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
+import { Canvas } from '../../entities/canvas/canvas-schema';
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
 import { useState } from 'react';
 
@@ -44,11 +44,13 @@ export const GalleryToolboxLayerTreeSimpleTrunk: React.FC<
         if (!annotation) return undefined;
         return (
           <GalleryToolboxLayerTreeAnnotationNode
-            level={level + 5}
+            level={level + 3}
             key={annotationId}
             width={width}
             selectedAnnotationId={selectedAnnotationId}
             annotation={annotation}
+            recursive={false}
+            annotations={[]}
           />
         );
       })

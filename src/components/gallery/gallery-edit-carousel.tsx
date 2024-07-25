@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import styles from './gallery-edit-carousel.module.css';
 import { GalleryEditCarouselThumbnail } from './gallery-edit-carousel-thumbnail';
 import { colors } from '../../consts/colors';
 import { Canvas } from '../../entities/canvas/canvas-schema';
@@ -49,7 +48,6 @@ export const GalleryEditCarousel: React.FC<GalleryEditCarouselProps> = ({
 
   return (
     <div
-      className={styles.carousel}
       style={{
         height: height - topBorder,
         width: width,

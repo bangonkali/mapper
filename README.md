@@ -21,6 +21,16 @@ This is a simple mapper app.
     - [ ] Allow user to edit the tags in the table
     - [ ] Allow user to add annotations tag types using the table
 - [x] Use tree view to navigate data hierarchy
+  - [x] now supports annotations that have parent annotations
+  - [x] parent annotations act as a layer folder and they are no longer rendered in the canvas
+  - [x] parent annotations can be collapsed and expanded
+  - [ ] when selecting a parent annotation, all child annotations should be selected recursively
+- multiselect
+  - [ ] allow user to select multiple annotations (shift + click)
+  - [ ] allow user to select multiple annotations by selecting the parent annotation
+  - [ ] allow user to move multiple annotations
+  - [ ] allow user to delete multiple annotations
+  - [ ] allow user to edit multiple annotations
 - [ ] use orama for searching the data hierarchy
   - [ ] https://docs.orama.com/open-source/
 - [ ] allow user to add images to the mapper gallery
@@ -52,9 +62,9 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
 };

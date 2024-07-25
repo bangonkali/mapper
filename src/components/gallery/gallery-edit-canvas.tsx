@@ -56,14 +56,20 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
   const localImagePositionY = isPortrait
     ? padding
     : Math.floor((allocatedHeight - virtualHeight) / 2) + padding;
-
   const localImagePosition = {
     x: localImagePositionX,
     y: localImagePositionY,
   };
 
-  const annotations = annotationQuery.data
-    ?.filter((x) => x.visible)
+  const annotations = annotationQuery.data || [];
+  const visibleAnnotations = annotations
+    .filter((x) => {
+      const visible = x.visible;
+      const hasChildren = annotations.some(
+        (y) => y.parentAnnotationId === x.annotationId
+      );
+      return visible && !hasChildren;
+    })
     .map((annotation) => {
       return (
         <GalleryEditAnnotationRectangle
@@ -143,7 +149,7 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
         scale={{ x: scaleFactor * zoomFactor, y: scaleFactor * zoomFactor }}
       >
         <GalleryEditFocusedCanvas image={image} />
-        {annotations}
+        {visibleAnnotations}
       </Layer>
     </Stage>
   );
