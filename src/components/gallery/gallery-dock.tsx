@@ -47,7 +47,6 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({
 
   return (
     <div
-      className="gallery-dock ns"
       style={{
         position: 'relative',
         display: 'absolute',
@@ -58,7 +57,6 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({
       }}
     >
       <div
-        className="gallery-dock-container"
         style={{
           position: 'absolute',
           left: 0,
@@ -75,7 +73,6 @@ export const GalleryDock: React.FC<GalleryDockProps> = ({
         />
       </div>
       <div
-        className="gallery-dock-splitter"
         key={`gallery-dock-splitter-${side}`}
         style={{
           position: 'absolute',

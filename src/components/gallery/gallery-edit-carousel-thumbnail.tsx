@@ -22,7 +22,6 @@ export const GalleryEditCarouselThumbnail = forwardRef<
 
   return (
     <div
-      className="ns"
       style={{
         position: 'relative',
         maxWidth: width,
@@ -41,7 +40,6 @@ export const GalleryEditCarouselThumbnail = forwardRef<
       }}
     >
       <img
-        className="ns"
         id={item.canvasId}
         src={item.src}
         alt={item.caption}

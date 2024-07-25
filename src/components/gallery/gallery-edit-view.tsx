@@ -198,7 +198,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       </div>
       {layout.docks.bottom.visible ? (
         <div
-          className="ns"
           style={{
             left: 0,
             top: 0,

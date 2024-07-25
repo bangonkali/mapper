@@ -12,7 +12,6 @@ export const GalleryEditToolbar: React.FC<GalleryEditToolbarProps> = ({
 }) => {
   return (
     <div
-      className="ns"
       style={{
         color: colors.headerForeground,
         left: 0,

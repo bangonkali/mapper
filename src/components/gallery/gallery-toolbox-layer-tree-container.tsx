@@ -18,7 +18,6 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
 
   return (
     <div
-      className="ns"
       style={{ width: width, overflow: 'hidden' }}
       key={focusedImage.canvasId}
     >

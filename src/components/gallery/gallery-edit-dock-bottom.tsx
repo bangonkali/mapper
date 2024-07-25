@@ -83,7 +83,6 @@ export const GalleryEditDockBottom: React.FC<GalleryEditDockBottomProps> = ({
 
   return (
     <div
-      className="ns"
       style={{
         position: 'absolute',
         left: 0,

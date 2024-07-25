@@ -48,7 +48,6 @@ export const GalleryToolboxPropertiesContainer: React.FC<
 
   return (
     <div
-      className="ns"
       style={{
         width: width,
         display: 'flex',

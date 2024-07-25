@@ -21,7 +21,6 @@ export const GalleryHeader: React.FC<GalleryHeaderProps> = ({
 
   return (
     <div
-      className="ns"
       style={{
         height: height - border,
         width: width,

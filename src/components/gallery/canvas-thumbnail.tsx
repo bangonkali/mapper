@@ -20,7 +20,6 @@ export const CanvasThumbnail = forwardRef<
   const navigate = useNavigate({ from: '/gallery' });
   return (
     <div
-      className="ns"
       style={{
         padding: 0,
         margin: 0,
@@ -38,7 +37,6 @@ export const CanvasThumbnail = forwardRef<
       }}
     >
       <img
-        className="ns"
         key={`img-${item.canvasId}`}
         src={item.src}
         alt={item.caption}
@@ -61,7 +59,6 @@ export const CanvasThumbnail = forwardRef<
       />
       {focused ? (
         <div
-          className="ns"
           style={{
             margin: 0,
             padding: 0,
@@ -76,7 +73,6 @@ export const CanvasThumbnail = forwardRef<
 
       {(isMouseHover && !item.selected) || item.selected ? (
         <div
-          className="ns"
           style={{
             margin: 0,
             padding: 0,

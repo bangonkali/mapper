@@ -51,7 +51,6 @@ export const GalleryMasonryView: React.FC<GalleryMasonryViewProps> = (
   return (
     <div
       ref={galleryRef}
-      className="ns"
       style={{
         height: layout.containerHeight,
         width: props.width,
