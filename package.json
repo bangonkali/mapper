@@ -27,6 +27,7 @@
     "radash": "^12.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hotkeys-hook": "^4.5.0",
     "react-konva": "^18.2.10",
     "ulidx": "^2.3.0",
     "use-image": "^1.1.1",

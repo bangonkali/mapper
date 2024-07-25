@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchCanvases } from '../../services/entities/fetch-canvases';
+import { fetchCanvases } from '../../services/canvas/fetch-canvases';
 
 export const getUseCanvasesQueryKey = () => {
   return ['canvases'];

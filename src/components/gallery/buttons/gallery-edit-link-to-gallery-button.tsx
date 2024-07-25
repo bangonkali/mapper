@@ -13,8 +13,8 @@ export const GalleryEditLinkToGalleryButton: React.FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}
-      onClick={() => {
-        navigate({ to: '/gallery' });
+      onClick={async () => {
+        await navigate({ to: '/gallery' });
       }}
     >
       <img src={icoDockGrid} width={icoSize} height={icoSize} alt="logo" />

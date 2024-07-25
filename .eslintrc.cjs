@@ -12,7 +12,10 @@ module.exports = {
       version: 'detect',
     },
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parserOptions: {
+    project: './tsconfig.app.json',
+  },
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier'],
   rules: {
@@ -22,5 +25,6 @@ module.exports = {
     ],
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-floating-promises': ['error'],
   },
 };

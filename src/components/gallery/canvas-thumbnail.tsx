@@ -49,9 +49,9 @@ export const CanvasThumbnail = forwardRef<
           display: 'relative',
         }}
         ref={focused ? focusElement : null}
-        onClick={() => {
+        onClick={async () => {
           const canvasId = item.canvasId;
-          navigate({
+          await navigate({
             to: '/canvas/$canvasId',
             params: { canvasId },
           });

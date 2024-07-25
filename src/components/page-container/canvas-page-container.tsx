@@ -10,14 +10,25 @@ import { GalleryHeader } from '../gallery/gallery-header';
 import { GalleryFooter } from '../gallery/gallery-footer';
 import styles from '../gallery/gallery.module.css';
 import { Route } from '../../routes/canvas.$canvasId.lazy';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { useUndoCanvas } from '../../data/react-query/mutations/use-undo-canvas';
 
 export const CanvasPageContainer: React.FC = () => {
   {
+    const undoCanvas = useUndoCanvas();
     const { canvasId } = Route.useParams();
     const { width = 0, height = 0 } = useWindowSize();
     const layout = useStore(galleryStoreLayout, (state) => {
       return computeGalleryLayout({ width, height, state });
     });
+
+    useHotkeys('ctrl+z', () => {
+      undoCanvas
+        .mutateAsync({ canvasId })
+        .then(() => {})
+        .catch(() => {});
+    });
+
     return (
       <div
         className={styles.gallery}

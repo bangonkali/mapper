@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   FetchCanvasParams,
   fetchCanvas,
-} from '../../services/entities/fetch-canvas';
+} from '../../services/canvas/fetch-canvas';
 import { useCanvasesQuery } from './use-canvases-query';
 
 export const getUseCanvasQueryKey = (params: FetchCanvasParams) => {

@@ -1,21 +1,13 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { putCanvas } from '../../services/entities/put-canvas';
-import { getUseCanvasQueryKey } from '../queries/use-canvas-query';
-import { getUseCanvasesQueryKey } from '../queries/use-canvases-query';
+import { putCanvas } from '../../services/canvas/put-canvas';
 
 export const usePutCanvas = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: putCanvas,
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: getUseCanvasQueryKey({
-          canvasId: variables.data.canvasId,
-        }),
-      });
-      queryClient.invalidateQueries({
-        queryKey: getUseCanvasesQueryKey(),
-      });
+    onSuccess: () => {
+      // TODO: fix! this is rather greedy, but it's a simple way to invalidate all queries
+      return queryClient.invalidateQueries();
     },
   });
 };

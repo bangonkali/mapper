@@ -53,10 +53,10 @@ export const GalleryEditCarouselThumbnail = forwardRef<
           maxHeight: height,
         }}
         ref={focused ? focusElement : null}
-        onClick={() => {
+        onClick={async () => {
           gallerySelectedAnnotationStore.setState(() => null);
           const canvasId = item.canvasId;
-          navigate({
+          await navigate({
             to: '/canvas/$canvasId',
             params: { canvasId },
           });
