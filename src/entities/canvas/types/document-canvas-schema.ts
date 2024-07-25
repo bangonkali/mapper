@@ -9,7 +9,6 @@ export const DocumentCanvasSchema = CanvasBaseSchema.extend({
   selected: z.boolean(),
   ratio: z.number(),
   caption: z.string(),
-  zoomFactor: z.number(),
 });
 
 export type DocumentCanvas = z.infer<typeof DocumentCanvasSchema>;

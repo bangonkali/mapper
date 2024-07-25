@@ -4,6 +4,11 @@ export const galleryReadyStore = new Store<boolean>(false);
 
 export const gallerySelectedAnnotationStore = new Store<string | null>(null);
 
-export type GalleryEditorState = {
-  zoomFactor: number;
+export type CanvasEphemeralState = {
+  [key: string]: {
+    zoomFactor: number;
+  };
 };
+
+export const galleryCanvasEpehemeralStateStore =
+  new Store<CanvasEphemeralState>({});

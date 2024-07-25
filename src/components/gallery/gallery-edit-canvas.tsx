@@ -9,8 +9,10 @@ import { GalleryEditFocusedCanvas } from './gallery-edit-focused-canvas';
 import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
 import { Canvas } from '../../entities/canvas/canvas-schema';
-import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
-import { usePutCanvas } from '../../data/react-query/mutations/use-put-canvas';
+import {
+  galleryCanvasEpehemeralStateStore,
+  gallerySelectedAnnotationStore,
+} from '../../data/store/canvases-store';
 
 export type GalleryEditCanvasProps = {
   focusedImage: Canvas;
@@ -23,17 +25,17 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
   width,
   height,
 }) => {
-  const putCanvas = usePutCanvas();
   const mutateAnnotation = usePutAnnotation();
   const stageRef = useRef<Konva.Stage>(null);
   const gallerySelectedAnnotation = useStore(gallerySelectedAnnotationStore);
+  const canvasState = useStore(galleryCanvasEpehemeralStateStore, (store) => {
+    return store[focusedImage.canvasId] ?? { zoomFactor: 1 };
+  });
   const [image] = useImage(focusedImage.src);
 
   const annotationQuery = useAnnotationsQuery({
     canvasId: focusedImage.canvasId,
   });
-
-  const zoomFactor = focusedImage.zoomFactor;
 
   const padding = 10;
 
@@ -130,7 +132,9 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
         const direction = e.evt.deltaY > 0 ? 1 : -1;
 
         const newScale =
-          direction > 0 ? zoomFactor * scaleBy : zoomFactor / scaleBy;
+          direction > 0
+            ? canvasState.zoomFactor * scaleBy
+            : canvasState.zoomFactor / scaleBy;
 
         // const newPos = {
         //   x: pointer.x - mousePointTo.x * newScale,
@@ -138,15 +142,20 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
         // };
 
         // setImagePosition(newPos);
-        putCanvas.mutate({
-          data: produce(focusedImage, (draft) => {
-            draft.zoomFactor = newScale;
-          }),
+        galleryCanvasEpehemeralStateStore.setState((state) => {
+          return produce(state, (draft) => {
+            draft[focusedImage.canvasId] = {
+              zoomFactor: newScale,
+            };
+          });
         });
       }}
     >
       <Layer
-        scale={{ x: scaleFactor * zoomFactor, y: scaleFactor * zoomFactor }}
+        scale={{
+          x: scaleFactor * canvasState.zoomFactor,
+          y: scaleFactor * canvasState.zoomFactor,
+        }}
       >
         <GalleryEditFocusedCanvas image={image} />
         {visibleAnnotations}

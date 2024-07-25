@@ -152,7 +152,6 @@ export const generateMockData = async () => {
       selected: i % 5 === 0, // select every 5th image
       ratio: width / height,
       caption: `Image ${i}`,
-      zoomFactor: 1,
       createdAt: startTime--,
       updatedAt: startTime--,
     };
