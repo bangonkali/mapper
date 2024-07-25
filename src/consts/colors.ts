@@ -8,4 +8,5 @@ export const colors = {
   headerForegroundInactive: 'rgba(128,128,128,1)',
   dirtyInputBackground: 'rgba(255, 204, 204, 1)',
   offWhite: 'rgba(248, 248, 248, 1)',
+  opaque: 'rgba(0, 0, 0, 0.5)',
 };

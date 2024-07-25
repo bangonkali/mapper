@@ -4,6 +4,7 @@ import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store'
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import { usePutCanvas } from '../../data/react-query/mutations/use-put-canvas';
 import { useNavigate } from '@tanstack/react-router';
+import { colors } from '../../consts/colors';
 
 export type GalleryEditCarouselThumbnailProps = {
   item: Canvas;
@@ -65,6 +66,7 @@ export const GalleryEditCarouselThumbnail = forwardRef<
       {focused ? (
         <div
           style={{
+            backgroundColor: colors.opaque,
             position: 'absolute',
             top: 0,
             left: 0,
