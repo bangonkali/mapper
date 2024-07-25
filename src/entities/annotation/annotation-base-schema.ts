@@ -7,8 +7,8 @@ import { z } from 'zod';
  * specific types of annotations.
  */
 export const AnnotationBaseSchema = z.object({
-  annotationId: z.string().uuid(), // the unique identifier for this annotation
-  canvasId: z.string().uuid(), // the image gallery item that this annotation is tied to
+  annotationId: z.string().ulid(), // the unique identifier for this annotation
+  canvasId: z.string().ulid(), // the image gallery item that this annotation is tied to
   title: z.string(), // the image gallery item that this annotation is tied to
   description: z.string(), // the image gallery item that this annotation is tied to
   createdAt: z.number(),

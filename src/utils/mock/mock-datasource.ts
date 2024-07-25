@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Annotation } from '../../entities/annotation/annotation-schema';
 import { db } from '../../data/db/db';
 import { galleryReadyStore } from '../../data/store/canvases-store';
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
+import { ulid } from 'ulidx';
 import {
   annotationTagClassification,
   AnnotationTagKeys,
@@ -36,7 +36,7 @@ export const generateMockData = async () => {
 
   // generate canvas based on the number of images and assign random values
   for (let i = 0; i < numCanvases; i++) {
-    const canvasId = uuidv4();
+    const canvasId = ulid();
 
     const width = roundUp(getRandomNumber(900, 5000), 100);
     const height = roundUp(getRandomNumber(900, 5000), 100);
@@ -64,7 +64,7 @@ export const generateMockData = async () => {
 
       for (let j = 0; j < width / annotationWidth; j++) {
         for (let k = 0; k < height / annotationHeight; k++) {
-          const annotationId = uuidv4();
+          const annotationId = ulid();
           const annotation: Annotation = {
             annotationId: annotationId,
             canvasId: canvasId,
@@ -109,7 +109,7 @@ export const generateMockData = async () => {
                 getRandomNumber(0, annotationTagClassification[key].length - 1)
               ];
             const annotationTag: AnnotationTag = {
-              annotationTagId: uuidv4(),
+              annotationTagId: ulid(),
               annotationId: annotationId,
               canvasId: canvasId,
               value: tag,

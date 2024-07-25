@@ -8,7 +8,7 @@ import { RectangleShape } from '../shapes/rectangle-shape';
 import { getRandomColor } from '../../utils/random/random-utils';
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import { useCallback } from 'react';
-import { v4 as uuid } from 'uuid';
+import { ulid } from 'ulidx';
 import { colors } from '../../consts/colors';
 import { Route } from '../../routes/canvas.$canvasId.lazy';
 import { galleryStoreLayout } from '../../data/store/gallery-store';
@@ -46,7 +46,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     if (typeof annotationQuery.data?.length !== 'number') return;
     if (!focusedImageId) return;
 
-    const newUuid = uuid();
+    const annotationId = ulid();
     const hexColor = getRandomColor();
     const outlineHexColor = getRandomColor();
     let height = 50;
@@ -82,7 +82,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     mutateAnnotation.mutate({
       data: {
         canvasId: focusedImageId,
-        annotationId: newUuid,
+        annotationId: annotationId,
         height: height,
         width: width,
         title: `Annotation #${lastElementIndex + 1}`,
@@ -110,7 +110,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       },
     });
 
-    gallerySelectedAnnotationStore.setState(() => newUuid);
+    gallerySelectedAnnotationStore.setState(() => annotationId);
   }, [
     annotationQuery.data,
     focusedImageId,

@@ -10,11 +10,11 @@ const db = new Dexie('db') as Dexie & {
 };
 
 db.version(1).stores({
-  canvases: '++canvasId,createdAt,updatedAt',
+  canvases: 'canvasId,createdAt,updatedAt',
   annotations:
-    '++annotationId,canvasId,[annotationId+canvasId],createdAt,updatedAt',
+    'annotationId,canvasId,[annotationId+canvasId],createdAt,updatedAt',
   annotationTags:
-    '++annotationTagId,[annotationId+canvasId],canvasId,createdAt,updatedAt',
+    'annotationTagId,[annotationId+canvasId],canvasId,createdAt,updatedAt',
 });
 
 export { db };

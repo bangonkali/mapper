@@ -9,17 +9,17 @@ export const AnnotationTagSchema = z.object({
    * This is the schema for an annotation tag. An annotation tag is a
    * label that is attached to an annotation.
    */
-  annotationTagId: z.string().uuid(),
+  annotationTagId: z.string().ulid(),
 
   /**
    * The image gallery item that this annotation tag is tied to.
    */
-  canvasId: z.string().uuid(),
+  canvasId: z.string().ulid(),
 
   /**
    * The annotation that this tag is tied to.
    */
-  annotationId: z.string().uuid(),
+  annotationId: z.string().ulid(),
 
   /**
    * The text of the annotation tag.
