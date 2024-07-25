@@ -158,7 +158,6 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
               alignItems: 'center',
               justifyContent: 'start',
               height: 36,
-              backgroundColor: 'white',
               paddingLeft: 10,
               paddingRight: 10,
             }}
@@ -197,89 +196,91 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
           height={canvasHeight}
         />
       </div>
-      <div
-        className="ns"
-        style={{
-          left: 0,
-          top: 0,
-          height: layout.docks.bottom.height,
-          width: layout.docks.workspace.width,
-          position: 'relative',
-        }}
-      >
-        <GalleryEditDockBottom
-          height={layout.docks.bottom.height}
-          width={layout.docks.workspace.width}
-          selectedKey={galleryEditDock.bottom.selectedKey}
-          onSelectedKeyChanged={(key) => {
-            galleryEditDockStore.setState((state) => {
-              return produce(state, (draft) => {
-                draft.bottom.selectedKey = key;
-              });
-            });
-          }}
-          onMinimizeClick={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.bottom.visible = false;
-              });
-            });
+      {layout.docks.bottom.visible ? (
+        <div
+          className="ns"
+          style={{
+            left: 0,
+            top: 0,
+            height: layout.docks.bottom.height,
+            width: layout.docks.workspace.width,
+            position: 'relative',
           }}
         >
-          <GalleryEditCarouselDock
-            key={'galleryEditCarouselDock'}
-            width={layout.docks.workspace.width}
+          <GalleryEditDockBottom
             height={layout.docks.bottom.height}
-            title="Carousel"
-          />
-          <GalleryEditAnnotationTagsGridDock
-            key={'galleryEditAnnotationTagsGridDock'}
             width={layout.docks.workspace.width}
-            height={layout.docks.bottom.height}
-            title="Tags"
-          />
-          <GalleryEditCarouselDock
-            key={'dock3'}
-            width={layout.docks.workspace.width}
-            height={layout.docks.bottom.height}
-            title="Dock 3"
-          />
-        </GalleryEditDockBottom>
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: layout.docks.workspace.width,
-            height: 3,
-            cursor: 'row-resize',
-            backgroundColor: layout.docks.bottom.splitterVisible
-              ? colors.splitter
-              : 'transparent',
-          }}
-          onMouseLeave={() => {
-            if (!layout.docks.bottom.splitterEnabled) {
-              onSplitterEnd(galleryStoreLayout);
-            }
-          }}
-          onMouseOver={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.bottom.splitterVisible =
-                  true;
+            selectedKey={galleryEditDock.bottom.selectedKey}
+            onSelectedKeyChanged={(key) => {
+              galleryEditDockStore.setState((state) => {
+                return produce(state, (draft) => {
+                  draft.bottom.selectedKey = key;
+                });
               });
-            });
-          }}
-          onMouseDown={() => {
-            galleryStoreLayout.setState((state) => {
-              return produce(state, (draft) => {
-                draft.gallery.layout.constraint.docks.bottom.splitterEnabled =
-                  true;
+            }}
+            onMinimizeClick={() => {
+              galleryStoreLayout.setState((state) => {
+                return produce(state, (draft) => {
+                  draft.gallery.layout.constraint.docks.bottom.visible = false;
+                });
               });
-            });
-          }}
-        ></div>
-      </div>
+            }}
+          >
+            <GalleryEditCarouselDock
+              key={'galleryEditCarouselDock'}
+              width={layout.docks.workspace.width}
+              height={layout.docks.bottom.height}
+              title="Carousel"
+            />
+            <GalleryEditAnnotationTagsGridDock
+              key={'galleryEditAnnotationTagsGridDock'}
+              width={layout.docks.workspace.width}
+              height={layout.docks.bottom.height}
+              title="Tags"
+            />
+            <GalleryEditCarouselDock
+              key={'dock3'}
+              width={layout.docks.workspace.width}
+              height={layout.docks.bottom.height}
+              title="Dock 3"
+            />
+          </GalleryEditDockBottom>
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: layout.docks.workspace.width,
+              height: 3,
+              cursor: 'row-resize',
+              backgroundColor: layout.docks.bottom.splitterVisible
+                ? colors.splitter
+                : 'transparent',
+            }}
+            onMouseLeave={() => {
+              if (!layout.docks.bottom.splitterEnabled) {
+                onSplitterEnd(galleryStoreLayout);
+              }
+            }}
+            onMouseOver={() => {
+              galleryStoreLayout.setState((state) => {
+                return produce(state, (draft) => {
+                  draft.gallery.layout.constraint.docks.bottom.splitterVisible =
+                    true;
+                });
+              });
+            }}
+            onMouseDown={() => {
+              galleryStoreLayout.setState((state) => {
+                return produce(state, (draft) => {
+                  draft.gallery.layout.constraint.docks.bottom.splitterEnabled =
+                    true;
+                });
+              });
+            }}
+          ></div>
+        </div>
+      ) : undefined}
     </div>
   );
 };

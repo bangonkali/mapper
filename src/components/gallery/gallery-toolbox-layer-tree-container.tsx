@@ -17,7 +17,11 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
   const [isMinimized, setIsMinimized] = useState(false);
 
   return (
-    <div className="ns" style={{ width: width }} key={focusedImage.canvasId}>
+    <div
+      className="ns"
+      style={{ width: width, overflow: 'hidden' }}
+      key={focusedImage.canvasId}
+    >
       <GalleryToolboxPropertiesHeader
         isMinimized={isMinimized}
         width={width}
@@ -28,20 +32,26 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
       />
 
       {!isMinimized ? (
-        <>
+        <div
+          style={{
+            height: height - 20,
+            overflowY: 'auto',
+            overflowX: 'auto',
+          }}
+        >
           <GalleryToolboxLayerTreeAnnotationsTrunk
-            width={width}
+            width={width - 6}
             height={height}
             focusedImage={focusedImage}
             selectedAnnotationId={selectedAnnotationId}
           />
           <GalleryToolboxLayerTreeTagTypesTrunk
-            width={width}
+            width={width - 6}
             height={height}
             focusedImage={focusedImage}
             selectedAnnotationId={selectedAnnotationId}
           />
-        </>
+        </div>
       ) : null}
     </div>
   );

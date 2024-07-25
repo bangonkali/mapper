@@ -46,7 +46,6 @@ export const GalleryEditSearchBarButton: React.FC<
           alignContent: 'center',
           alignItems: 'center',
           borderRadius: 4,
-          backgroundColor: 'white',
           width: width,
           height: height,
         }}
@@ -108,7 +107,6 @@ export const GalleryEditSearchBarButton: React.FC<
                 style={{
                   padding: '2px 4px',
                   cursor: 'pointer',
-                  backgroundColor: 'white',
                 }}
               >
                 {action}

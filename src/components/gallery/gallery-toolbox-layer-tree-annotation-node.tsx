@@ -31,7 +31,7 @@ export const GalleryToolboxLayerTreeAnnotationNode: React.FC<
         alignItems: 'center',
         width: width,
         height: rowHeight,
-        backgroundColor: selected ? colors.selected : colors.background,
+        backgroundColor: selected ? colors.selected : 'transparent',
       }}
     >
       <div
