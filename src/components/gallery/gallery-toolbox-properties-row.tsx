@@ -2,7 +2,7 @@ import { FlattenedDictionary } from '../../utils/flatten';
 import { colors } from '../../consts/colors';
 import { GalleryToolboxPropertiesRowPropsOnChangeEvent } from './gallery-toolbox-properties-row-props-on-change-event';
 import { GalleryToolboxPropertiesTemplate } from './gallery-toolbox-properties-template';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export type GalleryToolboxPropertiesRowProps = {
   width: number;
@@ -41,6 +41,22 @@ export const GalleryToolboxPropertiesRow: React.FC<
 
   const label = template?.label ?? item.key;
   const readOnly = template?.readonly;
+
+  const onChangeCallback = useCallback(() => {
+    const isChanged = localValue !== initialValue;
+    if (onChange && isChanged) {
+      onChange({
+        current: {
+          key: item.key,
+          value: initialValue,
+        },
+        new: {
+          key: item.key,
+          value: localValue,
+        },
+      });
+    }
+  }, [initialValue, item.key, localValue, onChange]);
 
   return (
     <div
@@ -122,34 +138,10 @@ export const GalleryToolboxPropertiesRow: React.FC<
           onChange={(e) => {
             setLocalValue(e.target.value);
           }}
-          onBlur={() => {
-            if (onChange) {
-              onChange({
-                current: {
-                  key: item.key,
-                  value: item.value?.toLocaleString() ?? '',
-                },
-                new: {
-                  key: item.key,
-                  value: localValue,
-                },
-              });
-            }
-          }}
+          onBlur={onChangeCallback}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              if (onChange) {
-                onChange({
-                  current: {
-                    key: item.key,
-                    value: item.value?.toLocaleString() ?? '',
-                  },
-                  new: {
-                    key: item.key,
-                    value: localValue,
-                  },
-                });
-              }
+              onChangeCallback();
             }
           }}
           style={{

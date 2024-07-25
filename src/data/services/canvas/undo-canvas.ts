@@ -6,14 +6,18 @@ export type UndoCanvasParams = {
 };
 
 export const undoCanvas = async ({ canvasId }: UndoCanvasParams) => {
-  console.log('initiating undo for ' + canvasId);
+  console.log(`canvas ${canvasId}: undo started`);
   const snapshots = await db.snapshots
     .where('canvasId')
     .equals(canvasId)
     .sortBy('createdAt');
 
-  if (snapshots.length === 0) return;
+  if (snapshots.length === 0) {
+    console.log(`canvas ${canvasId}: undo no-more`);
+    return;
+  }
   const snapshot = snapshots[snapshots.length - 1];
   await restoreSnapshot({ snapshotId: snapshot.snapshotId });
   await db.snapshots.where('snapshotId').equals(snapshot.snapshotId).delete();
+  console.log(`canvas ${canvasId}: undo completed`);
 };
