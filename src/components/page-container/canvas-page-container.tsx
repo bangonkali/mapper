@@ -22,7 +22,7 @@ export const CanvasPageContainer: React.FC = () => {
       return computeGalleryLayout({ width, height, state });
     });
 
-    useHotkeys('ctrl+z', () => {
+    useHotkeys('mod+z', () => {
       undoCanvas
         .mutateAsync({ canvasId })
         .then(() => {})
