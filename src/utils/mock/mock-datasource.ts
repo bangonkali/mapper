@@ -15,7 +15,7 @@ import {
 } from '../random/random-utils';
 
 export const generateMockData = async () => {
-  const annotationsPerCanvas = 4000;
+  const annotationsPerCanvas = 100;
   galleryReadyStore.setState(() => false);
 
   const canvases: Canvas[] = [];
@@ -51,12 +51,10 @@ export const generateMockData = async () => {
         annotationsPerCanvas - (annotationsPerCanvas / numCanvases) * i;
       const annotationsPerRow = Math.round(Math.sqrt(aps));
 
-      const annotationWidth = width / annotationsPerRow;
-      const annotationHeight = height / annotationsPerRow;
+      const annotationWidth = Math.round(width / annotationsPerRow);
+      const annotationHeight = Math.round(height / annotationsPerRow);
 
-      const numberOfItems = Math.floor(
-        (width / annotationWidth) * (height / annotationHeight)
-      );
+      const numberOfItems = Math.floor(annotationWidth * annotationHeight);
 
       let annotationNumber = 0;
 

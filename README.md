@@ -4,6 +4,8 @@ This is a simple mapper app.
 
 ## Wishlist
 
+- [ ] When starting a canvas edit session, load canvas snapshot in to memory.
+  - [ ] All work are to be conducted in memory thereafter.
 - [ ] all user to create a new document from scratch
   - [ ] allow user to add an image to a document
   - [ ] allow user to add/delete annotations to an image

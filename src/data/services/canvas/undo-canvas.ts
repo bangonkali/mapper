@@ -1,23 +1,36 @@
+import { Snapshot } from '../../../entities/snapshot/snapshot-schema';
 import { db } from '../../db/db';
+import { createSnapshot } from '../snapshots/create-snapshot';
 import { restoreSnapshot } from '../snapshots/restore-snapshot';
+import * as jsondiffpatch from 'jsondiffpatch';
 
 export type UndoCanvasParams = {
   canvasId: string;
 };
 
 export const undoCanvas = async ({ canvasId }: UndoCanvasParams) => {
+  const start = Date.now();
   console.log(`canvas ${canvasId}: undo started`);
-  const snapshots = await db.snapshots
+  const patches = await db.canvasPatches
     .where('canvasId')
     .equals(canvasId)
     .sortBy('createdAt');
 
-  if (snapshots.length === 0) {
+  if (patches.length === 0) {
     console.log(`canvas ${canvasId}: undo no-more`);
     return;
   }
-  const snapshot = snapshots[snapshots.length - 1];
-  await restoreSnapshot({ snapshotId: snapshot.snapshotId });
-  await db.snapshots.where('snapshotId').equals(snapshot.snapshotId).delete();
-  console.log(`canvas ${canvasId}: undo completed`);
+
+  const patch = patches[patches.length - 1];
+  const current = await createSnapshot({ canvasId: canvasId });
+  const restored = jsondiffpatch.unpatch(
+    current,
+    patch.delta as jsondiffpatch.Delta
+  ) as Snapshot;
+
+  // console.log(restored);
+  await restoreSnapshot(restored);
+  await db.canvasPatches.where('snapshotId').equals(patch.snapshotId).delete();
+
+  console.log(`canvas ${canvasId}: undo completed ${Date.now() - start}`);
 };

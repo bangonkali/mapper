@@ -1,11 +1,13 @@
+import { Snapshot } from '../../../entities/snapshot/snapshot-schema';
 import { db } from '../../db/db';
-import { ulid } from 'ulidx';
 
 export type CreateSnapshotParams = {
   canvasId: string;
 };
 
-export const createSnapshot = async ({ canvasId }: CreateSnapshotParams) => {
+export const createSnapshot = async ({
+  canvasId,
+}: CreateSnapshotParams): Promise<Snapshot | undefined> => {
   const canvases = await db.canvases
     .where('canvasId')
     .equals(canvasId)
@@ -13,7 +15,6 @@ export const createSnapshot = async ({ canvasId }: CreateSnapshotParams) => {
 
   if (canvases.length === 0) return;
   const canvas = canvases[0];
-  const snapshotId = ulid();
 
   const annotations = await db.annotations
     .where('canvasId')
@@ -26,13 +27,11 @@ export const createSnapshot = async ({ canvasId }: CreateSnapshotParams) => {
     .toArray();
 
   const snapshot = {
-    snapshotId: snapshotId,
     canvasId,
-    createdAt: Date.now(),
     canvas,
     annotations,
     annotationTags,
   };
 
-  await db.snapshots.add(snapshot);
+  return snapshot;
 };

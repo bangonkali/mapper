@@ -4,9 +4,7 @@ import { CanvasSchema } from '../canvas/canvas-schema';
 import { z } from 'zod';
 
 export const SnapshotSchema = z.object({
-  snapshotId: z.string().ulid(),
   canvasId: z.string().ulid(),
-  createdAt: z.number(),
   canvas: CanvasSchema,
   annotations: z.array(AnnotationSchema),
   annotationTags: z.array(AnnotationTagSchema),
