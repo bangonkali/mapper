@@ -15,7 +15,7 @@ import {
 } from '../random/random-utils';
 
 export const generateMockData = async () => {
-  const annotationsPerCanvas = 100;
+  const annotationsPerCanvas = 1000;
   galleryReadyStore.setState(() => false);
 
   const canvases: Canvas[] = [];
@@ -49,19 +49,22 @@ export const generateMockData = async () => {
       const canvasAnnotations: Annotation[] = [];
       const aps =
         annotationsPerCanvas - (annotationsPerCanvas / numCanvases) * i;
-      const annotationsPerRow = Math.round(Math.sqrt(aps));
+      const annotationsPerRow = Math.floor(Math.sqrt(aps));
 
-      const annotationWidth = Math.round(width / annotationsPerRow);
-      const annotationHeight = Math.round(height / annotationsPerRow);
+      const annotationWidth = Math.ceil(width / annotationsPerRow);
+      const annotationHeight = Math.ceil(height / annotationsPerRow);
 
-      const numberOfItems = Math.floor(annotationWidth * annotationHeight);
+      const rows = Math.ceil(width / annotationWidth);
+      const cols = Math.ceil(height / annotationHeight);
+
+      const numberOfItems = Math.ceil(rows * cols);
 
       let annotationNumber = 0;
 
       console.log(`Setting up ${numberOfItems} annotations for image ${i}`);
 
-      for (let j = 0; j < width / annotationWidth; j++) {
-        for (let k = 0; k < height / annotationHeight; k++) {
+      for (let j = 0; j < rows; j++) {
+        for (let k = 0; k < cols; k++) {
           const annotationId = ulid();
           const annotation: Annotation = {
             annotationId: annotationId,

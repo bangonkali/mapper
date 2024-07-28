@@ -22,6 +22,8 @@ export const undoCanvas = async ({ canvasId }: UndoCanvasParams) => {
   }
 
   const patch = patches[patches.length - 1];
+  await db.canvasPatches.where('snapshotId').equals(patch.snapshotId).delete();
+
   const current = await createSnapshot({ canvasId: canvasId });
   const restored = jsondiffpatch.unpatch(
     current,
@@ -30,7 +32,6 @@ export const undoCanvas = async ({ canvasId }: UndoCanvasParams) => {
 
   // console.log(restored);
   await restoreSnapshot(restored);
-  await db.canvasPatches.where('snapshotId').equals(patch.snapshotId).delete();
 
   console.log(`canvas ${canvasId}: undo completed ${Date.now() - start}`);
 };

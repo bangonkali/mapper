@@ -40,7 +40,7 @@ export const GalleryToolboxLayerTreeContainer: React.FC<
         >
           <GalleryToolboxLayerTreeAnnotationsRoot
             width={width - 6}
-            focusedImage={focusedImage}
+            canvas={focusedImage}
             selectedAnnotationId={selectedAnnotationId}
           />
           <GalleryToolboxLayerTreeTagTypesTrunk

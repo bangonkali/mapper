@@ -1,13 +1,14 @@
 import { GalleryToolboxLayerTreeAnnotationNode } from './gallery-toolbox-layer-tree-annotation-node';
 import { GalleryToolboxLayerTreeSimpleNode } from './gallery-toolbox-layer-tree-simple-node';
-import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import { AnnotationTag } from '../../entities/annotation/annotation-tag-schema';
 import { useState } from 'react';
+import { useStore } from '@tanstack/react-store';
+import { currentAnnotationsStore } from '../../data/store/active-canvas-store';
 
 export type GalleryToolboxLayerTreeSimpleTrunkProps = {
   width: number;
-  focusedImage: Canvas;
+  canvas: Canvas;
   selectedAnnotationId: string | null;
   tagValues: AnnotationTag[];
   tagValue: string;
@@ -16,18 +17,10 @@ export type GalleryToolboxLayerTreeSimpleTrunkProps = {
 
 export const GalleryToolboxLayerTreeSimpleTrunk: React.FC<
   GalleryToolboxLayerTreeSimpleTrunkProps
-> = ({
-  width,
-  focusedImage,
-  selectedAnnotationId,
-  tagValues,
-  tagValue,
-  level,
-}) => {
+> = ({ width, selectedAnnotationId, canvas, tagValues, tagValue, level }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  const annotationQuery = useAnnotationsQuery({
-    canvasId: focusedImage.canvasId,
+  const annotations = useStore(currentAnnotationsStore, (state) => {
+    return state.filter((c) => c.canvasId === canvas.canvasId);
   });
 
   let annotationNodes: (JSX.Element | undefined)[] = [];
@@ -38,7 +31,7 @@ export const GalleryToolboxLayerTreeSimpleTrunk: React.FC<
 
     annotationNodes = annotationIdsWithTagValue
       .map((annotationId) => {
-        const annotation = annotationQuery.data?.find(
+        const annotation = annotations.find(
           (annotation) => annotation.annotationId === annotationId
         );
         if (!annotation) return undefined;

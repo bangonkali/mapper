@@ -9,6 +9,7 @@ export const snapshotOnExecute = async <T>(
   func: SnapshotOnExecuteParams<T>,
   canvasId: string
 ): Promise<T> => {
+  const start = Date.now();
   const before = await createSnapshot({ canvasId: canvasId });
   const data = await func();
 
@@ -23,5 +24,6 @@ export const snapshotOnExecute = async <T>(
       snapshotId: snapshotId,
     });
   }
+  console.log(`Snapshot in ${Date.now() - start} ms`);
   return data;
 };

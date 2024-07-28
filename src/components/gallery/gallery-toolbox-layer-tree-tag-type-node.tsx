@@ -33,7 +33,7 @@ export const GalleryToolboxLayerTreeTagTypeNode: React.FC<
         key={`${tagType}-${tagValue}`}
         level={level}
         width={width}
-        focusedImage={focusedImage}
+        canvas={focusedImage}
         selectedAnnotationId={selectedAnnotationId}
         tagValues={tagValues}
         tagValue={tagValue}

@@ -1,6 +1,5 @@
 import { GalleryComputedLayout } from '../../models/app/app-layout';
 import { useCanvasesQuery } from '../../data/react-query/queries/use-canvases-query';
-import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { GalleryEditToolbar } from './gallery-edit-toolbar';
 import { GalleryEditCanvas } from './gallery-edit-canvas';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
@@ -20,6 +19,8 @@ import { galleryEditDockStore } from '../../data/store/gallery-edit-dock-store';
 import { useStore } from '@tanstack/react-store';
 import { GalleryEditAnnotationTagsGridDock } from './dockable-containers/gallery-edit-annotation-tags-grid-dock';
 import { gallerySelectedAnnotationStore } from '../../data/store/canvases-store';
+import { useActiveCanvasQuery } from '../../data/react-query/queries/use-active-canvas-query';
+import { currentAnnotationsStore } from '../../data/store/active-canvas-store';
 
 export type GalleryEditViewProps = {
   layout: GalleryComputedLayout;
@@ -30,22 +31,21 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
   const galleryEditDock = useStore(galleryEditDockStore);
   const { canvasId } = Route.useParams();
   const canvasesQuery = useCanvasesQuery();
-  const focusedImageId = canvasId;
   const mutateAnnotation = usePutAnnotation();
-  const annotationQuery = useAnnotationsQuery({
-    canvasId: focusedImageId!,
+  useActiveCanvasQuery({
+    canvasId: canvasId,
+  });
+  const annotations = useStore(currentAnnotationsStore, (state) => {
+    return state.filter((c) => c.canvasId === canvasId);
   });
 
   const toolbarHeight = 40;
   const canvasHeight =
     layout.docks.workspace.height - layout.docks.bottom.height - toolbarHeight;
   const items: Canvas[] = canvasesQuery.data ?? [];
-  const focusedImage = items.find((item) => item.canvasId === focusedImageId);
+  const focusedImage = items.find((item) => item.canvasId === canvasId);
 
   const handleSubmitShape = useCallback(() => {
-    if (typeof annotationQuery.data?.length !== 'number') return;
-    if (!focusedImageId) return;
-
     const annotationId = ulid();
     const hexColor = getRandomColor();
     const outlineHexColor = getRandomColor();
@@ -56,9 +56,9 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     let rotation = 0;
     let isWireframe = false;
 
-    let lastElementIndex = annotationQuery.data?.length - 1;
+    let lastElementIndex = annotations?.length - 1;
     if (!gallerySelectedAnnotation && lastElementIndex >= 0) {
-      const lastElement = annotationQuery.data![lastElementIndex];
+      const lastElement = annotations![lastElementIndex];
       height = lastElement.height;
       width = lastElement.width;
       x = lastElement.x + 25;
@@ -66,7 +66,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
       rotation = lastElement.rotation;
       isWireframe = lastElement.isWireframe;
     } else if (gallerySelectedAnnotation !== null) {
-      const lastElement = annotationQuery.data.find(
+      const lastElement = annotations.find(
         (aq) => aq.annotationId === gallerySelectedAnnotation
       )!;
       height = lastElement.height;
@@ -81,12 +81,12 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
 
     mutateAnnotation.mutate({
       data: {
-        canvasId: focusedImageId,
+        canvasId: canvasId,
         annotationId: annotationId,
         height: height,
         width: width,
         title: `Annotation #${lastElementIndex + 1}`,
-        description: `Description for Item ${focusedImageId} - ${lastElementIndex + 1}`,
+        description: `Description for Item ${canvasId} - ${lastElementIndex + 1}`,
         type: 'rectangle',
         frame: 0.0,
         rotation: rotation,
@@ -111,12 +111,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
     });
 
     gallerySelectedAnnotationStore.setState(() => annotationId);
-  }, [
-    annotationQuery.data,
-    focusedImageId,
-    gallerySelectedAnnotation,
-    mutateAnnotation,
-  ]);
+  }, [annotations, canvasId, gallerySelectedAnnotation, mutateAnnotation]);
 
   if (!focusedImage) {
     return <p>No item</p>;
@@ -191,7 +186,7 @@ export const GalleryEditView: React.FC<GalleryEditViewProps> = ({ layout }) => {
         }}
       >
         <GalleryEditCanvas
-          focusedImage={focusedImage}
+          canvas={focusedImage}
           width={layout.docks.workspace.width}
           height={canvasHeight}
         />

@@ -6,22 +6,22 @@ import Konva from 'konva';
 import { GalleryEditAnnotationRectangle } from './gallery-edit-annotation-rectangle';
 import useImage from 'use-image';
 import { GalleryEditFocusedCanvas } from './gallery-edit-focused-canvas';
-import { useAnnotationsQuery } from '../../data/react-query/queries/use-annotations-query';
 import { usePutAnnotation } from '../../data/react-query/mutations/use-put-annotation';
 import { Canvas } from '../../entities/canvas/canvas-schema';
 import {
   galleryCanvasEpehemeralStateStore,
   gallerySelectedAnnotationStore,
 } from '../../data/store/canvases-store';
+import { currentAnnotationsStore } from '../../data/store/active-canvas-store';
 
 export type GalleryEditCanvasProps = {
-  focusedImage: Canvas;
+  canvas: Canvas;
   width: number;
   height: number;
 };
 
 export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
-  focusedImage,
+  canvas,
   width,
   height,
 }) => {
@@ -29,12 +29,11 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
   const stageRef = useRef<Konva.Stage>(null);
   const gallerySelectedAnnotation = useStore(gallerySelectedAnnotationStore);
   const canvasState = useStore(galleryCanvasEpehemeralStateStore, (store) => {
-    return store[focusedImage.canvasId] ?? { zoomFactor: 1 };
+    return store[canvas.canvasId] ?? { zoomFactor: 1 };
   });
-  const [image] = useImage(focusedImage.src);
-
-  const annotationQuery = useAnnotationsQuery({
-    canvasId: focusedImage.canvasId,
+  const [image] = useImage(canvas.src);
+  const annotations = useStore(currentAnnotationsStore, (state) => {
+    return state.filter((c) => c.canvasId === canvas.canvasId);
   });
 
   const padding = 10;
@@ -43,14 +42,14 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
   const allocatedHeight = height - padding * 2;
 
   const scaleFactor = Math.min(
-    allocatedWidth / focusedImage.width,
-    allocatedHeight / focusedImage.height
+    allocatedWidth / canvas.width,
+    allocatedHeight / canvas.height
   );
 
-  const virtualWidth = Math.floor(focusedImage.width * scaleFactor);
-  const virtualHeight = Math.floor(focusedImage.height * scaleFactor);
+  const virtualWidth = Math.floor(canvas.width * scaleFactor);
+  const virtualHeight = Math.floor(canvas.height * scaleFactor);
 
-  const isPortrait = focusedImage.height > focusedImage.width;
+  const isPortrait = canvas.height > canvas.width;
 
   const localImagePositionX = isPortrait
     ? Math.floor((allocatedWidth - virtualWidth) / 2) + padding
@@ -63,7 +62,6 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
     y: localImagePositionY,
   };
 
-  const annotations = annotationQuery.data || [];
   const visibleAnnotations = annotations
     .filter((x) => {
       const visible = x.visible;
@@ -103,7 +101,7 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
 
   return (
     <Stage
-      key={`stage-${focusedImage.canvasId}`}
+      key={`stage-${canvas.canvasId}`}
       useRef={stageRef}
       position={localImagePosition}
       width={width}
@@ -144,7 +142,7 @@ export const GalleryEditCanvas: React.FC<GalleryEditCanvasProps> = ({
         // setImagePosition(newPos);
         galleryCanvasEpehemeralStateStore.setState((state) => {
           return produce(state, (draft) => {
-            draft[focusedImage.canvasId] = {
+            draft[canvas.canvasId] = {
               zoomFactor: newScale,
             };
           });

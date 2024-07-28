@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import {
-  fetchAnnotations,
-  FetchAnnotationsParams,
-} from '../../services/annotations/fetch-annotations';
+  fetchCanvasAnnotations,
+  FetchCanvasAnnotationsParams,
+} from '../../services/annotations/fetch-canvas-annotations';
 
-export const getUseAnnotationsQueryKey = (params: FetchAnnotationsParams) => {
+export const getUseAnnotationsQueryKey = (
+  params: FetchCanvasAnnotationsParams
+) => {
   return ['annotations', params];
 };
 
-export const useAnnotationsQuery = (params: FetchAnnotationsParams) => {
+export const useAnnotationsQuery = (params: FetchCanvasAnnotationsParams) => {
   return useQuery({
     queryKey: getUseAnnotationsQueryKey(params),
-    queryFn: () => fetchAnnotations(params),
+    queryFn: () => fetchCanvasAnnotations(params),
   });
 };
