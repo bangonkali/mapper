@@ -14,10 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Use Node.js 20.16.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.16.0
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
 
       - name: Build
         run: pnpm install && pnpm run lint && pnpm run build
