@@ -14,18 +14,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Use Node.js 20.16.0
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.16.0
+          node-version: 20.11.1
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.5.0
+          version: 9.6.0
 
-      - name: Build
-        run: pnpm install && pnpm run lint && pnpm run build
+      - name: Test & Build
+        run: |
+            echo "::group::Install package dependencies"
+            pnpm install
+            echo "::endgroup::"
+            echo "::group::Install nx and playwright"
+            pnpm add -g nx playwright
+            echo "::endgroup::"
+            echo "::group::Install playwright browsers"
+            playwright install --with-deps
+            echo "::endgroup::"
+            echo "::group::Lint"
+            nx lint app
+            echo "::endgroup::"
+            echo "::group::Build"
+            nx build app
+            echo "::endgroup::"
 
       - name: Publish
         uses: cloudflare/pages-action@v1

@@ -1,3 +1,7 @@
-node_modules
-build
-dist
+# Add files here to ignore them from prettier formatting
+/node_modules
+/build
+/dist
+/coverage
+/.nx/cache
+/.nx/workspace-data
