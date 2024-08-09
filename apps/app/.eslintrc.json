@@ -9,7 +9,7 @@
   "parserOptions": {
     "project": "./apps/app/tsconfig.app.json"
   },
-  "ignorePatterns": ["**/vite.config.ts", "!**/*"],
+  "ignorePatterns": ["!**/*"],
   "settings": {
     "react": {
       "version": "detect"
