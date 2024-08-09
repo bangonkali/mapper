@@ -43,7 +43,7 @@ jobs:
           echo "::endgroup::"
           echo "::group::Build"
           pnpm run build
-          cp "dist/.playwright/apps/app-e2e/playwright-report" "dist/apps/app"
+          cp -rf "dist/.playwright/apps/app-e2e/playwright-report" "dist/apps/app/"
           echo "::endgroup::"
 
       - name: Publish
