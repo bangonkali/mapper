@@ -1,5 +1,8 @@
 {
   "extends": ["plugin:playwright/recommended", "../../.eslintrc.json"],
+  "parserOptions": {
+    "project": "./apps/app-e2e/tsconfig.json"
+  },
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
