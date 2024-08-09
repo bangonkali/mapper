@@ -2,7 +2,12 @@
   "name": "@mapper/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many --target=build --all",
+    "dev": "nx serve app",
+    "lint": "nx run-many --target=lint --all",
+    "test": "nx e2e app-e2e"
+  },
   "private": true,
   "dependencies": {
     "tslib": "^2.3.0",
@@ -61,7 +66,7 @@
     "nx": "19.5.7",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
-    "typescript": "~5.5.2",
+    "typescript": "~5.5.4",
     "vitest": "^2.0.5",
     "@eslint/compat": "^1.1.1",
     "globals": "^15.8.0",
@@ -69,8 +74,8 @@
     "@tanstack/router-plugin": "^1.40.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
-    "@typescript-eslint/parser": "^7.13.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.1",
+    "@typescript-eslint/parser": "^8.0.1",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
