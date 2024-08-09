@@ -20,6 +20,24 @@ nx e2e app-e2e
 # Show projects
 nx show project app --web
 nx show project app-e2e --web
+
+# Generate a new react library
+nx generate @nx/react:library \
+  --component "false" \
+  --style "css" \
+  --importPath "@mapper/ui" \
+  --name "mapper-ui" \
+  --bundler "vite" \
+  --directory "libs/mapper-ui" \
+  --unitTestRunner "vitest"
+
+# Generate a new react component
+nx generate @nx/react:component \
+  --nameAndDirectoryFormat "as-provided" \
+  --name "mapper-property-grid" \
+  --directory "libs/mapper-ui/src/components/mapper-property-grid" \
+  --project mapper-ui \
+  --export
 ```
 
 ## Wishlist
