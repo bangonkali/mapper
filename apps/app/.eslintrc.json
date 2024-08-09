@@ -7,7 +7,7 @@
     "../../.eslintrc.json"
   ],
   "parserOptions": {
-    "project": "./apps/app/tsconfig.app.json"
+    "project": ["./apps/app/tsconfig.*?.json", "./apps/app/tsconfig.json"]
   },
   "ignorePatterns": ["!**/*"],
   "settings": {
