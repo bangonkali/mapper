@@ -36,13 +36,14 @@ jobs:
           playwright install --with-deps
           echo "::endgroup::"
           echo "::group::Test E2E"
-          nx e2e app-e2e
+          pnpm run test
           echo "::endgroup::"
           echo "::group::Lint"
-          nx lint app
+          pnpm run lint
           echo "::endgroup::"
           echo "::group::Build"
-          nx build app
+          pnpm run build
+          cp "dist/.playwright/apps/app-e2e/playwright-report" "dist/apps/app"
           echo "::endgroup::"
 
       - name: Publish
@@ -52,4 +53,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           projectName: 'mapper-app'
-          directory: dist
+          directory: 'dist/apps/app'
