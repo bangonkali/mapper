@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { HeaderMenu } from '../components/header-menu/header-menu';
+import { MapperPropertyGrid } from '@mapper/ui';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -11,6 +12,7 @@ function Index() {
       <HeaderMenu />
       <div className="p-2">
         <h3>Welcome Home!</h3>
+        <MapperPropertyGrid />
       </div>
     </>
   );

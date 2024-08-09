@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "plugin:@nx/react",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
+    "../../.eslintrc.json"
+  ],
+  "parserOptions": {
+    "project": [
+      "./libs/mapper-ui/tsconfig.*?.json",
+      "./libs/mapper-ui/tsconfig.json"
+    ]
+  },
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}

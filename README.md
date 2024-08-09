@@ -23,20 +23,20 @@ nx show project app-e2e --web
 
 # Generate a new react library
 nx generate @nx/react:library \
+  --projectNameAndRootFormat "as-provided" \
   --component "false" \
   --style "css" \
   --importPath "@mapper/ui" \
   --name "mapper-ui" \
-  --bundler "vite" \
+  --bundler "none" \
   --directory "libs/mapper-ui" \
-  --unitTestRunner "vitest"
+  --unitTestRunner "jest"
 
 # Generate a new react component
 nx generate @nx/react:component \
   --nameAndDirectoryFormat "as-provided" \
   --name "mapper-property-grid" \
   --directory "libs/mapper-ui/src/components/mapper-property-grid" \
-  --project mapper-ui \
   --export
 ```
 
