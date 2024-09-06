@@ -33,7 +33,7 @@ jobs:
           pnpm add -g nx playwright
           echo "::endgroup::"
           echo "::group::Install playwright browsers"
-          pnpm exec playwright install 
+          pnpm exec playwright install --with-deps
           echo "::endgroup::"
           echo "::group::Lint"
           pnpm run lint
