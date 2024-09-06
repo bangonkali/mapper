@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "composite": true,
+    "composite": false,
     "sourceMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
