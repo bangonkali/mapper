@@ -6,6 +6,7 @@
     "build": "nx run-many --target=build --all",
     "dev": "nx serve app",
     "lint": "nx run-many --target=lint --all",
+    "test:prepare": "playwright install --with-deps",
     "test": "nx e2e app-e2e"
   },
   "private": true,

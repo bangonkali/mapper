@@ -32,11 +32,11 @@ jobs:
           echo "::group::Install nx and playwright"
           pnpm add -g nx playwright
           echo "::endgroup::"
-          echo "::group::Install playwright browsers"
-          pnpm exec playwright install --with-deps
-          echo "::endgroup::"
           echo "::group::Lint"
           pnpm run lint
+          echo "::endgroup::"
+          echo "::group::Prepare Test E2E"
+          pnpm run test:prepare
           echo "::endgroup::"
           echo "::group::Test E2E"
           pnpm run test
