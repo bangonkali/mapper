@@ -1,7 +1,18 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+:root {
+  --pdf-container-padding: 4px;
+  --header-padding: 7px;
+  --header-height: 60px;
+  --header-total-height: calc(var(--header-height) + var(--header-padding));
+}
+
+.pdf-container {
+  height: calc(100dvh - var(--header-total-height));
+  width: calc(100dvw - var(--pdf-container-padding));
+  background-color: aquamarine;
+}
+
+.param-container {
+  height: var(--header-height);
+  width: calc(100dvw);
+  background-color: yellowgreen;
+}

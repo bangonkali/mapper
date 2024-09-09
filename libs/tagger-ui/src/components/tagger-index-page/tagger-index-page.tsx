@@ -4,10 +4,10 @@ import {
   View,
   Document,
   StyleSheet,
-  PDFViewer,
   Font,
   Rect,
   Svg,
+  PDFViewer,
 } from '@react-pdf/renderer';
 import { QrPdf } from '@dash/common-ui';
 import { Ecc } from '@dash/qr';
@@ -27,10 +27,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#ffffff',
   },
+  text: {
+    marginLeft: 72 / 16,
+  },
 });
 
-const CallibrationDocument = () => {
-  const callibrationWidths = [1, 2, 3, 4, 5, 6, 7, 8, 8.27];
+const CallibrationDocument: React.FC = () => {
+  const callibrationWidths = [1, 2, 3, 4, 5, 6, 7, 8, 8.5];
   const sizes = [
     inch * (1 / 4),
     inch * (2 / 4),
@@ -48,12 +51,12 @@ const CallibrationDocument = () => {
       producer="Dash Tagger"
       language="en"
     >
-      <Page size="A4" style={styles.page}>
+      <Page size="LETTER" style={styles.page}>
         <View>
-          <Text>Callibration Width</Text>
+          <Text style={styles.text}>Callibration Width</Text>
           {callibrationWidths.map((width) => (
             <View key={width}>
-              <Text>Width: {width}</Text>
+              <Text style={styles.text}>Width: {width}</Text>
               <Svg width={`${width * inch}`} height={`${inch / 32}px`}>
                 <Rect
                   x={0}
@@ -68,10 +71,10 @@ const CallibrationDocument = () => {
             </View>
           ))}
 
-          <Text>QR Codes</Text>
+          <Text style={styles.text}>QR Codes</Text>
 
           {sizes.map((size) => (
-            <View key={size}>
+            <View style={styles.text} key={size}>
               <Text>
                 Size: {size}x{size}
               </Text>
@@ -90,12 +93,14 @@ const CallibrationDocument = () => {
 
 export function TaggerIndexPage() {
   return (
-    <div className={css['container']}>
-      <h1>Welcome to TaggerIndexPadge!</h1>
-      <PDFViewer>
-        <CallibrationDocument />
-      </PDFViewer>
-    </div>
+    <>
+      <div className={css['param-container']}></div>
+      <div className={css['pdf-container']}>
+        <PDFViewer width="100%" height="100%" showToolbar={true}>
+          <CallibrationDocument />
+        </PDFViewer>
+      </div>
+    </>
   );
 }
 
