@@ -21,8 +21,8 @@
  *   Software.
  */
 
-import { Ecc } from "./qr-ecc";
-import { Mode } from "./qr-mode";
+import { Ecc } from './qr-ecc';
+import { Mode } from './qr-mode';
 
 type bit = number;
 type byte = number;
@@ -63,10 +63,7 @@ export class Qr {
   // This function always encodes using the binary segment mode, not any text mode. The maximum number of
   // bytes allowed is 2953. The smallest possible QR Code version is automatically chosen for the output.
   // The ECC level of the result may be higher than the ecl argument if it can be done without increasing the version.
-  public static encodeBinary(
-    data: Readonly<Array<byte>>,
-    ecl: Ecc
-  ): Qr {
+  public static encodeBinary(data: Readonly<Array<byte>>, ecl: Ecc): Qr {
     const seg: QrSegment = QrSegment.makeBytes(data);
     return Qr.encodeSegments([seg], ecl);
   }
@@ -105,8 +102,7 @@ export class Qr {
     let version: int;
     let dataUsedBits: int;
     for (version = minVersion; ; version++) {
-      const dataCapacityBits: int =
-        Qr.getNumDataCodewords(version, ecl) * 8; // Number of data bits available
+      const dataCapacityBits: int = Qr.getNumDataCodewords(version, ecl) * 8; // Number of data bits available
       const usedBits: number = QrSegment.getTotalBits(segs, version);
       if (usedBits <= dataCapacityBits) {
         dataUsedBits = usedBits;
@@ -118,11 +114,7 @@ export class Qr {
     }
 
     // Increase the error correction level while the data still fits in the current version number
-    for (const newEcl of [
-      Ecc.MEDIUM,
-      Ecc.QUARTILE,
-      Ecc.HIGH,
-    ]) {
+    for (const newEcl of [Ecc.MEDIUM, Ecc.QUARTILE, Ecc.HIGH]) {
       // From low to high
       if (
         boostEcl &&
@@ -420,9 +412,7 @@ export class Qr {
   // Draws the given sequence of 8-bit codewords (data and error correction) onto the entire
   // data area of this QR Code. Function modules need to be marked off before this is called.
   private drawCodewords(data: Readonly<Array<byte>>): void {
-    if (
-      data.length != Math.floor(Qr.getNumRawDataModules(this.version) / 8)
-    )
+    if (data.length != Math.floor(Qr.getNumRawDataModules(this.version) / 8))
       throw new RangeError('Invalid argument');
     let i: int = 0; // Bit index into the data
     // Do the funny zigzag scan
@@ -645,7 +635,7 @@ export class Qr {
     data: Readonly<Array<byte>>,
     divisor: Readonly<Array<byte>>
   ): Array<byte> {
-    const result: Array<byte> = divisor.map((_) => 0);
+    const result: Array<byte> = divisor.map(() => 0);
     for (const b of data) {
       // Polynomial division
       const factor: byte = b ^ (result.shift() as byte);
