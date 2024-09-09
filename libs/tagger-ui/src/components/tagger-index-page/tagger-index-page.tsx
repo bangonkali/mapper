@@ -16,7 +16,7 @@ import css from './tagger-index-page.module.css';
 
 Font.register({
   family: 'Roboto',
-  src: 'http://fonts.gstatic.com/s/roboto/v16/zN7GBFwfMP4uA6AR0HCoLQ.ttf',
+  src: '//fonts.gstatic.com/s/roboto/v16/zN7GBFwfMP4uA6AR0HCoLQ.ttf',
 });
 
 const inch = 72;
