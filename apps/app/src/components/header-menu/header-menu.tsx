@@ -9,6 +9,9 @@ export const HeaderMenu: React.FC = () => {
       <Link to="/gallery" className="[&.active]:font-bold">
         Gallery
       </Link>
+      <Link to="/tagger" className="[&.active]:font-bold">
+        Tagger
+      </Link>
       <Link to="/about" className="[&.active]:font-bold">
         About
       </Link>

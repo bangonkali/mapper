@@ -9,20 +9,20 @@ This is a simple mapper app.
 pnpm install -g nx
 
 # Build the app
-nx build app
+pnpm exec nx build app
 
 # Run the app
-nx serve app -- --port 5000 --host 0.0.0.0
+pnpm exec nx serve app -- --port 5000 --host 0.0.0.0
 
 # Run the e2e tests
-nx e2e app-e2e
+pnpm exec nx e2e app-e2e
 
 # Show projects
-nx show project app --web
-nx show project app-e2e --web
+pnpm exec nx show project app --web
+pnpm exec nx show project app-e2e --web
 
 # Generate a new react library
-nx generate @nx/react:library \
+pnpm exec nx generate @nx/react:library \
   --projectNameAndRootFormat "as-provided" \
   --component "false" \
   --style "css" \
@@ -32,12 +32,46 @@ nx generate @nx/react:library \
   --directory "libs/mapper-ui" \
   --unitTestRunner "jest"
 
+pnpm exec nx generate @nx/react:library \
+  --projectNameAndRootFormat "as-provided" \
+  --component "false" \
+  --style "css" \
+  --importPath "@tagger/ui" \
+  --name "tagger-ui" \
+  --bundler "none" \
+  --directory "libs/tagger-ui" \
+  --unitTestRunner "vitest"
+
+pnpm exec nx generate @nx/react:library \
+  --projectNameAndRootFormat "as-provided" \
+  --component "false" \
+  --style "css" \
+  --importPath "@common/ui" \
+  --name "common-ui" \
+  --bundler "none" \
+  --directory "libs/common-ui" \
+  --unitTestRunner "vitest"
+
 # Generate a new react component
-nx generate @nx/react:component \
+pnpm exec nx generate @nx/react:component \
   --nameAndDirectoryFormat "as-provided" \
   --name "mapper-property-grid" \
   --directory "libs/mapper-ui/src/components/mapper-property-grid" \
   --export
+
+pnpm exec nx generate @nx/react:component \
+  --nameAndDirectoryFormat "as-provided" \
+  --name "tagger-index-page" \
+  --directory "libs/tagger-ui/src/components/tagger-index-page" \
+  --export
+
+pnpm exec nx generate @nx/react:component \
+  --nameAndDirectoryFormat "as-provided" \
+  --name "qr-pdf" \
+  --directory "libs/common-ui/src/components/qr-pdf" \
+  --export
+
+pnpm exec nx g @nx/js:lib mylib --bundler=none
 ```
 
 ## Wishlist

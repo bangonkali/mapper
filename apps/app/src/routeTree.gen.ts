@@ -18,6 +18,7 @@ import { Route as rootRoute } from './routes/__root'
 
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const TaggerIndexLazyImport = createFileRoute('/tagger/')()
 const GalleryIndexLazyImport = createFileRoute('/gallery/')()
 const CanvasCanvasIdLazyImport = createFileRoute('/canvas/$canvasId')()
 
@@ -32,6 +33,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const TaggerIndexLazyRoute = TaggerIndexLazyImport.update({
+  path: '/tagger/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/tagger.index.lazy').then((d) => d.Route))
 
 const GalleryIndexLazyRoute = GalleryIndexLazyImport.update({
   path: '/gallery/',
@@ -77,6 +83,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/tagger/': {
+      id: '/tagger/'
+      path: '/tagger'
+      fullPath: '/tagger'
+      preLoaderRoute: typeof TaggerIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -87,6 +100,7 @@ export const routeTree = rootRoute.addChildren({
   AboutLazyRoute,
   CanvasCanvasIdLazyRoute,
   GalleryIndexLazyRoute,
+  TaggerIndexLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -100,7 +114,8 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/about",
         "/canvas/$canvasId",
-        "/gallery/"
+        "/gallery/",
+        "/tagger/"
       ]
     },
     "/": {
@@ -114,6 +129,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/gallery/": {
       "filePath": "gallery.index.lazy.tsx"
+    },
+    "/tagger/": {
+      "filePath": "tagger.index.lazy.tsx"
     }
   }
 }
