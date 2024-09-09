@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { TaggerIndexPage } from '@tagger/ui';
+import { TaggerIndexPage } from '@dash/tagger-ui';
 
 export const Route = createLazyFileRoute('/tagger/')({
   component: () => {

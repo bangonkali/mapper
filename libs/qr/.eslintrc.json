@@ -1,10 +1,10 @@
 {
-  "extends": ["plugin:@nx/react", "../../.eslintrc.json"],
+  "extends": ["../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "parserOptions": {
     "project": [
-      "./libs/tagger-ui/tsconfig.*?.json",
-      "./libs/tagger-ui/tsconfig.json"
+      "./libs/qr/tsconfig.*?.json",
+      "./libs/qr/tsconfig.json"
     ]
   },
   "overrides": [

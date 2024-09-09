@@ -20,9 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@common/ui": ["libs/common-ui/src/index.ts"],
-      "@mapper/ui": ["libs/mapper-ui/src/index.ts"],
-      "@tagger/ui": ["libs/tagger-ui/src/index.ts"]
+      "@dash/qr": ["libs/qr/src/index.ts"],
+      "@dash/common-ui": ["libs/common-ui/src/index.ts"],
+      "@dash/mapper-ui": ["libs/mapper-ui/src/index.ts"],
+      "@dash/tagger-ui": ["libs/tagger-ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

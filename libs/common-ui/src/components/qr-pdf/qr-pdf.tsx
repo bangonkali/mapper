@@ -1,5 +1,4 @@
-import { Ecc } from '../../libs/qr/qr-code';
-import { QrCode } from '../../libs/qr/qr-codegen';
+import { Qr, Ecc } from '@dash/qr';
 import { Svg, Rect } from '@react-pdf/renderer';
 
 export type QrPdfProps = {
@@ -9,7 +8,7 @@ export type QrPdfProps = {
 };
 
 export const QrPdf: React.FC<QrPdfProps> = ({ text, ecl, size = 250 }) => {
-  const qr0 = QrCode.encodeText(text, ecl);
+  const qr0 = Qr.encodeText(text, ecl);
   const pw = size / qr0.size; // the pixel width of each module
   const svg = []; // conatiner for the svg elements
   for (let y = 0; y < qr0.size; y++) {

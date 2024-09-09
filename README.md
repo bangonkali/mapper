@@ -1,4 +1,4 @@
-# Mapper
+# Dash
 
 This is a simple mapper app.
 
@@ -26,7 +26,7 @@ pnpm exec nx generate @nx/react:library \
   --projectNameAndRootFormat "as-provided" \
   --component "false" \
   --style "css" \
-  --importPath "@mapper/ui" \
+  --importPath "@dash/mapper-ui" \
   --name "mapper-ui" \
   --bundler "none" \
   --directory "libs/mapper-ui" \
@@ -36,7 +36,7 @@ pnpm exec nx generate @nx/react:library \
   --projectNameAndRootFormat "as-provided" \
   --component "false" \
   --style "css" \
-  --importPath "@tagger/ui" \
+  --importPath "@dash/tagger-ui" \
   --name "tagger-ui" \
   --bundler "none" \
   --directory "libs/tagger-ui" \
@@ -46,7 +46,7 @@ pnpm exec nx generate @nx/react:library \
   --projectNameAndRootFormat "as-provided" \
   --component "false" \
   --style "css" \
-  --importPath "@common/ui" \
+  --importPath "@dash/common-ui" \
   --name "common-ui" \
   --bundler "none" \
   --directory "libs/common-ui" \
@@ -71,7 +71,7 @@ pnpm exec nx generate @nx/react:component \
   --directory "libs/common-ui/src/components/qr-pdf" \
   --export
 
-pnpm exec nx g @nx/js:lib mylib --bundler=none
+pnpm exec nx g @nx/js:lib --directory libs/qr qr --bundler=none
 ```
 
 ## Wishlist

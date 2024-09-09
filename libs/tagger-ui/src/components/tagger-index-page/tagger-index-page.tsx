@@ -7,7 +7,9 @@ import {
   PDFViewer,
   Font,
 } from '@react-pdf/renderer';
-import { Ecc, QrPdf } from '@common/ui';
+import { QrPdf } from '@dash/common-ui';
+import { Ecc } from '@dash/qr';
+
 import css from './tagger-index-page.module.css';
 
 Font.register({
